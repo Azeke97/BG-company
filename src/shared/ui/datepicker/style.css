@@ -1,0 +1,125 @@
+@import 'element-plus/theme-chalk/el-date-picker.css';
+@import 'element-plus/theme-chalk/el-icon.css';
+
+.ui-datepicker :deep(.el-input__wrapper) {
+  display: flex;
+  align-items: center;
+  border: var(--border-width) var(--border-style) var(--color-border);
+  border-radius: var(--button-radius);
+  background-color: #fff;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--input-height, 40px);
+}
+
+.ui-datepicker :deep(.el-input__wrapper:hover) {
+  border-color: var(--color-border-hover);
+}
+
+.ui-datepicker :deep(.el-input__wrapper.is-focus) {
+  border-color: var(--color-primary);
+}
+
+.ui-datepicker :deep(.el-input__inner) {
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: var(--font-size-small);
+  font-weight: 400;
+  background: transparent;
+  padding: var(--input-padding);
+}
+
+.ui-datepicker :deep(.el-input__inner::placeholder) {
+  font-size: var(--font-size-small);
+  font-weight: 400;
+}
+
+.ui-datepicker :deep(.el-input__prefix) {
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+
+.ui-datepicker :deep(.el-input__prefix svg) {
+  width: 18px;
+  height: 18px;
+}
+
+.ui-datepicker.-error :deep(.el-input__wrapper) {
+  border-color: var(--el-color-danger) !important;
+}
+
+.ui-datepicker :deep(.el-picker-panel) {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--button-radius);
+  box-shadow: var(--color-shadow);
+  font-size: var(--font-size-small);
+  padding: 8px;
+}
+
+.ui-datepicker :deep(.el-date-picker__header) {
+  padding: 8px 12px;
+  font-weight: 500;
+  font-size: var(--font-size);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ui-datepicker :deep(.el-picker-panel__icon-btn) {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.ui-datepicker :deep(.el-picker-panel__icon-btn:hover) {
+  background-color: var(--color-background-hover);
+}
+
+
+.ui-datepicker :deep(.el-date-table th),
+.ui-datepicker :deep(.el-date-table td) {
+  text-align: center;
+  padding: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.ui-datepicker :deep(.el-date-table td.available:hover) {
+  background-color: var(--color-background-hover);
+  border-radius: 4px;
+}
+
+.ui-datepicker :deep(.el-date-table-cell__text) {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: var(--font-size-small);
+  line-height: 1.4;
+  color: inherit;
+}
+
+.ui-datepicker.-size-sm :deep(.el-input__wrapper) {
+  height: 32px;
+  font-size: var(--font-size-small);
+}
+
+.ui-datepicker.-size-lg :deep(.el-input__wrapper) {
+  height: 48px;
+  font-size: var(--font-size);
+}
+
+.ui-datepicker .el-date-editor.el-input,
+.ui-datepicker .el-date-editor.el-input__wrapper {
+  height: var(--input-height);
+  width: 100%;
+}

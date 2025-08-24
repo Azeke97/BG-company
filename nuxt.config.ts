@@ -1,0 +1,61 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: '2025-08-22',
+  devtools: { enabled: true },
+  ssr: true,
+  modules: [
+    '@pinia/nuxt',
+    '@nuxtjs/i18n',
+    '@nuxt/eslint',
+    'dayjs-nuxt',
+    '@nuxtjs/robots',
+    '@vueuse/nuxt',
+    '@element-plus/nuxt',
+    'nuxt-svgo',
+  ],
+
+  srcDir: 'src/',
+  dir: {
+    plugins: 'app/plugins',
+    middleware: 'app/middleware',
+    public: 'app/public',
+    layouts: 'app/layouts',
+    pages: 'app/pages',
+  },
+  css: ['~/app/styles/index.css', '~/app/styles/fonts.css'],
+
+  i18n: {
+    locales: [
+      {
+        code: 'ru',
+        file: 'ru.ts',
+      },
+      {
+        code: 'en',
+        file: 'en.ts',
+      },
+      {
+        code: 'kz',
+        file: 'kz.ts',
+      },
+    ],
+    langDir: 'lang/dictionary',
+    restructureDir: './src/app',
+    defaultLocale: 'ru',
+  },
+
+  dayjs: {
+    locales: ['ru'],
+    plugins: ['relativeTime', 'utc', 'timezone'],
+    defaultLocale: 'ru',
+    defaultTimezone: 'Asia/Almaty',
+  },
+
+  eslint: {
+    checker: true,
+  },
+
+  elementPlus: {
+    importStyle: 'css',
+  },
+})

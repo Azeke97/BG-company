@@ -1,0 +1,31 @@
+body {
+  font-family: DIN Pro, sans-serif;
+  background-color: #fff;
+  color: #102832FF;
+  font-weight: 400;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[class^="el-"] {
+  font-family: DIN Pro, sans-serif !important;
+}
+
+body .nuxt-icon {
+  width: auto;
+  height: auto;
+  margin-bottom: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* если есть фиксированный хедер, чтобы якоря не прятались под ним */
+/*:root { --header-h: 72px; }          !* подстрой под свою высоту *!*/
+/*section[id] { scroll-margin-top: var(--header-h); }*/
+

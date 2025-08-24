@@ -1,0 +1,97 @@
+:root {
+  --font-family: 'DIN Pro', Verdana, Tahoma, sans-serif;
+  --font-size: 16px;
+  --font-size-medium: 17px;
+  --font-size-large: 18px;
+  --font-size-small: 14px;
+
+  --font-weight: 400;
+  --font-weight-primary: 500;
+  --font-weight-secondary: 600;
+  --font-weight-bold: 700;
+
+  --color-primary: #cca25e;
+  --color-secondary: #00803d;
+
+  --color-background: #ffffff;
+  --color-background-hover: #F8F8F8;
+  --color-background-secondary: #F8F8F8;
+  --color-background-error: #f8d7da;
+  --color-background-inactive: #e8ebf0;
+  --color-background-main-tabs-green: #e0f7e0;
+  --color-background-main-tabs-red: #f7e0e0;
+  --color-background-footer: #1b1f26;
+
+  --color-app-icon: #003d1c;
+  --color-secondary-icon: #02A68E;
+
+  --color-border: #E1E4EB;
+  --color-border-secondary: #e5e5e5;
+  --color-border-hover: #999;
+  --color-border-secondary-hover: #777575;
+  --color-border-error: #f1aeb5;
+  --color-border-main-tabs-green: #00803D;
+  --color-border-main-tabs-red: #BF1414;
+
+  --color-text: #222222;
+  --color-text-black: #102832;
+  --color-text-white: #fff;
+  --color-text-primary: #343a40;
+  --color-text-secondary: #666666;
+  --color-text-secondary-light: #999999;
+  --color-text-light: #9FA9AC;
+  --color-text-tertiary: #bbbbbb;
+  --color-text-accent: #007aff;
+  --color-text-error: #d93025;
+  --color-text-error-dark: #58151c;
+
+  --color-error: #d93025;
+  --color-warning: #fbbc04;
+  --color-success: #34a853;
+
+  --border-radius: 8px;
+  --border-radius-small: 4px;
+  --border-width: 1px;
+  --border-style: solid;
+
+  --button-padding: 12px 20px;
+  --button-radius: 4px;
+
+  --input-padding: 12px 20px;
+  --input-radius: 4px;
+  --input-height: 44px;
+
+  --transition-duration: 0.3s;
+  --transition: color var(--transition-duration) ease, transform var(--transition-duration) ease;
+
+  --button-height: 2.5rem;
+
+  --scale-default: 1;
+  --scale-sm: 0.875;
+  --scale-lg: 1.25;
+
+  --z-index-md: 1000;
+  --z-index-sm: 500;
+
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-shadow: rgba(0, 0, 0, 0.15);
+
+  --color-overlay-light: rgba(255, 255, 255, 0.5);
+  --color-overlay-dark: rgba(0, 0, 0, 0.7);
+  --color-shading: rgba(0, 0, 0, 0.1);
+
+
+  --bp-desktop-lg: 1440px; /* большие десктопы */
+  --bp-desktop: 1200px;    /* десктоп / граница с мобильным меню */
+  --bp-tablet: 992px;      /* планшеты */
+  --bp-mobile-lg: 768px;   /* большие телефоны */
+  --bp-mobile: 576px;      /* маленькие телефоны */
+
+  /* можно сразу завести min и max версии, если любишь медиавыражения */
+  --bp-max-desktop: 1439.98px;
+  --bp-max-desktop-sm: 1199.98px;
+  --bp-max-tablet: 991.98px;
+  --bp-max-mobile-lg: 767.98px;
+  --bp-max-mobile: 575.98px;
+
+}
