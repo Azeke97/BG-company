@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Testimonial } from '../types'
-defineProps<{ items: Testimonial[] }>()
+import type { Testimonial } from "../types";
+defineProps<{ items: Testimonial[] }>();
 </script>
 
 <template>

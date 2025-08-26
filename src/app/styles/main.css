@@ -1,3 +1,7 @@
+html, body {
+    overflow-x: hidden;
+}
+
 body {
   font-family: DIN Pro, sans-serif;
   background-color: #fff;
@@ -25,7 +29,16 @@ html {
   scroll-behavior: smooth;
 }
 
-/* если есть фиксированный хедер, чтобы якоря не прятались под ним */
-/*:root { --header-h: 72px; }          !* подстрой под свою высоту *!*/
-/*section[id] { scroll-margin-top: var(--header-h); }*/
+button {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+:root { --header-h: 100px; }
+section[id] { scroll-margin-top: var(--header-h); }
 

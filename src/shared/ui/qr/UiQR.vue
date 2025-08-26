@@ -6,7 +6,11 @@ withDefaults(defineProps<UiQRProps>(), { size: 'medium' })
 
 <template>
   <div :class="[$style.wrapper, 'ui-qr', $style[`-${size}`]]">
-    <img :src="`data:image/png;base64,${value}`" :class="$style.qr" alt="QR code" />
+    <img
+      :src="`data:image/png;base64,${value}`"
+      :class="$style.qr"
+      alt="QR code"
+    />
   </div>
 </template>
 

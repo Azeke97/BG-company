@@ -38,7 +38,9 @@ const isOptionSelected = (value: any) => {
 
 <template>
   <div :class="['ui-select', { '-error': hasError, '-full': fullWidth }]">
-    <label v-if="label" :for="selectId" class="ui-select__label">{{ label }}</label>
+    <label v-if="label" :for="selectId" class="ui-select__label">{{
+      label
+    }}</label>
 
     <ElSelect
       :id="selectId"
@@ -63,8 +65,14 @@ const isOptionSelected = (value: any) => {
         :disabled="option.disabled"
       >
         <template #default>
-          <div class="ui-select__option-icon-wrapper" :class="{ '-selected': isOptionSelected(option.value) }">
-            <Check class="ui-select__option-icon" :class="{ '-selected': isOptionSelected(option.value) }" />
+          <div
+            class="ui-select__option-icon-wrapper"
+            :class="{ '-selected': isOptionSelected(option.value) }"
+          >
+            <Check
+              class="ui-select__option-icon"
+              :class="{ '-selected': isOptionSelected(option.value) }"
+            />
             <span>{{ option.label }}</span>
           </div>
         </template>

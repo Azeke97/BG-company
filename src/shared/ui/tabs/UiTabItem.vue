@@ -6,12 +6,19 @@ import type { ActiveTab, UiTabItemProps } from './types'
 const props = defineProps<UiTabItemProps>()
 const style = useCssModule()
 
-const { activeTab, setActiveTab, variant } = inject<ActiveTab>(activeTabProvider)!
+const { activeTab, setActiveTab, variant } =
+  inject<ActiveTab>(activeTabProvider)!
 const isActive = computed(() => activeTab.value === props.name)
 
 const baseClasses = computed(() => {
   if (props.unstyled) return []
-  return [style.item, 'ui-tab-item', isActive.value ? '-active' : '', `-${variant.value}`, props.full ? style.full : '']
+  return [
+    style.item,
+    'ui-tab-item',
+    isActive.value ? '-active' : '',
+    `-${variant.value}`,
+    props.full ? style.full : '',
+  ]
 })
 </script>
 
@@ -19,7 +26,12 @@ const baseClasses = computed(() => {
   <div :class="baseClasses" :data-tab-name="name" @click="setActiveTab(name)">
     <slot v-if="!label" />
 
-    <UiTypography v-else :class="$style.label" variant="bodyLarge" :label="label" />
+    <UiTypography
+      v-else
+      :class="$style.label"
+      variant="bodyLarge"
+      :label="label"
+    />
   </div>
 </template>
 

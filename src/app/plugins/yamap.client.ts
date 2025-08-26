@@ -23,7 +23,8 @@ export default defineNuxtPlugin(() => {
 
       s.src = `https://api-maps.yandex.ru/2.1/?${params.toString()}`
       s.async = true
-      s.onload = () => (window as any).ymaps.ready(() => resolve((window as any).ymaps))
+      s.onload = () =>
+        (window as any).ymaps.ready(() => resolve((window as any).ymaps))
       s.onerror = () => reject(new Error('Failed to load Yandex Maps API'))
       document.head.appendChild(s)
     })

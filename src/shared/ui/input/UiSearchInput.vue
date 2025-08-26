@@ -19,7 +19,9 @@ const handleInput = (value: string) => {
 
 <template>
   <div :class="['ui-input', { '-full': fullWidth }]">
-    <label v-if="label" :for="inputId" class="ui-input__label">{{ label }}</label>
+    <label v-if="label" :for="inputId" class="ui-input__label">{{
+      label
+    }}</label>
 
     <ElInput
       v-bind="props"

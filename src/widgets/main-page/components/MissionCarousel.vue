@@ -1,96 +1,107 @@
 <script setup lang="ts">
-import { ElCarousel, ElCarouselItem } from 'element-plus'
-import 'element-plus/es/components/carousel/style/css'
-import 'element-plus/es/components/carousel-item/style/css'
+import { ElCarousel, ElCarouselItem } from "element-plus";
+import "element-plus/es/components/carousel/style/css";
+import "element-plus/es/components/carousel-item/style/css";
 
-type Slide = { title: string; text: string; img: string; cta?: string; alt?: string }
+type Slide = {
+  title: string;
+  text: string;
+  img: string;
+  cta?: string;
+  alt?: string;
+};
 
 const props = withDefaults(
   defineProps<{
-    slides?: Slide[]
-    interval?: number
-    height?: string
-    autoplay?: boolean
-    loop?: boolean
-    arrow?: 'always' | 'hover' | 'never'
-    indicatorOutside?: boolean
-    imgAspect?: `${number}/${number}`
+    slides?: Slide[];
+    interval?: number;
+    height?: string;
+    autoplay?: boolean;
+    loop?: boolean;
+    arrow?: "always" | "hover" | "never";
+    indicatorOutside?: boolean;
+    imgAspect?: `${number}/${number}`;
   }>(),
   {
     interval: 5200,
-    height: '480px',
+    height: "480px",
     autoplay: true,
     loop: true,
-    arrow: 'hover',
+    arrow: "hover",
     indicatorOutside: false,
-    imgAspect: '16/9',
-  }
-)
+    imgAspect: "16/9",
+  },
+);
 
 const slides = props.slides ?? [
   {
-    title: 'Our Mission',
-    text: 'BG Company — ...',
-    img: '/images/mission/1.jpg',
-    cta: 'Learn More',
+    title: "Our Mission",
+    text: "BG Company — ...",
+    img: "/images/mission/1.jpg",
+    cta: "Learn More",
   },
   {
-    title: 'Our Vision',
-    text: 'Создаём красивые...',
-    img: '/images/mission/2.jpg',
-    cta: 'Discover Our Vision',
+    title: "Our Vision",
+    text: "Создаём красивые...",
+    img: "/images/mission/2.jpg",
+    cta: "Discover Our Vision",
   },
   {
-    title: 'Why Choose Us?',
-    text: 'Экспертиза + ...',
-    img: '/images/mission/3.jpg',
-    cta: 'Find Out Why',
+    title: "Why Choose Us?",
+    text: "Экспертиза + ...",
+    img: "/images/mission/3.jpg",
+    cta: "Find Out Why",
   },
-]
+];
 
-const current = ref(0)
-const blurOn = ref(false)
-let blurT: number | null = null
+const current = ref(0);
+const blurOn = ref(false);
+let blurT: number | null = null;
 
 function handleChange(newIndex: number) {
-  current.value = newIndex
-  blurOn.value = false
+  current.value = newIndex;
+  blurOn.value = false;
   if (blurT) {
-    clearTimeout(blurT)
-    blurT = null
+    clearTimeout(blurT);
+    blurT = null;
   }
   blurT = window.setTimeout(() => {
-    blurOn.value = true
-    blurT = window.setTimeout(() => (blurOn.value = false), 380)
-  }, 10)
+    blurOn.value = true;
+    blurT = window.setTimeout(() => (blurOn.value = false), 380);
+  }, 10);
 }
 
 onBeforeUnmount(() => {
-  if (blurT) clearTimeout(blurT)
-})
+  if (blurT) clearTimeout(blurT);
+});
 
-const ready = ref(false)
+const ready = ref(false);
 
 function preload(src: string) {
   return new Promise<void>((resolve) => {
-    const img = new Image()
-    img.onload = img.onerror = () => resolve()
-    img.src = src
-  })
+    const img = new Image();
+    img.onload = img.onerror = () => resolve();
+    img.src = src;
+  });
 }
 
 onMounted(async () => {
-  if (slides[0]) await preload(slides[0].img)
-  ready.value = true
-  const rest = slides.slice(1).map((s) => preload(s.img))
-  await Promise.allSettled(rest)
-})
+  if (slides[0]) await preload(slides[0].img);
+  ready.value = true;
+  const rest = slides.slice(1).map((s) => preload(s.img));
+  await Promise.allSettled(rest);
+});
 </script>
 
 <template>
   <section class="mc" aria-roledescription="carousel">
     <div class="container">
-      <div v-if="!ready" class="mc__skeleton" :style="{ height }" aria-hidden="true">
+      <div
+        v-if="!ready"
+        class="mc__skeleton"
+        :style="{ height }"
+        aria-hidden="true"
+      >
         <div class="mc__skeleton-bar"></div>
       </div>
 
@@ -106,14 +117,27 @@ onMounted(async () => {
         @change="handleChange"
       >
         <el-carousel-item v-for="(s, i) in slides" :key="i">
-          <div class="mc__slide" :class="[{ 'is-active': i === current }, { 'is-blur': blurOn && i === current }]">
+          <div
+            class="mc__slide"
+            :class="[
+              { 'is-active': i === current },
+              { 'is-blur': blurOn && i === current },
+            ]"
+          >
             <div class="mc__img" :style="{ aspectRatio: imgAspect }">
-              <img :src="s.img" :alt="s.alt || s.title" loading="eager" fetchpriority="high" />
+              <img
+                :src="s.img"
+                :alt="s.alt || s.title"
+                loading="eager"
+                fetchpriority="high"
+              />
             </div>
             <div class="mc__content">
               <h2 class="mc__title">{{ s.title }}</h2>
               <p class="mc__text">{{ s.text }}</p>
-              <a v-if="s.cta" href="#contact" class="btn btn--primary">{{ s.cta }}</a>
+              <a v-if="s.cta" href="#contact" class="btn btn--primary">{{
+                s.cta
+              }}</a>
             </div>
           </div>
         </el-carousel-item>
@@ -143,7 +167,12 @@ onMounted(async () => {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.06),
+    transparent
+  );
   animation: mc-skel 1.1s infinite;
 }
 @keyframes mc-skel {

@@ -26,7 +26,9 @@ const typographyTypeMap: TypographyTypeMap = {
   bodyNote: 'small',
 }
 
-const typographyComponent = computed(() => props.tag ?? typographyTypeMap[props.variant])
+const typographyComponent = computed(
+  () => props.tag ?? typographyTypeMap[props.variant]
+)
 
 const typographyClasses = computed(() => {
   const variantClass = style[props.variant]
@@ -39,7 +41,11 @@ const typographyClasses = computed(() => {
 </script>
 
 <template>
-  <Component :is="typographyComponent" :class="[...typographyClasses, 'ui-typography']" v-bind="$attrs">
+  <Component
+    :is="typographyComponent"
+    :class="[...typographyClasses, 'ui-typography']"
+    v-bind="$attrs"
+  >
     <slot>
       {{ label }}
     </slot>

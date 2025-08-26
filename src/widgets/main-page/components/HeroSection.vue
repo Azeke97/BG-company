@@ -1,14 +1,56 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DesignIcon from "../assets/icons/design.svg";
+import FixSmetaIcon from "../assets/icons/fix-smeta.svg";
+import GuaranteeIcon from "../assets/icons/guarantee.svg";
+import TariffsIcon from "../assets/icons/tariffs.svg";
+const { t } = useI18n();
+
+const info = [
+  {
+    icon: FixSmetaIcon,
+    text: "Фиксированная смета",
+  },
+  {
+    icon: GuaranteeIcon,
+    text: "Гарантия 1 год",
+  },
+  {
+    icon: TariffsIcon,
+    text: "Прозрачные тарифы",
+  },
+  {
+    icon: DesignIcon,
+    text: "Дизайн-проект в комплекте",
+  },
+];
+</script>
 
 <template>
   <section class="hero">
     <div class="hero__inner container">
       <div class="hero__content">
-        <h1 class="hero__title">Transform Your Space with <span>BG Company</span></h1>
-        <p class="hero__subtitle">Ремонт под ключ · Натяжные потолки · Мебель на заказ. Астана.</p>
+        <h1 class="hero__title">
+          {{ t("hero.title") }}
+          <span>BG Company</span>
+        </h1>
+        <p class="hero__subtitle">
+          {{ t("hero.desc") }}
+        </p>
+
+        <div class="hero__info">
+          <div v-for="(item, idx) in info" :key="idx" class="hero__info-item">
+            <component :is="item.icon" class="hero__info-icon" />
+            <span class="hero__info-text">{{ item.text }}</span>
+          </div>
+        </div>
+
         <div class="hero__actions">
-          <a href="#services" class="btn btn--primary">Заказать консультацию</a>
-          <a href="#projects" class="btn btn--ghost">Портфолио</a>
+          <a href="#contact" class="btn btn--primary">{{
+            t("hero.button.feedback")
+          }}</a>
+          <a href="#projects" class="btn btn--ghost">{{
+            t("hero.button.portfolio")
+          }}</a>
         </div>
       </div>
     </div>
@@ -24,11 +66,11 @@
 .hero {
   position: relative;
   padding: 96px 0;
-  background: url('/images/hero.jpg') center/cover no-repeat;
+  background: url("../assets/images/hero.jpg") center/cover no-repeat;
   color: #fff;
 }
 .hero::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
@@ -41,15 +83,40 @@
   font-size: 44px;
   line-height: 1.15;
   margin: 0 0 12px;
+  font-weight: 500;
 }
 .hero__title span {
-  color: #ffd479;
+  color: #f6c453;
 }
 .hero__subtitle {
   opacity: 0.95;
   max-width: 720px;
   margin: 0 0 24px;
   font-size: 18px;
+  line-height: 1.15;
+}
+.hero__info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 0 0 32px;
+}
+.hero__info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+.hero__info-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  color: #f6c453;
+}
+.hero__info-text {
+  font-size: 14px;
+  font-weight: 500;
 }
 .btn {
   display: inline-block;
@@ -59,15 +126,18 @@
   transition: 0.2s;
   text-decoration: none;
   color: #111;
+  font-weight: 500;
   background: #fff;
 }
 .btn--primary {
-  background: #111;
-  color: #fff;
-  border-color: #111;
+  background: #f6c453;
+  color: #111;
+  border-color: #f6c453;
+  font-weight: 500;
 }
 .btn--primary:hover {
-  opacity: 0.9;
+  background: #fadb7e;
+  border-color: #fadb7e;
 }
 .btn--ghost {
   background: transparent;

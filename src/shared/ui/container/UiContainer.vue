@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import type { UiContainerProps } from './types'
+import type { UiContainerProps } from "./types";
 
 withDefaults(defineProps<UiContainerProps>(), {
-  size: 'medium',
+  size: "medium",
   noVerticalPadding: false,
-})
+});
 </script>
 
 <template>
-  <div :class="[$style.container, $style[`-${size}`], { [$style.noVerticalPadding]: noVerticalPadding }]">
+  <div
+    :class="[
+      $style.container,
+      $style[`-${size}`],
+      { [$style.noVerticalPadding]: noVerticalPadding },
+    ]"
+  >
     <slot />
   </div>
 </template>

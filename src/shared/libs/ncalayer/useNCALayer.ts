@@ -5,7 +5,9 @@ import type { Nullable } from '~/shared/types'
 export const useNCALayer = () => {
   const ncaLayerClient = ref<Nullable<NCALayerService>>(new NCALayerService())
 
-  const isServiceAvailable = computed(() => Boolean(ncaLayerClient.value) && import.meta.client)
+  const isServiceAvailable = computed(
+    () => Boolean(ncaLayerClient.value) && import.meta.client
+  )
 
   const isConnected = ref(false)
 
@@ -37,7 +39,10 @@ export const useNCALayer = () => {
   onMounted(async () => {
     if (!isServiceAvailable.value) return
 
-    ncaLayerClient.value!.addEventListener(NCA_EVENTS.checkConnected, handleCheckConnected)
+    ncaLayerClient.value!.addEventListener(
+      NCA_EVENTS.checkConnected,
+      handleCheckConnected
+    )
     await ncaLayerClient.value!.connect()
   })
 
@@ -46,7 +51,10 @@ export const useNCALayer = () => {
 
     checkInterval.pause()
     await ncaLayerClient.value!.disconnect()
-    ncaLayerClient.value!.removeEventListener(NCA_EVENTS.checkConnected, handleCheckConnected)
+    ncaLayerClient.value!.removeEventListener(
+      NCA_EVENTS.checkConnected,
+      handleCheckConnected
+    )
     ncaLayerClient.value = null
   })
 

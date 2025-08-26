@@ -4,4 +4,8 @@ export { isErrorResponse } from './helpers/isErrorResponse'
 
 export { setUnauthorizedHandler } from './globalCatchInterceptor'
 
-export type { ServerResponseStatus, ServerSuccessResponse, ServerErrorResponse } from './types'
+export type {
+  ServerResponseStatus,
+  ServerSuccessResponse,
+  ServerErrorResponse,
+} from './types'

@@ -15,7 +15,9 @@ export class NCALayerService extends EventTarget {
   }
 
   checkConnected(withEvent: boolean = false) {
-    const state = Boolean(this.client?.wsConnection && this.connectionState === WS_STATUSES.OPEN)
+    const state = Boolean(
+      this.client?.wsConnection && this.connectionState === WS_STATUSES.OPEN
+    )
 
     if (withEvent) {
       this.dispatchEvent(
@@ -58,7 +60,9 @@ export class NCALayerService extends EventTarget {
     try {
       await this.clearSocket()
     } catch (error) {
-      throw new Error('Ошибка отключения от NCALayer: ' + (error as Error).message)
+      throw new Error(
+        'Ошибка отключения от NCALayer: ' + (error as Error).message
+      )
     }
   }
 

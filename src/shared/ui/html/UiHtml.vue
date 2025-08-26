@@ -12,7 +12,8 @@ const attrs = useAttrs()
 
 const defaultOptions: Config = {
   USE_PROFILES: { html: true },
-  ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|tel|ftp|sms):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
+  ALLOWED_URI_REGEXP:
+    /^(?:(?:https?|mailto|tel|ftp|sms):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
   FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'link', 'meta'],
 }
 
@@ -21,7 +22,9 @@ const options = computed<Config>(() => ({
   ...(props.sanitizeOptions ?? {}),
 }))
 
-const html = computed(() => DOMPurify.sanitize(String(props.content), options.value))
+const html = computed(() =>
+  DOMPurify.sanitize(String(props.content), options.value)
+)
 </script>
 
 <template>

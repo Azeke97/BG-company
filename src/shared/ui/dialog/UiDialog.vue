@@ -23,7 +23,12 @@ const { modelValue, ...restProps } = props
 </script>
 
 <template>
-  <el-dialog v-model="visible" v-bind="restProps" :class="['ui-dialog', $style.dialog]" :modal-class="$style.mask">
+  <el-dialog
+    v-model="visible"
+    v-bind="restProps"
+    :class="['ui-dialog', $style.dialog]"
+    :modal-class="$style.mask"
+  >
     <template #header>
       <slot name="header" />
     </template>

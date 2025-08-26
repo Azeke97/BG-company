@@ -20,7 +20,10 @@ const { t } = useI18n()
 
 const menuStyle = computed(() => {
   if (!props.maxHeight) return null
-  const v = typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight
+  const v =
+    typeof props.maxHeight === 'number'
+      ? `${props.maxHeight}px`
+      : props.maxHeight
   return {
     maxHeight: v,
     overflowY: 'auto',

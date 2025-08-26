@@ -7,7 +7,10 @@ export const encryptedPassword = (
 ): string => {
   const cipherHelper = CryptoJS[cipherHelperName]
 
-  if (!('encrypt' in cipherHelper) || typeof cipherHelper?.encrypt !== 'function') {
+  if (
+    !('encrypt' in cipherHelper) ||
+    typeof cipherHelper?.encrypt !== 'function'
+  ) {
     throw new Error(`Unsupported cipher method: ${cipherHelperName}`)
   }
 

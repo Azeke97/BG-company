@@ -25,7 +25,13 @@ const computedContent = computed(() => {
 </script>
 
 <template>
-  <ElPopover :placement="props.placement" :width="props.width" trigger="click" @show="handleShow" @hide="handleHide">
+  <ElPopover
+    :placement="props.placement"
+    :width="props.width"
+    trigger="click"
+    @show="handleShow"
+    @hide="handleHide"
+  >
     <template #reference>
       <MarkerIcon :width="props.iconSize" :height="props.iconSize" />
     </template>

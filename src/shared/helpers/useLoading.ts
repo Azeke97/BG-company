@@ -23,7 +23,10 @@ export const useMultipleLoading = <Type extends string>(...keys: Type[]) => {
     loading[key] = false
   })
 
-  const withLoading = async <T extends Promise<any>>(key: Type, callback: T) => {
+  const withLoading = async <T extends Promise<any>>(
+    key: Type,
+    callback: T
+  ) => {
     loading[key] = true
 
     const res = await callback

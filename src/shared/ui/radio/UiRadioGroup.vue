@@ -14,7 +14,10 @@ const propsWithAttrs = computed(() => {
 </script>
 
 <template>
-  <ElRadioGroup v-bind="propsWithAttrs" :class="[$style.radioGroup, 'ui-radio-group']">
+  <ElRadioGroup
+    v-bind="propsWithAttrs"
+    :class="[$style.radioGroup, 'ui-radio-group']"
+  >
     <slot />
   </ElRadioGroup>
 </template>

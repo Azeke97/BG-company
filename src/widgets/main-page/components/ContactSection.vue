@@ -1,16 +1,16 @@
 <script setup lang="ts">
 const props = defineProps<{
-  name: string
-  email: string
-  message: string
-  sent?: boolean
-  loading?: boolean
-}>()
+  name: string;
+  email: string;
+  message: string;
+  sent?: boolean;
+  loading?: boolean;
+}>();
 
 const emit = defineEmits<{
-  (e: 'update:name' | 'update:email' | 'update:message', v: string): void
-  (e: 'submit'): void
-}>()
+  (e: "update:name" | "update:email" | "update:message", v: string): void;
+  (e: "submit"): void;
+}>();
 </script>
 
 <template>
@@ -18,13 +18,19 @@ const emit = defineEmits<{
     <div class="container">
       <h2 class="ct__title">Get in Touch</h2>
 
-      <form v-if="!props.sent" class="ct__form" @submit.prevent="emit('submit')">
+      <form
+        v-if="!props.sent"
+        class="ct__form"
+        @submit.prevent="emit('submit')"
+      >
         <input
           :value="props.name"
           class="ct__input"
           placeholder="Name"
           required
-          @input="emit('update:name', ($event.target as HTMLInputElement).value)"
+          @input="
+            emit('update:name', ($event.target as HTMLInputElement).value)
+          "
         />
         <input
           type="email"
@@ -32,22 +38,32 @@ const emit = defineEmits<{
           class="ct__input"
           placeholder="Email"
           required
-          @input="emit('update:email', ($event.target as HTMLInputElement).value)"
+          @input="
+            emit('update:email', ($event.target as HTMLInputElement).value)
+          "
         />
         <textarea
           :value="props.message"
           class="ct__textarea"
           rows="5"
           placeholder="Message"
-          @input="emit('update:message', ($event.target as HTMLTextAreaElement).value)"
+          @input="
+            emit('update:message', ($event.target as HTMLTextAreaElement).value)
+          "
         />
-        <button class="btn btn--primary ct__btn" type="submit" :disabled="props.loading">
+        <button
+          class="btn btn--primary ct__btn"
+          type="submit"
+          :disabled="props.loading"
+        >
           <span v-if="!props.loading">Submit</span>
           <span v-else>Sending…</span>
         </button>
       </form>
 
-      <p v-else class="ct__ok">Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+      <p v-else class="ct__ok">
+        Спасибо! Мы свяжемся с вами в ближайшее время.
+      </p>
     </div>
   </section>
 </template>
@@ -59,7 +75,7 @@ const emit = defineEmits<{
   padding: 0 16px;
 }
 .ct {
-  background: #141414;
+  background: linear-gradient(170deg, #000 0%, #222 94%, #f6c453 120%);
   color: #fff;
   padding: 56px 0 72px;
 }

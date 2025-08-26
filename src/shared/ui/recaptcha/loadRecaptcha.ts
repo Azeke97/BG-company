@@ -2,7 +2,10 @@ export const loadRecaptcha = () => {
   return new Promise((resolve) => {
     const renderWait = () => {
       setTimeout(() => {
-        if (typeof window.grecaptcha !== 'undefined' && typeof window.grecaptcha.render !== 'undefined') {
+        if (
+          typeof window.grecaptcha !== 'undefined' &&
+          typeof window.grecaptcha.render !== 'undefined'
+        ) {
           resolve(true)
         } else {
           renderWait()

@@ -18,11 +18,21 @@ const handleSign = async () => {
 
 <template>
   <div>
-    <UiButton :disabled="!isConnected" class="ui-sign-eds-button" full @click="handleSign">
+    <UiButton
+      :disabled="!isConnected"
+      class="ui-sign-eds-button"
+      full
+      @click="handleSign"
+    >
       {{ text }}
     </UiButton>
 
-    <UiTypography v-if="!isConnected" class="ui-sign-eds-error" variant="body" color="error">
+    <UiTypography
+      v-if="!isConnected"
+      class="ui-sign-eds-error"
+      variant="body"
+      color="error"
+    >
       {{ errorText }}
     </UiTypography>
   </div>

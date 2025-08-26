@@ -2,7 +2,10 @@ import type { HTTPMethod } from 'h3'
 import type { FetchOptions } from 'ofetch'
 import type { RequestConfig } from '~/shared/api/types'
 
-export function makeFetchConfig(url: string, baseConfig: RequestConfig): FetchOptions & { method: HTTPMethod } {
+export function makeFetchConfig(
+  url: string,
+  baseConfig: RequestConfig
+): FetchOptions & { method: HTTPMethod } {
   const config = JSON.parse(JSON.stringify(baseConfig))
 
   const fetchConfig: FetchOptions & { method: HTTPMethod } = {

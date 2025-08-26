@@ -2,7 +2,10 @@
 import { ElCollapse } from 'element-plus'
 import type { CollapseModelValue } from 'element-plus'
 import 'element-plus/es/components/collapse/style/css'
-import type { UiCollapseEvents, UiCollapseProps } from '~/shared/ui/collapse/types'
+import type {
+  UiCollapseEvents,
+  UiCollapseProps,
+} from '~/shared/ui/collapse/types'
 
 const props = defineProps<UiCollapseProps>()
 

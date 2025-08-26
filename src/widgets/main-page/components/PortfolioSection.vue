@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import type { PortfolioItem } from '../types'
-defineProps<{ items: PortfolioItem[] }>()
+import type { PortfolioItem } from "../types";
+defineProps<{ items: PortfolioItem[] }>();
 </script>
 
 <template>
   <section class="pf">
     <div class="container">
       <h2 class="pf__title">Our Creative Portfolio</h2>
-      <p class="pf__lead">Избранные проекты, демонстрирующие качество и инновации.</p>
+      <p class="pf__lead">
+        Избранные проекты, демонстрирующие качество и инновации.
+      </p>
 
       <div class="pf__list">
         <div v-for="p in items" :key="p.title" class="pf__row">

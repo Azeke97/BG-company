@@ -15,8 +15,15 @@ const hasError = computed(() => typeof props.error === 'string' || props.error)
 </script>
 
 <template>
-  <div :class="['ui-datepicker', { '-error': hasError, '-size-sm': size === 'small' }]">
-    <label v-if="label" :for="inputId" class="ui-datepicker__label">{{ label }}</label>
+  <div
+    :class="[
+      'ui-datepicker',
+      { '-error': hasError, '-size-sm': size === 'small' },
+    ]"
+  >
+    <label v-if="label" :for="inputId" class="ui-datepicker__label">{{
+      label
+    }}</label>
 
     <ElDatePicker
       v-bind="props"

@@ -1,22 +1,24 @@
 <script setup lang="ts">
-// import Header from '~/widgets/header/Header.vue'
-// import { AppFooter } from '~/widgets/footer'
-// import { initLangModules } from '~/app/lang'
 // import ScrollToTop from '~/widgets/scroll-to-top/ScrollToTop.vue'
+import { useAppHead } from "~/app/helpers/useAppHead";
+import { AppHeader } from "~/widgets/header";
+import { Footer } from "~/widgets/footer";
 
-const style = useCssModule()
+const style = useCssModule();
+
+useAppHead();
 </script>
 
 <template>
   <div>
     <div :class="style.layoutDefault">
-      <!--      <Header :submenu="isHome" />-->
+      <AppHeader />
 
       <div :class="style.pageContent">
         <slot />
       </div>
 
-      <!--      <AppFooter :show-edit="false" />-->
+      <Footer />
     </div>
 
     <!--    <ScrollToTop />-->

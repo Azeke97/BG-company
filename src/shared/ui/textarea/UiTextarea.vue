@@ -19,7 +19,9 @@ const handleInput = (value: string) => {
 
 <template>
   <div :class="['ui-textarea', { '-full': fullWidth, '-error': hasError }]">
-    <label v-if="label" :for="inputId" class="ui-textarea__label">{{ label }}</label>
+    <label v-if="label" :for="inputId" class="ui-textarea__label">{{
+      label
+    }}</label>
 
     <ElInput
       :id="inputId"
