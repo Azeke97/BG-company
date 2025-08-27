@@ -13,10 +13,13 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@dicebear/collection": "^9.2.4",
+    "@dicebear/core": "^9.2.4",
     "@types/grecaptcha": "^3.0.9",
     "crypto-js": "^4.2.0",
     "defu": "^6.1.4",
     "element-plus": "^2.10.4",
+    "googleapis": "^158.0.0",
     "isomorphic-dompurify": "^2.26.0",
     "lodash-es": "^4.17.21",
     "ncalayer-js-client": "^1.5.6",

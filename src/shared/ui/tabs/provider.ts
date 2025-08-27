@@ -1,1 +1,1 @@
-export const activeTabProvider = Symbol('activeTabProvider')
+export const activeTabProvider = Symbol("activeTabProvider");

@@ -1,4 +1,4 @@
-import type { RadioProps, RadioGroupProps } from 'element-plus'
+import type { RadioProps, RadioGroupProps } from "element-plus";
 
 export interface UiRadioGroupProps extends Partial<RadioGroupProps> {}
 

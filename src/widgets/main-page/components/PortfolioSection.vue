@@ -1,22 +1,46 @@
 <script setup lang="ts">
-import type { PortfolioItem } from "../types";
-defineProps<{ items: PortfolioItem[] }>();
+import HomeOne from "../assets/images/home-design-1.jpg";
+import HomeTwo from "../assets/images/home-design-2.jpg";
+
+interface PortfolioItem {
+  title: string;
+  text: string;
+  img: string;
+}
+
+const { t } = useI18n();
+const style = useCssModule();
+
+const items: PortfolioItem[] = [
+  {
+    title: "portfolio.items[0].title",
+    text: "portfolio.items[0].text",
+    img: HomeOne,
+  },
+  {
+    title: "portfolio.items[1].title",
+    text: "portfolio.items[1].text",
+    img: HomeTwo,
+  },
+];
 </script>
 
 <template>
-  <section class="pf">
-    <div class="container">
-      <h2 class="pf__title">Our Creative Portfolio</h2>
-      <p class="pf__lead">
-        Избранные проекты, демонстрирующие качество и инновации.
-      </p>
+  <section :class="style.portfolioSection">
+    <div :class="style.container">
+      <h2 :class="style.sectionTitle">{{ t("portfolio.title") }}</h2>
+      <p :class="style.sectionLead">{{ t("portfolio.subtitle") }}</p>
 
-      <div class="pf__list">
-        <div v-for="p in items" :key="p.title" class="pf__row">
-          <img :src="p.img" :alt="p.title" class="pf__img" />
-          <div class="pf__info">
-            <h3 class="pf__name">{{ p.title }}</h3>
-            <p class="pf__text">{{ p.text }}</p>
+      <div :class="style.list">
+        <div
+          v-for="(p, i) in items"
+          :key="p.title"
+          :class="[style.row, i % 2 === 1 && style.rowReverse]"
+        >
+          <img :src="p.img" :alt="t(p.title)" :class="style.image" />
+          <div :class="style.info">
+            <h3 :class="style.name">{{ t(p.title) }}</h3>
+            <p :class="style.text">{{ t(p.text) }}</p>
           </div>
         </div>
       </div>
@@ -24,54 +48,103 @@ defineProps<{ items: PortfolioItem[] }>();
   </section>
 </template>
 
-<style scoped>
+<style module>
+/* базовый контейнер */
 .container {
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 16px;
 }
-.pf {
+
+/* секция портфолио с мягким фоном, акцент — #f6c453 */
+.portfolioSection {
+  --accent: #f6c453;
   background: #eef1f6;
   padding: 64px 0;
 }
-.pf__title {
+
+.sectionTitle {
   text-align: center;
   font-size: 28px;
   margin: 0 0 8px;
+  position: relative;
 }
-.pf__lead {
+.sectionTitle::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 4px;
+  margin: 10px auto 0;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.sectionLead {
   text-align: center;
   color: #666;
   margin: 0 0 28px;
 }
-.pf__list {
+
+.list {
   display: grid;
   gap: 28px;
 }
-.pf__row {
-  display: grid;
-  grid-template-columns: 460px 1fr;
+
+/* ряд: используем flex, чтобы легко реверсить порядок */
+.row {
+  display: flex;
   gap: 24px;
   align-items: center;
 }
-.pf__img {
-  width: 100%;
+.rowReverse {
+  flex-direction: row-reverse;
+}
+
+.image {
+  width: 460px;
   height: 240px;
+  flex: 0 0 460px;
   object-fit: cover;
   border-radius: 12px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
 }
-.pf__name {
+
+.info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.name {
   margin: 0 0 8px;
+  font-weight: 700;
+  line-height: 1.2;
+  position: relative;
+  padding-left: 12px;
 }
-.pf__text {
+.name::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.text {
   color: #444;
 }
+
 @media (max-width: 900px) {
-  .pf__row {
-    grid-template-columns: 1fr;
+  .row,
+  .rowReverse {
+    flex-direction: column;
   }
-  .pf__img {
+  .image {
+    width: 100%;
     height: 220px;
+    flex: 0 0 auto;
   }
 }
 </style>

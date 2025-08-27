@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const { t } = useI18n();
+import Logo from "~/shared/assets/icons/logo.svg";
 
+const { t } = useI18n();
 const year = new Date().getFullYear();
 </script>
 
@@ -10,9 +11,12 @@ const year = new Date().getFullYear();
       <div :class="$style.row">
         <div :class="$style.col">
           <div :class="$style.brand">
-            <svg viewBox="0 0 24 24" :class="$style.icon" aria-hidden="true">
-              <path d="M12 3l9 8h-3v9H6v-9H3z" fill="currentColor" />
-            </svg>
+            <Logo
+              width="40"
+              height="40"
+              :class="$style.icon"
+              aria-hidden="true"
+            />
             <span>{{ t("header.brand") }}</span>
           </div>
           <small :class="$style.copy"
@@ -22,19 +26,19 @@ const year = new Date().getFullYear();
 
         <div :class="$style.col">
           <div :class="$style.title">{{ t("footer.contacts") }}</div>
-          <a :class="$style.link" href="tel:+77001234567" aria-label="Phone">
-            +7 700 123-45-67
+          <a :class="$style.link" href="tel:+77718969634" aria-label="Phone">
+            +7 771 896-96-34
           </a>
           <a
             :class="$style.link"
-            href="mailto:hello@bg-company.kz"
+            href="mailto:v.kim.project@gmail.com"
             aria-label="Email"
           >
-            hello@bg-company.kz
+            v.kim.project@gmail.com
           </a>
-          <div :class="$style.muted">
-            {{ t("footer.address") }}: Астана, ул. Примерная, 10
-          </div>
+          <address :class="$style.address">
+            {{ t("footer.address") }}
+          </address>
         </div>
 
         <div :class="$style.col">
@@ -102,6 +106,13 @@ const year = new Date().getFullYear();
 }
 
 .link {
+  color: #f3f3f3;
+  text-decoration: none;
+  opacity: 0.92;
+  border-radius: 8px;
+  padding: 4px 0;
+}
+.address {
   color: #f3f3f3;
   text-decoration: none;
   opacity: 0.92;

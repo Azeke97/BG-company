@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useAppHead } from '~/app/helpers/useAppHead'
-import { useDayjsLocale, useElementLocale } from '~/app/helpers/locales'
+import { useAppHead } from "~/app/helpers/useAppHead";
+import { useDayjsLocale, useElementLocale } from "~/app/helpers/locales";
 
-const { locale } = useI18n()
+const { locale } = useI18n();
 
-const elementLocale = useElementLocale(locale.value)
-useDayjsLocale(locale.value)
-useAppHead()
+const elementLocale = useElementLocale(locale.value);
+useDayjsLocale(locale.value);
+useAppHead();
 </script>
 
 <template>

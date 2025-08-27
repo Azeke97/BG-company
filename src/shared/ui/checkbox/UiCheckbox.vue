@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ElCheckbox } from 'element-plus'
-import { useId, computed } from 'vue'
-import type { CheckboxProps } from '~/shared/ui/checkbox/types'
+import { ElCheckbox } from "element-plus";
+import { useId, computed } from "vue";
+import type { CheckboxProps } from "~/shared/ui/checkbox/types";
 
-const props = defineProps<CheckboxProps>()
+const props = defineProps<CheckboxProps>();
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean | string | number): void
-}>()
+  (e: "update:modelValue", value: boolean | string | number): void;
+}>();
 
-const uid = useId()
-const checkboxId = computed(() => props.id ?? `checkbox-${uid}`)
-const hasError = computed(() => typeof props.error === 'string' || props.error)
+const uid = useId();
+const checkboxId = computed(() => props.id ?? `checkbox-${uid}`);
+const hasError = computed(() => typeof props.error === "string" || props.error);
 </script>
 
 <template>
@@ -35,7 +35,7 @@ const hasError = computed(() => typeof props.error === 'string' || props.error)
     </ElCheckbox>
 
     <p v-if="hasError" class="ui-checkbox__message -error">
-      {{ typeof error === 'string' ? error : 'Ошибка' }}
+      {{ typeof error === "string" ? error : "Ошибка" }}
     </p>
     <p v-else-if="hint" class="ui-checkbox__message -hint">
       {{ hint }}
@@ -44,7 +44,7 @@ const hasError = computed(() => typeof props.error === 'string' || props.error)
 </template>
 
 <style scoped>
-@import './style.css';
+@import "./style.css";
 
 .ui-checkbox {
   display: flex;

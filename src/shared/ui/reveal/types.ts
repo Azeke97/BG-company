@@ -1,26 +1,26 @@
-export type Side = 'left' | 'right' | 'up' | 'down' | 'none'
+export type Side = "left" | "right" | "up" | "down" | "none";
 
 export interface RevealProps {
   /** HTML-тег обёртки */
-  as?: string
+  as?: string;
   /** Направление сдвига при появлении */
-  side?: Side
+  side?: Side;
   /** Величина сдвига в px */
-  distance?: number
+  distance?: number;
   /** Порог видимости для IntersectionObserver (0..1) */
-  threshold?: number
+  threshold?: number;
   /** Анимировать один раз и зафиксировать состояние */
-  once?: boolean
+  once?: boolean;
   /** Включить «стаггер» для прямых детей */
-  stagger?: boolean
+  stagger?: boolean;
   /** Шаг задержки между детьми в мс */
-  staggerStep?: number
+  staggerStep?: number;
   /** Длительность анимации в мс */
-  duration?: number
+  duration?: number;
   /** Базовая задержка */
-  delay?: number
+  delay?: number;
   /** CSS easing */
-  easing?: string
+  easing?: string;
   /** rootMargin для IO */
-  rootMargin?: string
+  rootMargin?: string;
 }

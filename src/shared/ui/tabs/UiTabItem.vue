@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { activeTabProvider } from '~/shared/ui/tabs/provider'
-import UiTypography from '../typography/UiTypography.vue'
-import type { ActiveTab, UiTabItemProps } from './types'
+import { activeTabProvider } from "~/shared/ui/tabs/provider";
+import UiTypography from "../typography/UiTypography.vue";
+import type { ActiveTab, UiTabItemProps } from "./types";
 
-const props = defineProps<UiTabItemProps>()
-const style = useCssModule()
+const props = defineProps<UiTabItemProps>();
+const style = useCssModule();
 
 const { activeTab, setActiveTab, variant } =
-  inject<ActiveTab>(activeTabProvider)!
-const isActive = computed(() => activeTab.value === props.name)
+  inject<ActiveTab>(activeTabProvider)!;
+const isActive = computed(() => activeTab.value === props.name);
 
 const baseClasses = computed(() => {
-  if (props.unstyled) return []
+  if (props.unstyled) return [];
   return [
     style.item,
-    'ui-tab-item',
-    isActive.value ? '-active' : '',
+    "ui-tab-item",
+    isActive.value ? "-active" : "",
     `-${variant.value}`,
-    props.full ? style.full : '',
-  ]
-})
+    props.full ? style.full : "",
+  ];
+});
 </script>
 
 <template>

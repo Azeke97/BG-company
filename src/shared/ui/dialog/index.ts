@@ -1,1 +1,1 @@
-export { default as UiDialog } from './UiDialog.vue'
+export { default as UiDialog } from "./UiDialog.vue";

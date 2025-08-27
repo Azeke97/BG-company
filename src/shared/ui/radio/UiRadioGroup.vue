@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ElRadioGroup } from 'element-plus'
-import type { UiRadioGroupProps } from '~/shared/ui/radio/types'
+import { ElRadioGroup } from "element-plus";
+import type { UiRadioGroupProps } from "~/shared/ui/radio/types";
 
-const props = defineProps<UiRadioGroupProps>()
-const attrs = useAttrs()
+const props = defineProps<UiRadioGroupProps>();
+const attrs = useAttrs();
 
 const propsWithAttrs = computed(() => {
   return {
     ...props,
     ...attrs,
-  }
-})
+  };
+});
 </script>
 
 <template>

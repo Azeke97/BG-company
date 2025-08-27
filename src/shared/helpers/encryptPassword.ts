@@ -1,19 +1,19 @@
-import CryptoJS from 'crypto-js'
+import CryptoJS from "crypto-js";
 
 export const encryptedPassword = (
   cipherHelperName: keyof typeof CryptoJS,
   password: string,
-  secretKey: string
+  secretKey: string,
 ): string => {
-  const cipherHelper = CryptoJS[cipherHelperName]
+  const cipherHelper = CryptoJS[cipherHelperName];
 
   if (
-    !('encrypt' in cipherHelper) ||
-    typeof cipherHelper?.encrypt !== 'function'
+    !("encrypt" in cipherHelper) ||
+    typeof cipherHelper?.encrypt !== "function"
   ) {
-    throw new Error(`Unsupported cipher method: ${cipherHelperName}`)
+    throw new Error(`Unsupported cipher method: ${cipherHelperName}`);
   }
 
-  const encrypted = cipherHelper.encrypt(password, secretKey)
-  return encrypted.toString()
-}
+  const encrypted = cipherHelper.encrypt(password, secretKey);
+  return encrypted.toString();
+};

@@ -1,3 +1,3 @@
-export { default as UiMessage } from './UiMessage.vue'
+export { default as UiMessage } from "./UiMessage.vue";
 
-export * from './types'
+export * from "./types";

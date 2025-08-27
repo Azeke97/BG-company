@@ -1,4 +1,4 @@
 export interface UiContainerProps {
-  size?: 'small' | 'medium'
-  noVerticalPadding?: boolean
+  size?: "small" | "medium";
+  noVerticalPadding?: boolean;
 }

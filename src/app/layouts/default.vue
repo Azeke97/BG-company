@@ -1,12 +1,33 @@
 <script setup lang="ts">
-// import ScrollToTop from '~/widgets/scroll-to-top/ScrollToTop.vue'
 import { useAppHead } from "~/app/helpers/useAppHead";
 import { AppHeader } from "~/widgets/header";
 import { Footer } from "~/widgets/footer";
+import { SocialDial } from "~/widgets/social-dial";
 
 const style = useCssModule();
+const route = useRoute();
 
 useAppHead();
+const showDial = computed(() => !/^\/(admin|auth|checkout)/.test(route.path));
+
+const socialItems = [
+  {
+    id: "telegram",
+    href: "https://t.me/bg_company_astana",
+  },
+  {
+    id: "whatsapp",
+    href: "https://wa.me/77718969634",
+  },
+  {
+    id: "instagram",
+    href: "https://www.instagram.com/bg_company_astana",
+  },
+  {
+    id: "phone",
+    href: "tel:+77718969634",
+  },
+];
 </script>
 
 <template>
@@ -20,8 +41,14 @@ useAppHead();
 
       <Footer />
     </div>
-
-    <!--    <ScrollToTop />-->
+    <ClientOnly>
+      <SocialDial
+        v-if="showDial"
+        :offset="{ x: 20, y: 20 }"
+        :items="socialItems"
+        position="br"
+      />
+    </ClientOnly>
   </div>
 </template>
 

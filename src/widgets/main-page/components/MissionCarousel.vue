@@ -2,18 +2,21 @@
 import { ElCarousel, ElCarouselItem } from "element-plus";
 import "element-plus/es/components/carousel/style/css";
 import "element-plus/es/components/carousel-item/style/css";
+import Mission from "../assets/images/mission.jpg";
+import Vision from "../assets/images/vision.jpg";
+import ChooseUs from "../assets/images/choose-us.jpg";
+const style = useCssModule();
+const { t, tm } = useI18n();
 
-type Slide = {
+interface Slide {
   title: string;
   text: string;
   img: string;
-  cta?: string;
-  alt?: string;
-};
+  isList?: boolean;
+}
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    slides?: Slide[];
     interval?: number;
     height?: string;
     autoplay?: boolean;
@@ -27,30 +30,28 @@ const props = withDefaults(
     height: "480px",
     autoplay: true,
     loop: true,
-    arrow: "hover",
+    arrow: "always",
     indicatorOutside: false,
     imgAspect: "16/9",
   },
 );
 
-const slides = props.slides ?? [
+const slides: Slide[] = [
   {
-    title: "Our Mission",
-    text: "BG Company — ...",
-    img: "/images/mission/1.jpg",
-    cta: "Learn More",
+    title: "heroSlides.items[0].title",
+    text: "heroSlides.items[0].text",
+    img: Mission,
   },
   {
-    title: "Our Vision",
-    text: "Создаём красивые...",
-    img: "/images/mission/2.jpg",
-    cta: "Discover Our Vision",
+    title: "heroSlides.items[1].title",
+    text: "heroSlides.items[1].text",
+    img: Vision,
   },
   {
-    title: "Why Choose Us?",
-    text: "Экспертиза + ...",
-    img: "/images/mission/3.jpg",
-    cta: "Find Out Why",
+    title: "heroSlides.items[2].title",
+    text: "heroSlides.items[2].list",
+    img: ChooseUs,
+    isList: true,
   },
 ];
 
@@ -58,7 +59,7 @@ const current = ref(0);
 const blurOn = ref(false);
 let blurT: number | null = null;
 
-function handleChange(newIndex: number) {
+const handleChange = (newIndex: number) => {
   current.value = newIndex;
   blurOn.value = false;
   if (blurT) {
@@ -69,40 +70,37 @@ function handleChange(newIndex: number) {
     blurOn.value = true;
     blurT = window.setTimeout(() => (blurOn.value = false), 380);
   }, 10);
-}
+};
 
 onBeforeUnmount(() => {
   if (blurT) clearTimeout(blurT);
 });
 
 const ready = ref(false);
-
-function preload(src: string) {
-  return new Promise<void>((resolve) => {
+const preload = (src: string) =>
+  new Promise<void>((res) => {
     const img = new Image();
-    img.onload = img.onerror = () => resolve();
+    img.onload = img.onerror = () => res();
     img.src = src;
   });
-}
 
 onMounted(async () => {
   if (slides[0]) await preload(slides[0].img);
   ready.value = true;
-  const rest = slides.slice(1).map((s) => preload(s.img));
-  await Promise.allSettled(rest);
+  await Promise.allSettled(slides.slice(1).map((s) => preload(s.img)));
 });
 </script>
 
 <template>
-  <section class="mc" aria-roledescription="carousel">
-    <div class="container">
+  <section :class="style.heroCarousel" aria-roledescription="carousel">
+    <div :class="style.container">
       <div
         v-if="!ready"
-        class="mc__skeleton"
+        :class="style.skeleton"
         :style="{ height }"
         aria-hidden="true"
       >
-        <div class="mc__skeleton-bar"></div>
+        <div :class="style.skeletonBar"></div>
       </div>
 
       <el-carousel
@@ -113,31 +111,38 @@ onMounted(async () => {
         :loop="loop"
         :arrow="arrow"
         :indicator-position="indicatorOutside ? 'outside' : ''"
-        class="mc__carousel"
+        :class="style.carousel"
         @change="handleChange"
       >
-        <el-carousel-item v-for="(s, i) in slides" :key="i">
+        <el-carousel-item v-for="(s, i) in slides" :key="s.title">
           <div
-            class="mc__slide"
             :class="[
-              { 'is-active': i === current },
-              { 'is-blur': blurOn && i === current },
+              style.slide,
+              i === current && style.active,
+              blurOn && i === current && style.blur,
             ]"
           >
-            <div class="mc__img" :style="{ aspectRatio: imgAspect }">
-              <img
-                :src="s.img"
-                :alt="s.alt || s.title"
-                loading="eager"
-                fetchpriority="high"
-              />
+            <div
+              :class="style.imageWrapper"
+              :style="{ aspectRatio: imgAspect }"
+            >
+              <img :src="s.img" :alt="t(s.title)" :class="style.image" />
             </div>
-            <div class="mc__content">
-              <h2 class="mc__title">{{ s.title }}</h2>
-              <p class="mc__text">{{ s.text }}</p>
-              <a v-if="s.cta" href="#contact" class="btn btn--primary">{{
-                s.cta
-              }}</a>
+
+            <div :class="style.content">
+              <h2 :class="style.title">{{ t(s.title) }}</h2>
+
+              <p v-if="!s.isList" :class="style.text">{{ t(s.text) }}</p>
+
+              <ul v-else :class="style.list">
+                <li
+                  v-for="(li, idx) in tm(s.text) as string[]"
+                  :key="idx"
+                  :class="style.listItem"
+                >
+                  {{ li }}
+                </li>
+              </ul>
             </div>
           </div>
         </el-carousel-item>
@@ -146,10 +151,11 @@ onMounted(async () => {
   </section>
 </template>
 
-<style scoped>
-.mc {
+<style module>
+.heroCarousel {
   background: #e9edf3;
-  padding: 56px 0;
+  margin-top: 40px;
+  padding: 0;
 }
 .container {
   max-width: 1180px;
@@ -157,13 +163,13 @@ onMounted(async () => {
   padding: 0 16px;
 }
 
-.mc__skeleton {
+.skeleton {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
   background: #f3f5f8;
 }
-.mc__skeleton-bar {
+.skeletonBar {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
@@ -173,15 +179,15 @@ onMounted(async () => {
     rgba(0, 0, 0, 0.06),
     transparent
   );
-  animation: mc-skel 1.1s infinite;
+  animation: skeletonAnim 1.1s infinite;
 }
-@keyframes mc-skel {
+@keyframes skeletonAnim {
   to {
     transform: translateX(100%);
   }
 }
 
-.mc__slide {
+.slide {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
@@ -189,54 +195,54 @@ onMounted(async () => {
   height: 100%;
   padding: 16px 8px;
 }
-
-.mc__img {
+.imageWrapper {
   width: 100%;
 }
-.mc__img img {
+.image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 12px;
-  display: block;
-  transform: translateZ(0);
-  transition:
-    transform 0.38s ease,
-    filter 0.38s ease,
-    opacity 0.38s ease;
-  will-change: transform, filter, opacity;
+  transition: 0.38s;
 }
 
-.mc__slide.is-blur .mc__img img {
+.blur .image {
   filter: blur(6px) saturate(1.02);
   transform: scale(1.03);
   opacity: 0.92;
 }
-.mc__slide.is-active .mc__img img {
-  filter: blur(0);
+.active .image {
+  filter: none;
   transform: scale(1);
   opacity: 1;
 }
 
-.mc__title {
-  font-size: 28px;
-  margin: 0 0 8px;
+.content {
+  max-width: 80%;
 }
-.mc__text {
-  margin: 0 0 16px;
+
+.title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+.text {
+  line-height: 1.45;
   color: #333;
 }
-.btn {
-  padding: 12px 20px;
-  border-radius: 10px;
-  background: #111;
-  color: #fff;
-  text-decoration: none;
-  display: inline-block;
+
+.list {
+  margin: 0;
+  padding: 0 0 0 18px;
+  color: #333;
+}
+.listItem {
+  margin: 6px 0;
+  line-height: 1.45;
+  list-style: disc;
 }
 
 @media (max-width: 900px) {
-  .mc__slide {
+  .slide {
     grid-template-columns: 1fr;
   }
 }

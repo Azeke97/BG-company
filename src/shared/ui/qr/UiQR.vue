@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { UiQRProps } from './types'
+import type { UiQRProps } from "./types";
 
-withDefaults(defineProps<UiQRProps>(), { size: 'medium' })
+withDefaults(defineProps<UiQRProps>(), { size: "medium" });
 </script>
 
 <template>

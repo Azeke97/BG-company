@@ -1,3 +1,3 @@
-export * from './types'
+export * from "./types";
 
-export { default as UiRecaptcha } from './UiRecaptcha.vue'
+export { default as UiRecaptcha } from "./UiRecaptcha.vue";

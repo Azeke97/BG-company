@@ -1,1 +1,1 @@
-export { useIsMobile } from '~/app/helpers/useIsMobile/useIsMobile'
+export { useIsMobile } from "~/app/helpers/useIsMobile/useIsMobile";

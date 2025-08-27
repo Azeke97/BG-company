@@ -94,7 +94,11 @@ watch(
             {{ t("header.menu.services") }}
           </button>
 
-          <ElTooltip content="Раздел в разработке" placement="bottom">
+          <ElTooltip
+            effect="light"
+            content="Раздел в разработке"
+            placement="bottom"
+          >
             <NuxtLink
               :class="[
                 $style.navLink,

@@ -1,2 +1,2 @@
-export * from './useDayjsLocale'
-export * from './useElementLocale'
+export * from "./useDayjsLocale";
+export * from "./useElementLocale";

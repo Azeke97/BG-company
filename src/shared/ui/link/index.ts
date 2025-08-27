@@ -1,2 +1,2 @@
-export { default as UiLink } from './UiLink.vue'
-export * from './types'
+export { default as UiLink } from "./UiLink.vue";
+export * from "./types";

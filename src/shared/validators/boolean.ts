@@ -1,5 +1,5 @@
-import type { Validator } from './types'
+import type { Validator } from "./types";
 
 export const booleanValidator: Validator = (rule, value, callback) => {
-  return value ? callback() : callback(new Error())
-}
+  return value ? callback() : callback(new Error());
+};

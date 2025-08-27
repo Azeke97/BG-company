@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ElDatePicker } from 'element-plus'
-import { useId, computed } from 'vue'
-import type { DatePickerProps } from './types'
-import { Calendar } from '@element-plus/icons-vue'
+import { ElDatePicker } from "element-plus";
+import { useId, computed } from "vue";
+import type { DatePickerProps } from "./types";
+import { Calendar } from "@element-plus/icons-vue";
 
-const props = defineProps<DatePickerProps>()
+const props = defineProps<DatePickerProps>();
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | Date | null): void
-}>()
+  (e: "update:modelValue", value: string | Date | null): void;
+}>();
 
-const uid = useId()
-const inputId = computed(() => props.id ?? `datepicker-${uid}`)
-const hasError = computed(() => typeof props.error === 'string' || props.error)
+const uid = useId();
+const inputId = computed(() => props.id ?? `datepicker-${uid}`);
+const hasError = computed(() => typeof props.error === "string" || props.error);
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const hasError = computed(() => typeof props.error === 'string' || props.error)
     </ElDatePicker>
 
     <p v-if="hasError" class="ui-input__error">
-      {{ typeof error === 'string' ? error : 'Ошибка' }}
+      {{ typeof error === "string" ? error : "Ошибка" }}
     </p>
 
     <p v-else-if="hint" class="ui-input__hint">
@@ -54,7 +54,7 @@ const hasError = computed(() => typeof props.error === 'string' || props.error)
 </template>
 
 <style scoped>
-@import './style.css';
+@import "./style.css";
 
 .ui-datepicker {
   display: flex;

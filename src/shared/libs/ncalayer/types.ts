@@ -6,5 +6,5 @@ export enum WS_STATUSES {
 }
 
 export enum NCA_EVENTS {
-  checkConnected = 'NCALayerCheckConnected',
+  checkConnected = "NCALayerCheckConnected",
 }

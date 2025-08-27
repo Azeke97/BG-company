@@ -1,43 +1,43 @@
 <script lang="ts" setup>
-import type { TypographyTypeMap, UiTypographyProps } from './types'
+import type { TypographyTypeMap, UiTypographyProps } from "./types";
 
 const props = withDefaults(defineProps<UiTypographyProps>(), {
-  variant: 'body',
+  variant: "body",
   tag: undefined,
-  color: 'default',
+  color: "default",
   label: undefined,
   error: false,
-  transform: 'none',
-  align: 'left',
-})
+  transform: "none",
+  align: "left",
+});
 
-const style = useCssModule()
+const style = useCssModule();
 const typographyTypeMap: TypographyTypeMap = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  h6: 'h6',
-  body: 'p',
-  bodyLarge: 'p',
-  bodyCompact: 'p',
-  bodySmall: 'p',
-  bodyNote: 'small',
-}
+  h1: "h1",
+  h2: "h2",
+  h3: "h3",
+  h4: "h4",
+  h5: "h5",
+  h6: "h6",
+  body: "p",
+  bodyLarge: "p",
+  bodyCompact: "p",
+  bodySmall: "p",
+  bodyNote: "small",
+};
 
 const typographyComponent = computed(
-  () => props.tag ?? typographyTypeMap[props.variant]
-)
+  () => props.tag ?? typographyTypeMap[props.variant],
+);
 
 const typographyClasses = computed(() => {
-  const variantClass = style[props.variant]
-  const colorClass = style[props.color]
-  const transformClass = style[props.transform]
-  const alignClass = style[props.align]
+  const variantClass = style[props.variant];
+  const colorClass = style[props.color];
+  const transformClass = style[props.transform];
+  const alignClass = style[props.align];
 
-  return [variantClass, colorClass, transformClass, alignClass]
-})
+  return [variantClass, colorClass, transformClass, alignClass];
+});
 </script>
 
 <template>

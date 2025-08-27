@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import { ElSelect, ElOption } from 'element-plus'
-import { Check } from '@element-plus/icons-vue'
-import type { UiSelectProps } from './types'
-import { useId } from 'vue'
+import { ElSelect, ElOption } from "element-plus";
+import { Check } from "@element-plus/icons-vue";
+import type { UiSelectProps } from "./types";
+import { useId } from "vue";
 
-const props = defineProps<UiSelectProps>()
+const props = defineProps<UiSelectProps>();
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: any): void
-}>()
+  (e: "update:modelValue", value: any): void;
+}>();
 
-const uid = useId()
-const selectId = computed(() => props.id ?? `ui-select-${uid}`)
+const uid = useId();
+const selectId = computed(() => props.id ?? `ui-select-${uid}`);
 
-const hasError = computed(() => typeof props.error === 'string' || props.error)
+const hasError = computed(() => typeof props.error === "string" || props.error);
 const popperOptions = {
   modifiers: [
     {
-      name: 'offset',
+      name: "offset",
       options: { offset: [1, 2] },
     },
     {
-      name: 'flip',
+      name: "flip",
       enabled: false,
     },
   ],
-}
+};
 
-const handleChange = (val: any) => emit('update:modelValue', val)
+const handleChange = (val: any) => emit("update:modelValue", val);
 
 const isOptionSelected = (value: any) => {
   if (props.multiple && Array.isArray(props.modelValue)) {
-    return props.modelValue.includes(value)
+    return props.modelValue.includes(value);
   }
-  return props.modelValue === value
-}
+  return props.modelValue === value;
+};
 </script>
 
 <template>
@@ -80,14 +80,14 @@ const isOptionSelected = (value: any) => {
     </ElSelect>
 
     <p v-if="hasError" class="ui-select__message -error">
-      {{ typeof error === 'string' ? error : 'Ошибка' }}
+      {{ typeof error === "string" ? error : "Ошибка" }}
     </p>
     <p v-else-if="hint" class="ui-select__message -hint">{{ hint }}</p>
   </div>
 </template>
 
 <style scoped>
-@import './style.css';
+@import "./style.css";
 .ui-select {
   display: flex;
   flex-direction: column;

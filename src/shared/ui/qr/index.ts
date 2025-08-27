@@ -1,1 +1,1 @@
-export { default as UiQR } from './UiQR.vue'
+export { default as UiQR } from "./UiQR.vue";

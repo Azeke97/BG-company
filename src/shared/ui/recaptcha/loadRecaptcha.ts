@@ -3,23 +3,23 @@ export const loadRecaptcha = () => {
     const renderWait = () => {
       setTimeout(() => {
         if (
-          typeof window.grecaptcha !== 'undefined' &&
-          typeof window.grecaptcha.render !== 'undefined'
+          typeof window.grecaptcha !== "undefined" &&
+          typeof window.grecaptcha.render !== "undefined"
         ) {
-          resolve(true)
+          resolve(true);
         } else {
-          renderWait()
+          renderWait();
         }
-      }, 200)
-    }
+      }, 200);
+    };
 
     if (!window.grecaptcha) {
-      const script = document.createElement('script')
-      script.src = 'https://www.google.com/recaptcha/api.js'
-      script.onload = () => renderWait()
-      document.head.appendChild(script)
+      const script = document.createElement("script");
+      script.src = "https://www.google.com/recaptcha/api.js";
+      script.onload = () => renderWait();
+      document.head.appendChild(script);
     } else {
-      resolve(true)
+      resolve(true);
     }
-  })
-}
+  });
+};

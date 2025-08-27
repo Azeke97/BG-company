@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import DOMPurify from 'isomorphic-dompurify'
-import type { Config } from 'isomorphic-dompurify'
-import { useAttrs } from 'vue'
-import type { SafeHtmlProps } from '~/shared/ui/html/types'
+import DOMPurify from "isomorphic-dompurify";
+import type { Config } from "isomorphic-dompurify";
+import { useAttrs } from "vue";
+import type { SafeHtmlProps } from "~/shared/ui/html/types";
 
 const props = withDefaults(defineProps<SafeHtmlProps>(), {
-  tag: 'div' as const,
-})
+  tag: "div" as const,
+});
 
-const attrs = useAttrs()
+const attrs = useAttrs();
 
 const defaultOptions: Config = {
   USE_PROFILES: { html: true },
   ALLOWED_URI_REGEXP:
     /^(?:(?:https?|mailto|tel|ftp|sms):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
-  FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'link', 'meta'],
-}
+  FORBID_TAGS: ["script", "style", "iframe", "object", "embed", "link", "meta"],
+};
 
 const options = computed<Config>(() => ({
   ...defaultOptions,
   ...(props.sanitizeOptions ?? {}),
-}))
+}));
 
 const html = computed(() =>
-  DOMPurify.sanitize(String(props.content), options.value)
-)
+  DOMPurify.sanitize(String(props.content), options.value),
+);
 </script>
 
 <template>

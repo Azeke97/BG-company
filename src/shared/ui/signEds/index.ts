@@ -1,1 +1,1 @@
-export { default as UiSignEDS } from './UiSignEDS.vue'
+export { default as UiSignEDS } from "./UiSignEDS.vue";

@@ -3,66 +3,76 @@ import DesignIcon from "../assets/icons/design.svg";
 import FixSmetaIcon from "../assets/icons/fix-smeta.svg";
 import GuaranteeIcon from "../assets/icons/guarantee.svg";
 import TariffsIcon from "../assets/icons/tariffs.svg";
+
 const { t } = useI18n();
+const s = useCssModule();
 
 const info = [
   {
     icon: FixSmetaIcon,
-    text: "Фиксированная смета",
+    text: "hero.info[0]",
   },
   {
     icon: GuaranteeIcon,
-    text: "Гарантия 1 год",
+    text: "hero.info[1]",
   },
   {
     icon: TariffsIcon,
-    text: "Прозрачные тарифы",
+    text: "hero.info[2]",
   },
   {
     icon: DesignIcon,
-    text: "Дизайн-проект в комплекте",
+    text: "hero.info[3]",
   },
 ];
 </script>
 
 <template>
-  <section class="hero">
-    <div class="hero__inner container">
-      <div class="hero__content">
-        <h1 class="hero__title">
+  <section :class="s.hero">
+    <div :class="[s.heroInner, s.container]">
+      <div :class="s.heroContent">
+        <h1 :class="s.heroTitle">
           {{ t("hero.title") }}
           <span>BG Company</span>
         </h1>
-        <p class="hero__subtitle">
+
+        <p :class="s.heroSubtitle">
           {{ t("hero.desc") }}
         </p>
 
-        <div class="hero__info">
-          <div v-for="(item, idx) in info" :key="idx" class="hero__info-item">
-            <component :is="item.icon" class="hero__info-icon" />
-            <span class="hero__info-text">{{ item.text }}</span>
+        <div :class="s.heroInfo">
+          <div :class="s.heroInfoRow">
+            <span
+              v-for="(item, idx) in info"
+              :key="idx"
+              :class="s.heroInfoText"
+            >
+              {{ t(item.text)
+              }}<template v-if="idx < info.length - 1"> • </template>
+            </span>
           </div>
         </div>
 
-        <div class="hero__actions">
-          <a href="#contact" class="btn btn--primary">{{
-            t("hero.button.feedback")
-          }}</a>
-          <a href="#projects" class="btn btn--ghost">{{
-            t("hero.button.portfolio")
-          }}</a>
+        <div :class="s.heroActions">
+          <a href="#contact" :class="[s.btn, s.btnPrimary]">
+            {{ t("hero.button.feedback") }}
+          </a>
+          <a href="#projects" :class="[s.btn, s.btnGhost]">
+            {{ t("hero.button.portfolio") }}
+          </a>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<style scoped>
+<style module>
 .container {
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 16px;
 }
+
 .hero {
   position: relative;
   padding: 96px 0;
@@ -75,49 +85,45 @@ const info = [
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
 }
-.hero__inner {
+.heroInner {
   position: relative;
   z-index: 1;
 }
-.hero__title {
+
+.heroTitle {
   font-size: 44px;
   line-height: 1.15;
   margin: 0 0 12px;
   font-weight: 500;
 }
-.hero__title span {
+
+.heroTitle span {
   color: #f6c453;
 }
-.hero__subtitle {
+
+.heroSubtitle {
   opacity: 0.95;
   max-width: 720px;
   margin: 0 0 24px;
   font-size: 18px;
   line-height: 1.15;
 }
-.hero__info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
+
+.heroInfo {
   margin: 0 0 32px;
 }
-.hero__info-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 12px 16px;
-  border-radius: 8px;
+
+.heroInfoRow {
+  display: block;
 }
-.hero__info-icon {
-  font-size: 20px;
-  flex-shrink: 0;
-  color: #f6c453;
-}
-.hero__info-text {
-  font-size: 14px;
+
+.heroInfoText {
+  font-size: 15px;
   font-weight: 500;
+  color: #f6c453;
+  white-space: wrap;
 }
+
 .btn {
   display: inline-block;
   padding: 12px 20px;
@@ -129,23 +135,22 @@ const info = [
   font-weight: 500;
   background: #fff;
 }
-.btn--primary {
+.btnPrimary {
   background: #f6c453;
   color: #111;
   border-color: #f6c453;
-  font-weight: 500;
 }
-.btn--primary:hover {
+.btnPrimary:hover {
   background: #fadb7e;
   border-color: #fadb7e;
 }
-.btn--ghost {
+.btnGhost {
   background: transparent;
   color: #fff;
   border-color: #fff;
   margin-left: 12px;
 }
-.btn--ghost:hover {
+.btnGhost:hover {
   background: #fff;
   color: #111;
 }

@@ -1,1 +1,1 @@
-export { addNotification } from '~/shared/libs/notifications/addNotification'
+export { addNotification } from "~/shared/libs/notifications/addNotification";

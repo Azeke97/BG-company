@@ -1,7 +1,7 @@
-export * from './StorageKeys'
+export * from "./StorageKeys";
 
-export * from './AppLocales'
+export * from "./AppLocales";
 
-export * from './StoreKeys'
+export * from "./StoreKeys";
 
-export * from './AppRoutes'
+export * from "./AppRoutes";

@@ -1,80 +1,80 @@
 <script lang="ts" setup>
-import { useNormalizedLocale } from '~/shared/helpers'
-import { loadRecaptcha } from './loadRecaptcha'
-import type { UiRecaptchaProps, UiRecaptchaEvents } from './types'
-import { useFormItem } from 'element-plus'
+import { useNormalizedLocale } from "~/shared/helpers";
+import { loadRecaptcha } from "./loadRecaptcha";
+import type { UiRecaptchaProps, UiRecaptchaEvents } from "./types";
+import { useFormItem } from "element-plus";
 
 const props = withDefaults(defineProps<UiRecaptchaProps>(), {
-  theme: 'light',
-})
-const emit = defineEmits<UiRecaptchaEvents>()
+  theme: "light",
+});
+const emit = defineEmits<UiRecaptchaEvents>();
 
-const { formItem } = useFormItem()
+const { formItem } = useFormItem();
 
-const locale = useNormalizedLocale()
-const config = useRuntimeConfig()
-let grecaptcha: any = null
-const isLoaded = ref(false)
+const locale = useNormalizedLocale();
+const config = useRuntimeConfig();
+let grecaptcha: any = null;
+const isLoaded = ref(false);
 
 const render = () => {
   try {
-    grecaptcha = window.grecaptcha.render('recaptcha', {
+    grecaptcha = window.grecaptcha.render("recaptcha", {
       sitekey: config.public.recaptcha,
       theme: props.theme,
-      size: 'normal',
+      size: "normal",
       hl: locale.value,
       callback: (res) => {
-        emit('update:captchaValid', true)
-        emit('update:captchaResponse', res)
-        formItem?.validate('blur')
-        formItem?.validate('change')
+        emit("update:captchaValid", true);
+        emit("update:captchaResponse", res);
+        formItem?.validate("blur");
+        formItem?.validate("change");
       },
-      'expired-callback': () => {
-        emit('update:captchaValid', false)
-        formItem?.validate('blur')
-        formItem?.validate('change')
+      "expired-callback": () => {
+        emit("update:captchaValid", false);
+        formItem?.validate("blur");
+        formItem?.validate("change");
       },
-      'error-callback': () => {
-        emit('update:captchaValid', false)
-        formItem?.validate('blur')
-        formItem?.validate('change')
+      "error-callback": () => {
+        emit("update:captchaValid", false);
+        formItem?.validate("blur");
+        formItem?.validate("change");
       },
-    })
+    });
 
-    isLoaded.value = true
+    isLoaded.value = true;
   } catch (err) {
-    console.error('recaptcha', err)
+    console.error("recaptcha", err);
   }
-}
+};
 
 onMounted(async () => {
-  await loadRecaptcha()
+  await loadRecaptcha();
 
-  nextTick(render)
-})
+  nextTick(render);
+});
 
 const reset = () => {
-  if (grecaptcha === null) return
+  if (grecaptcha === null) return;
 
-  window.grecaptcha.reset(grecaptcha)
+  window.grecaptcha.reset(grecaptcha);
 
-  emit('update:captchaValid', false)
-  emit('update:captchaResponse', '')
-  formItem?.validate('blur')
-}
+  emit("update:captchaValid", false);
+  emit("update:captchaResponse", "");
+  formItem?.validate("blur");
+};
 
 watch(
   () => props.captchaValid,
   () => {
-    if (props.captchaValid) return
+    if (props.captchaValid) return;
 
-    reset()
-  }
-)
+    reset();
+  },
+);
 
 defineExpose({
   reset,
-})
+});
 </script>
 
 <template>

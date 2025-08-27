@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ElInput } from 'element-plus'
-import type { TextareaProps } from './types'
-import { useId, computed } from 'vue'
+import { ElInput } from "element-plus";
+import type { TextareaProps } from "./types";
+import { useId, computed } from "vue";
 
-const props = defineProps<TextareaProps>()
+const props = defineProps<TextareaProps>();
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+  (e: "update:modelValue", value: string): void;
+}>();
 
-const uid = useId()
-const inputId = computed(() => props.id ?? `textarea-${uid}`)
-const hasError = computed(() => typeof props.error === 'string' || props.error)
+const uid = useId();
+const inputId = computed(() => props.id ?? `textarea-${uid}`);
+const hasError = computed(() => typeof props.error === "string" || props.error);
 
 const handleInput = (value: string) => {
-  emit('update:modelValue', value)
-}
+  emit("update:modelValue", value);
+};
 </script>
 
 <template>
@@ -38,7 +38,7 @@ const handleInput = (value: string) => {
     />
 
     <p v-if="hasError" class="ui-textarea__message -error">
-      {{ typeof error === 'string' ? error : 'Ошибка' }}
+      {{ typeof error === "string" ? error : "Ошибка" }}
     </p>
 
     <p v-else-if="hint" class="ui-textarea__message -hint">

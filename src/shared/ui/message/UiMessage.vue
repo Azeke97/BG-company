@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { UiMessageProps } from './types'
+import type { UiMessageProps } from "./types";
 
-defineProps<UiMessageProps>()
+defineProps<UiMessageProps>();
 </script>
 
 <template>

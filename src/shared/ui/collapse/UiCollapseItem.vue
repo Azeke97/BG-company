@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ElCollapseItem } from 'element-plus'
-import 'element-plus/es/components/collapse-item/style/css'
-import type { UiCollapseItemProps } from '~/shared/ui/collapse/types'
+import { ElCollapseItem } from "element-plus";
+import "element-plus/es/components/collapse-item/style/css";
+import type { UiCollapseItemProps } from "~/shared/ui/collapse/types";
 
-const props = defineProps<UiCollapseItemProps>()
+const props = defineProps<UiCollapseItemProps>();
 </script>
 
 <template>

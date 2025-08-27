@@ -1,4 +1,4 @@
-import type { RuleItem } from 'async-validator'
+import type { RuleItem } from "async-validator";
 
-export type Validator = RuleItem['validator']
-export type AsyncValidator = RuleItem['asyncValidator']
+export type Validator = RuleItem["validator"];
+export type AsyncValidator = RuleItem["asyncValidator"];

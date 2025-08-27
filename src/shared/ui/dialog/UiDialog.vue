@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ElDialog } from 'element-plus'
-import type { UiDialogEmits, UiDialogProps } from './types'
-import 'element-plus/es/components/dialog/style/css'
-import 'element-plus/es/components/overlay/style/css'
-import 'element-plus/es/components/scrollbar/style/css'
+import { ElDialog } from "element-plus";
+import type { UiDialogEmits, UiDialogProps } from "./types";
+import "element-plus/es/components/dialog/style/css";
+import "element-plus/es/components/overlay/style/css";
+import "element-plus/es/components/scrollbar/style/css";
 
 const props = withDefaults(defineProps<UiDialogProps>(), {
   fullscreen: true,
@@ -11,15 +11,15 @@ const props = withDefaults(defineProps<UiDialogProps>(), {
   closeOnClickModal: true,
   closeOnPressEscape: true,
   appendToBody: true,
-})
+});
 
-const emit = defineEmits<UiDialogEmits>()
+const emit = defineEmits<UiDialogEmits>();
 
 const visible = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
-})
-const { modelValue, ...restProps } = props
+  set: (value) => emit("update:modelValue", value),
+});
+const { modelValue, ...restProps } = props;
 </script>
 
 <template>

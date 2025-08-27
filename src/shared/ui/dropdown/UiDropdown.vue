@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
-import type { UiDropdownProps, UiDropdownEmits } from './types'
-import 'element-plus/es/components/dropdown/style/css'
-import 'element-plus/es/components/dropdown-menu/style/css'
-import 'element-plus/es/components/dropdown-item/style/css'
-import 'element-plus/es/components/popper/style/css'
-import 'element-plus/es/components/scrollbar/style/css'
+import { ElDropdown, ElDropdownMenu, ElDropdownItem } from "element-plus";
+import type { UiDropdownProps, UiDropdownEmits } from "./types";
+import "element-plus/es/components/dropdown/style/css";
+import "element-plus/es/components/dropdown-menu/style/css";
+import "element-plus/es/components/dropdown-item/style/css";
+import "element-plus/es/components/popper/style/css";
+import "element-plus/es/components/scrollbar/style/css";
 
 const props = withDefaults(defineProps<UiDropdownProps>(), {
-  trigger: 'click',
-  placement: 'bottom-end',
+  trigger: "click",
+  placement: "bottom-end",
   hideOnClick: true,
   disabled: false,
   teleported: true,
-})
+});
 
-const emit = defineEmits<UiDropdownEmits>()
-const { t } = useI18n()
+const emit = defineEmits<UiDropdownEmits>();
+const { t } = useI18n();
 
 const menuStyle = computed(() => {
-  if (!props.maxHeight) return null
+  if (!props.maxHeight) return null;
   const v =
-    typeof props.maxHeight === 'number'
+    typeof props.maxHeight === "number"
       ? `${props.maxHeight}px`
-      : props.maxHeight
+      : props.maxHeight;
   return {
     maxHeight: v,
-    overflowY: 'auto',
-  }
-})
+    overflowY: "auto",
+  };
+});
 </script>
 
 <template>

@@ -1,2 +1,2 @@
-export { default as UiHtml } from './UiHtml.vue'
-export * from './types'
+export { default as UiHtml } from "./UiHtml.vue";
+export * from "./types";

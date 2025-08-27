@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ElInput } from 'element-plus'
-import { Search } from '@element-plus/icons-vue'
-import { useId, computed } from 'vue'
-import type { InputProps } from './types'
+import { ElInput } from "element-plus";
+import { Search } from "@element-plus/icons-vue";
+import { useId, computed } from "vue";
+import type { InputProps } from "./types";
 
-const props = defineProps<InputProps>()
+const props = defineProps<InputProps>();
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+  (e: "update:modelValue", value: string): void;
+}>();
 
-const uid = useId()
-const inputId = computed(() => props.id ?? `input-${uid}`)
+const uid = useId();
+const inputId = computed(() => props.id ?? `input-${uid}`);
 
 const handleInput = (value: string) => {
-  emit('update:modelValue', value)
-}
+  emit("update:modelValue", value);
+};
 </script>
 
 <template>

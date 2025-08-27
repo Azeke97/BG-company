@@ -22,7 +22,7 @@ export default defineI18nLocale(() => {
     },
 
     header: {
-      brand: "BG Company Astana",
+      brand: "BG Company",
       menu: {
         home: "Home",
         services: "Services",
@@ -37,19 +37,117 @@ export default defineI18nLocale(() => {
     },
 
     hero: {
-      brand: "BG Company Astana",
-      menu: {
-        home: "Home",
-        services: "Services",
-        shop: "Shop",
-        contact: "Request a call",
+      title: "Transform your space with",
+      desc: "Discover a world of innovative solutions for home renovation and design. Your dream home in just one project.",
+      button: {
+        feedback: "Request a consultation",
+        portfolio: "Portfolio",
       },
+      info: [
+        "Fixed estimate",
+        "1-year warranty",
+        "Transparent pricing",
+        "Design project included",
+      ],
+    },
+
+    heroSlides: {
+      items: [
+        {
+          title: "Our Mission",
+          text: "We create cozy and functional spaces where every detail of renovation, furniture, and interior serves comfort and durability.",
+        },
+        {
+          title: "Our Vision",
+          text: "We aim to become a market leader in end-to-end home solutions, uniting renovation, ceilings, and custom furniture into one seamless service.",
+        },
+        {
+          title: "Why Choose Us?",
+          list: [
+            "Full service cycle in one place",
+            "Personalized approach & transparent estimates",
+            "Skilled craftsmen and modern technologies",
+          ],
+        },
+      ],
+    },
+
+    services: {
+      title: "Comprehensive Services for Your Home",
+      subtitle: "All-in-one solutions for your living space",
+      items: [
+        {
+          title: "Apartment & House Renovation",
+          text: "From light cosmetic touch-ups to full renovations. We create modern, functional spaces that are comfortable to live in.",
+        },
+        {
+          title: "Stretch Ceilings",
+          text: "Matte, glossy, multi-level or with lighting. Fast installation, durability and a stylish look.",
+        },
+        {
+          title: "Custom Furniture",
+          text: "Made-to-order case and soft furniture. Unique designs, high-quality materials, tailored for your interior.",
+        },
+      ],
+    },
+
+    portfolio: {
+      title: "Our Creative Portfolio",
+      subtitle: "Selected projects showcasing quality and innovation.",
+      items: [
+        {
+          title: "Modern Studio Apartment",
+          text: "A dynamic and stylish space where every detail contributes to the overall concept. Bright accents, modern materials, and a well-thought-out layout create an atmosphere of freedom and creativity. This apartment is perfect for active people who value design and comfort.",
+        },
+        {
+          title: "Family Home with Character",
+          text: "A warm and functional interior that combines aesthetics and practicality. The mix of brick walls, natural materials, and minimalist furniture creates a cozy space for the whole family. A home where every area is carefully designed — from the kitchen to the living room.",
+        },
+      ],
+    },
+
+    testimonials: {
+      title: "Customer Testimonials",
+      roles: {
+        client: "Client",
+        customer: "Customer",
+      },
+    },
+
+    contact: {
+      title: "Get in Touch",
+      subtitle:
+        "Fill out the form and our specialist will contact you shortly!",
+      consent:
+        "By submitting, you consent to the processing of personal data and agree to our {policy}.",
+      policy: "Privacy Policy",
+      policyUrl: "/en/privacy",
+      placeholders: {
+        name: "Name",
+        phone: "Phone",
+        email: "Email",
+        message: "Message",
+      },
+      actions: {
+        submit: "Submit",
+        sending: "Sending…",
+      },
+      success: "Thanks! We will contact you shortly.",
+    },
+
+    social: {
+      open: "Open contact options",
+      close: "Close menu",
+      telegram: "Telegram",
+      whatsapp: "WhatsApp",
+      instagram: "Instagram",
+      phone: "Call",
     },
 
     footer: {
       rights: "All rights reserved",
       contacts: "Contacts",
-      address: "Address",
+      address: "Astana, 23a Kaldayakov St., office 8. BG Company",
       madeByTitle: "Site by",
       madeByName: "Anthurium_webdesign",
     },

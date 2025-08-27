@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { ElPopover } from 'element-plus'
-import { withDefaults, defineProps, defineEmits } from 'vue'
-import type { UiMarkerPopupProps, UiMarkerPopupEvents } from './types'
-import MarkerIcon from '../marker-popup/assets/icons/marker-icon.svg'
+import { ElPopover } from "element-plus";
+import { withDefaults, defineProps, defineEmits } from "vue";
+import type { UiMarkerPopupProps, UiMarkerPopupEvents } from "./types";
+import MarkerIcon from "../marker-popup/assets/icons/marker-icon.svg";
 
 const props = withDefaults(defineProps<UiMarkerPopupProps>(), {
-  placement: 'top',
+  placement: "top",
   width: 250,
   iconSize: 20,
-})
-const emit = defineEmits<UiMarkerPopupEvents>()
-const { t } = useI18n()
+});
+const emit = defineEmits<UiMarkerPopupEvents>();
+const { t } = useI18n();
 
-const handleShow = () => emit('show')
-const handleHide = () => emit('hide')
+const handleShow = () => emit("show");
+const handleHide = () => emit("hide");
 
 const computedContent = computed(() => {
-  if (!props.content) return ''
-  if (typeof props.content === 'function') {
-    return props.content()
+  if (!props.content) return "";
+  if (typeof props.content === "function") {
+    return props.content();
   }
-  return t(props.content)
-})
+  return t(props.content);
+});
 </script>
 
 <template>

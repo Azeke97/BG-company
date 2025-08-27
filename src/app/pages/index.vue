@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Index } from '~/pages/index'
+import { Index } from "~/pages/index";
 </script>
 
 <template>

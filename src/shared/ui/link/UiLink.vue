@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { UiLinkProps } from './types'
+import type { UiLinkProps } from "./types";
 
-const props = withDefaults(defineProps<UiLinkProps>(), { variant: 'primary' })
-const localePath = useLocalePath()
-const attrs = useAttrs()
+const props = withDefaults(defineProps<UiLinkProps>(), { variant: "primary" });
+const localePath = useLocalePath();
+const attrs = useAttrs();
 const attrsWithProps = computed(() => {
   return {
     ...props.linkProps,
     ...attrs,
-  }
-})
+  };
+});
 const preparedLink = computed(() => {
-  return props.forceTo ? props.to : localePath(props.to)
-})
+  return props.forceTo ? props.to : localePath(props.to);
+});
 </script>
 
 <template>

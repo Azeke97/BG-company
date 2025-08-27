@@ -1,1 +1,1 @@
-export { useAppHead } from '~/app/helpers/useAppHead/useAppHead'
+export { useAppHead } from "~/app/helpers/useAppHead/useAppHead";

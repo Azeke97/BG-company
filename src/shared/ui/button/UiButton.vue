@@ -1,49 +1,49 @@
 <script setup lang="ts">
-import { ElButton } from 'element-plus'
-import type { UiButtonProps } from './types'
-import ButtonLoader from '~/shared/ui/button/ButtonLoader.vue'
-import UiLink from '../link/UiLink.vue'
+import { ElButton } from "element-plus";
+import type { UiButtonProps } from "./types";
+import ButtonLoader from "~/shared/ui/button/ButtonLoader.vue";
+import UiLink from "../link/UiLink.vue";
 
-const props = defineProps<UiButtonProps>()
+const props = defineProps<UiButtonProps>();
 const emit = defineEmits<{
-  (e: 'click', event: MouseEvent): void
-}>()
+  (e: "click", event: MouseEvent): void;
+}>();
 
-const isLink = computed(() => !!props.to)
+const isLink = computed(() => !!props.to);
 
-const isDisabled = computed(() => props.disabled || props.loading)
-const variantClass = computed(() => `-` + (props.variant ?? 'primary'))
+const isDisabled = computed(() => props.disabled || props.loading);
+const variantClass = computed(() => `-` + (props.variant ?? "primary"));
 const outLineClass = computed(() => {
   const map = {
-    primary: 'secondary',
-    secondary: 'primary',
-  }
+    primary: "secondary",
+    secondary: "primary",
+  };
 
-  const variant = props.variant ? map[props.variant] : 'secondary'
-  return `-${variant}`
-})
+  const variant = props.variant ? map[props.variant] : "secondary";
+  return `-${variant}`;
+});
 
 const buttonClass = computed(() => [
-  'ui-button',
+  "ui-button",
   props.outline ? outLineClass.value : variantClass.value,
   {
-    'is-loading': props.loading,
-    'is-disabled': isDisabled.value,
-    '-outline': props.outline,
-    '-full': props.full,
+    "is-loading": props.loading,
+    "is-disabled": isDisabled.value,
+    "-outline": props.outline,
+    "-full": props.full,
   },
-])
+]);
 
 const tag = computed(() => {
-  if (isLink.value) return UiLink
-  return 'button'
-})
+  if (isLink.value) return UiLink;
+  return "button";
+});
 
 const handleClick = (event: MouseEvent) => {
   if (!isDisabled.value) {
-    emit('click', event)
+    emit("click", event);
   }
-}
+};
 </script>
 
 <template>
@@ -122,7 +122,7 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .ui-button.-primary::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -160,7 +160,7 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .ui-button.-secondary::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;

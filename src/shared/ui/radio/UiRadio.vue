@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ElRadio } from 'element-plus'
-import type { UiRadioProps } from '~/shared/ui/radio/types'
+import { ElRadio } from "element-plus";
+import type { UiRadioProps } from "~/shared/ui/radio/types";
 
-const props = defineProps<UiRadioProps>()
-const attrs = useAttrs()
+const props = defineProps<UiRadioProps>();
+const attrs = useAttrs();
 
 const propsWithAttrs = computed(() => {
   return {
     ...props,
     ...attrs,
-  }
-})
+  };
+});
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const propsWithAttrs = computed(() => {
     margin-right: 0.25rem;
     position: relative;
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       width: 1.25rem;
@@ -46,7 +46,7 @@ const propsWithAttrs = computed(() => {
 
     :global(.el-radio__input) {
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 5px;
         left: 5px;
