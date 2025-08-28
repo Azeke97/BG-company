@@ -15,7 +15,7 @@ import Reveal from "~/shared/ui/reveal/Reveal.vue";
     </Reveal>
 
     <Reveal side="right" :distance="40" :once="false">
-      <MissionCarousel id="about" :interval="5600" height="520px" />
+      <MissionCarousel id="about" :interval="4500" height="520px" />
     </Reveal>
 
     <Reveal

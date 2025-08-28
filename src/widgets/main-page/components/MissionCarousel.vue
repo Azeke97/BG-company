@@ -5,6 +5,7 @@ import "element-plus/es/components/carousel-item/style/css";
 import Mission from "../assets/images/mission.jpg";
 import Vision from "../assets/images/vision.jpg";
 import ChooseUs from "../assets/images/choose-us.jpg";
+
 const style = useCssModule();
 const { t, tm } = useI18n();
 
@@ -26,7 +27,7 @@ withDefaults(
     imgAspect?: `${number}/${number}`;
   }>(),
   {
-    interval: 5200,
+    interval: 4500,
     height: "480px",
     autoplay: true,
     loop: true,

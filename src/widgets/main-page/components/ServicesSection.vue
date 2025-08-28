@@ -56,6 +56,10 @@ const services: Services[] = [
           </div>
         </NuxtLinkLocale>
       </div>
+
+      <p :class="style.hint">
+        {{ t("services.hint") }}
+      </p>
     </div>
   </section>
 </template>
@@ -180,6 +184,14 @@ const services: Services[] = [
 .card:focus-within .cardDesc {
   transform: translateY(0);
   opacity: 1;
+}
+
+.hint {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 15px;
+  color: #555;
+  font-weight: 500;
 }
 
 @media (max-width: 900px) {

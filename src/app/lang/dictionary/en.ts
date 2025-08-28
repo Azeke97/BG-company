@@ -89,6 +89,7 @@ export default defineI18nLocale(() => {
           text: "Made-to-order case and soft furniture. Unique designs, high-quality materials, tailored for your interior.",
         },
       ],
+      hint: "Click on a service to go to the page and learn more",
     },
 
     portfolio: {
