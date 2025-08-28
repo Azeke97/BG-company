@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { UiContainer } from "~/shared/ui";
-import { MainPage } from "~/widgets/main-page";
+import { Ceilings } from "~/widgets/services/ceilings";
 </script>
 
 <template>
-  <div :class="$style.mainPage">
+  <div :class="$style.services">
     <UiContainer>
-      <MainPage />
+      <Ceilings />
     </UiContainer>
   </div>
 </template>
 
 <style module>
-.mainPage {
+.services {
   background-color: #ffffff;
   background-image: url("@/widgets/main-page/assets/images/light-grey-terrazzo.webp");
   background-repeat: repeat;

@@ -5,11 +5,11 @@ import ServicesSection from "./components/ServicesSection.vue";
 import PortfolioSection from "./components/PortfolioSection.vue";
 import TestimonialsSection from "./components/TestimonialsSection.vue";
 import ContactSection from "./components/ContactSection.vue";
-import Reveal from "~/shared/ui/reveal/Reveal.vue";
+import { Reveal } from "~/shared/ui";
 </script>
 
 <template>
-  <div :class="$style.mp">
+  <div :class="$style.mainPage">
     <Reveal side="up" :once="false">
       <HeroSection id="home" />
     </Reveal>
@@ -45,7 +45,7 @@ import Reveal from "~/shared/ui/reveal/Reveal.vue";
 </template>
 
 <style module>
-.mp {
+.mainPage {
   display: block;
   padding-top: 100px;
 }

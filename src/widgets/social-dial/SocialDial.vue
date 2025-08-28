@@ -3,17 +3,10 @@ import Instagram from "@/shared/assets/icons/social-instagram.svg";
 import Whatsapp from "@/shared/assets/icons/social-whatsapp.svg";
 import Telegram from "@/shared/assets/icons/social-telegram.svg";
 import Phone from "@/shared/assets/icons/phone.svg";
+import type { SocialItem } from "~/widgets/social-dial/types";
 
 const s = useCssModule();
 const { t } = useI18n();
-
-type ItemId = "telegram" | "whatsapp" | "instagram" | "phone";
-interface SocialItem {
-  id: ItemId;
-  href: string;
-  label?: string;
-  offset?: { x: number; y: number };
-}
 
 const props = withDefaults(
   defineProps<{
@@ -124,7 +117,6 @@ if (import.meta.client) {
     <button
       :class="s.fab"
       type="button"
-      :aria-expanded="open.toString()"
       :aria-label="open ? t('social.close') : t('social.open')"
       @click="toggle"
     >

@@ -3,6 +3,7 @@ import { useAppHead } from "~/app/helpers/useAppHead";
 import { AppHeader } from "~/widgets/header";
 import { Footer } from "~/widgets/footer";
 import { SocialDial } from "~/widgets/social-dial";
+import type { SocialItem } from "~/widgets/social-dial/types";
 
 const style = useCssModule();
 const route = useRoute();
@@ -10,7 +11,7 @@ const route = useRoute();
 useAppHead();
 const showDial = computed(() => !/^\/(admin|auth|checkout)/.test(route.path));
 
-const socialItems = [
+const socialItems: SocialItem[] = [
   {
     id: "telegram",
     href: "https://t.me/bg_company_astana",
