@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Instagram from "@/shared/assets/icons/social-instagram.svg";
-import Whatsapp from "@/shared/assets/icons/social-whatsapp.svg";
-import Telegram from "@/shared/assets/icons/social-telegram.svg";
-import Phone from "@/shared/assets/icons/phone.svg";
+// import Instagram from "@/shared/assets/icons/social-instagram.svg";
+// import Whatsapp from "@/shared/assets/icons/social-whatsapp.svg";
+// import Telegram from "@/shared/assets/icons/social-telegram.svg";
+// import Phone from "@/shared/assets/icons/phone.svg";
 import type { SocialItem } from "~/widgets/social-dial/types";
 
 const s = useCssModule();
@@ -105,10 +105,30 @@ if (import.meta.client) {
           :aria-label="it.label"
           :class="[s.item, s[it.id]]"
         >
-          <Telegram v-if="it.id === 'telegram'" />
-          <Whatsapp v-else-if="it.id === 'whatsapp'" />
-          <Instagram v-else-if="it.id === 'instagram'" />
-          <Phone v-else width="40px" />
+          <img
+            v-if="it.id === 'telegram'"
+            src="../../shared/assets/icons/social-telegram.svg"
+            alt="social-telegram"
+            width="40px"
+          />
+          <img
+            v-else-if="it.id === 'whatsapp'"
+            src="../../shared/assets/icons/social-whatsapp.svg"
+            alt="social-whatsapp"
+            width="40px"
+          />
+          <img
+            v-else-if="it.id === 'instagram'"
+            src="../../shared/assets/icons/social-instagram.svg"
+            alt="social-instagram"
+            width="40px"
+          />
+          <img
+            v-else
+            src="../../shared/assets/icons/phone.svg"
+            alt="social-instagram"
+            width="30px"
+          />
           <span :class="s.tooltip">{{ it.label }}</span>
         </a>
       </li>
