@@ -119,11 +119,6 @@ async function submitContact() {
   padding: 56px 0 72px;
 }
 
-.section {
-  color: #fff;
-  padding: 56px 0 72px;
-}
-
 .title {
   text-align: center;
   font-size: 26px;

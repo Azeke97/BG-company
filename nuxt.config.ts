@@ -28,24 +28,33 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    // @ts-expect-error nuxt-i18n types не знают про seo
+    seo: true,
+    baseUrl: "https://bg-company.kz",
+    strategy: "prefix_except_default",
+    defaultLocale: "ru",
+    restructureDir: "./src/app",
+    langDir: "lang/dictionary",
     locales: [
       {
         code: "ru",
+        iso: "ru-KZ",
         file: "ru.ts",
+        name: "Русский",
       },
       {
         code: "en",
+        iso: "en-US",
         file: "en.ts",
+        name: "English",
       },
       {
         code: "kz",
+        iso: "kk-KZ",
         file: "kz.ts",
+        name: "Қазақша",
       },
     ],
-    langDir: "lang/dictionary",
-    strategy: "prefix_except_default",
-    restructureDir: "./src/app",
-    defaultLocale: "ru",
   },
 
   dayjs: {

@@ -13,13 +13,13 @@ const style = useCssModule();
 
 const items: PortfolioItem[] = [
   {
-    title: "portfolio.items[0].title",
-    text: "portfolio.items[0].text",
+    title: "mainPage.portfolio.items[0].title",
+    text: "mainPage.portfolio.items[0].text",
     img: HomeOne,
   },
   {
-    title: "portfolio.items[1].title",
-    text: "portfolio.items[1].text",
+    title: "mainPage.portfolio.items[1].title",
+    text: "mainPage.portfolio.items[1].text",
     img: HomeTwo,
   },
 ];
@@ -28,8 +28,8 @@ const items: PortfolioItem[] = [
 <template>
   <section :class="style.portfolioSection">
     <div :class="style.container">
-      <h2 :class="style.sectionTitle">{{ t("portfolio.title") }}</h2>
-      <p :class="style.sectionLead">{{ t("portfolio.subtitle") }}</p>
+      <h2 :class="style.sectionTitle">{{ t("mainPage.portfolio.title") }}</h2>
+      <p :class="style.sectionLead">{{ t("mainPage.portfolio.subtitle") }}</p>
 
       <div :class="style.list">
         <div
@@ -49,14 +49,12 @@ const items: PortfolioItem[] = [
 </template>
 
 <style module>
-/* базовый контейнер */
 .container {
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 16px;
 }
 
-/* секция портфолио с мягким фоном, акцент — #f6c453 */
 .portfolioSection {
   --accent: #f6c453;
   background: #eef1f6;
@@ -65,9 +63,10 @@ const items: PortfolioItem[] = [
 
 .sectionTitle {
   text-align: center;
-  font-size: 28px;
+  font-size: 30px;
   margin: 0 0 8px;
   position: relative;
+  font-weight: 600;
 }
 .sectionTitle::after {
   content: "";
@@ -90,7 +89,6 @@ const items: PortfolioItem[] = [
   gap: 28px;
 }
 
-/* ряд: используем flex, чтобы легко реверсить порядок */
 .row {
   display: flex;
   gap: 24px;

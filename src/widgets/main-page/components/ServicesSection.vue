@@ -15,20 +15,20 @@ interface Services {
 
 const services: Services[] = [
   {
-    title: "services.items[0].title",
-    text: "services.items[0].text",
+    title: "mainPage.services.items[0].title",
+    text: "mainPage.services.items[0].text",
     img: Renovation,
     to: "/services/renovation",
   },
   {
-    title: "services.items[1].title",
-    text: "services.items[1].text",
+    title: "mainPage.services.items[1].title",
+    text: "mainPage.services.items[1].text",
     img: Ceilings,
     to: "/services/ceilings",
   },
   {
-    title: "services.items[2].title",
-    text: "services.items[2].text",
+    title: "mainPage.services.items[2].title",
+    text: "mainPage.services.items[2].text",
     img: Carpentry,
     to: "/services/carpentry",
   },
@@ -38,8 +38,8 @@ const services: Services[] = [
 <template>
   <section :class="style.servicesSection">
     <div :class="style.container">
-      <h2 :class="style.title">{{ t("services.title") }}</h2>
-      <p :class="style.subtitle">{{ t("services.subtitle") }}</p>
+      <h2 :class="style.title">{{ t("mainPage.services.title") }}</h2>
+      <p :class="style.subtitle">{{ t("mainPage.services.subtitle") }}</p>
 
       <div :class="style.cardsGrid">
         <NuxtLinkLocale
@@ -58,7 +58,7 @@ const services: Services[] = [
       </div>
 
       <p :class="style.hint">
-        {{ t("services.hint") }}
+        {{ t("mainPage.services.hint") }}
       </p>
     </div>
   </section>
@@ -79,6 +79,7 @@ const services: Services[] = [
   text-align: center;
   font-size: 30px;
   margin: 0 0 8px;
+  font-weight: 600;
 }
 
 .subtitle {

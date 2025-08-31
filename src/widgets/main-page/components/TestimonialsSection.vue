@@ -17,17 +17,17 @@ export interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     author: "Ирина К.",
-    role: "testimonials.roles.client",
+    role: "mainPage.testimonials.roles.client",
     text: "Идеи стали реальностью. Отличное качество и сроки!",
   },
   {
     author: "Алексей П.",
-    role: "testimonials.roles.customer",
+    role: "mainPage.testimonials.roles.customer",
     text: "Команда BG — это внимание к деталям и прозрачность.",
   },
   {
     author: "Динара Ж.",
-    role: "testimonials.roles.client",
+    role: "mainPage.testimonials.roles.client",
     text: "Рекомендуем! Сделали всё “под ключ”.",
   },
 ];
@@ -81,7 +81,9 @@ const cards = computed(() =>
 <template>
   <section :class="style.testimonialsSection">
     <div :class="style.testimonialsContainer">
-      <h2 :class="style.sectionTitle">{{ t("testimonials.title") }}</h2>
+      <h2 :class="style.sectionTitle">
+        {{ t("mainPage.testimonials.title") }}
+      </h2>
 
       <div :class="style.testimonialsGrid">
         <article
@@ -115,7 +117,8 @@ const cards = computed(() =>
 .sectionTitle {
   text-align: center;
   margin: 0 0 24px;
-  font-size: 28px;
+  font-size: 30px;
+  font-weight: 600;
 }
 
 .testimonialsGrid {

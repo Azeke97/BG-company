@@ -39,18 +39,18 @@ withDefaults(
 
 const slides: Slide[] = [
   {
-    title: "heroSlides.items[0].title",
-    text: "heroSlides.items[0].text",
+    title: "mainPage.heroSlides.items[0].title",
+    text: "mainPage.heroSlides.items[0].text",
     img: Mission,
   },
   {
-    title: "heroSlides.items[1].title",
-    text: "heroSlides.items[1].text",
+    title: "mainPage.heroSlides.items[1].title",
+    text: "mainPage.heroSlides.items[1].text",
     img: Vision,
   },
   {
-    title: "heroSlides.items[2].title",
-    text: "heroSlides.items[2].list",
+    title: "mainPage.heroSlides.items[2].title",
+    text: "mainPage.heroSlides.items[2].list",
     img: ChooseUs,
     isList: true,
   },

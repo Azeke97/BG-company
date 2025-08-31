@@ -1,56 +1,33 @@
 <script setup lang="ts">
-import DesignIcon from "../assets/icons/design.svg";
-import FixSmetaIcon from "../assets/icons/fix-smeta.svg";
-import GuaranteeIcon from "../assets/icons/guarantee.svg";
-import TariffsIcon from "../assets/icons/tariffs.svg";
-import hero from "../assets/images/hero.jpg";
-
 const { t } = useI18n();
 const s = useCssModule();
 
 const info = [
   {
-    icon: FixSmetaIcon,
-    text: "mainPage.hero.info[0]",
+    // icon: FixSmetaIcon,
+    text: "ceiling.hero.items[0]",
   },
   {
-    icon: GuaranteeIcon,
-    text: "mainPage.hero.info[1]",
+    // icon: GuaranteeIcon,
+    text: "ceiling.hero.items[1]",
   },
   {
-    icon: TariffsIcon,
-    text: "mainPage.hero.info[2]",
-  },
-  {
-    icon: DesignIcon,
-    text: "mainPage.hero.info[3]",
+    // icon: TariffsIcon,
+    text: "ceiling.hero.items[2]",
   },
 ];
 </script>
 
 <template>
   <section :class="s.hero">
-    <img
-      :src="hero"
-      alt="Ремонт и дизайн квартир BG Company"
-      width="1920"
-      height="1080"
-      :class="s.heroBg"
-      fetchpriority="high"
-      decoding="async"
-    />
-
-    <div :class="s.heroOverlay"></div>
-
     <div :class="[s.heroInner, s.container]">
       <div :class="s.heroContent">
         <h1 :class="s.heroTitle">
-          {{ t("mainPage.hero.title") }}
-          <span>BG Company</span>
+          {{ t("ceiling.hero.title") }}
         </h1>
 
         <p :class="s.heroSubtitle">
-          {{ t("mainPage.hero.desc") }}
+          {{ t("ceiling.hero.desc") }}
         </p>
 
         <div :class="s.heroInfo">
@@ -60,20 +37,17 @@ const info = [
               :key="idx"
               :class="s.heroInfoText"
             >
-              {{ t(item.text) }}
-              <template v-if="idx < info.length - 1"> • </template>
+              {{ t(item.text)
+              }}<template v-if="idx < info.length - 1"> • </template>
             </span>
           </div>
         </div>
 
-        <div :class="s.heroActions">
-          <a href="#contact" :class="[s.btn, s.btnPrimary]">
-            {{ t("mainPage.hero.button.feedback") }}
-          </a>
-          <a href="#projects" :class="[s.btn, s.btnGhost]">
-            {{ t("mainPage.hero.button.portfolio") }}
-          </a>
-        </div>
+        <!--        <div :class="s.heroActions">-->
+        <!--          <a href="#contact" :class="[s.btn, s.btnPrimary]">-->
+        <!--            {{ t("ceiling.hero.button.feedback") }}-->
+        <!--          </a>-->
+        <!--        </div>-->
       </div>
     </div>
   </section>
@@ -88,10 +62,11 @@ const info = [
 
 .hero {
   position: relative;
+  background: url("../assets/images/seiling-hero-bg.png") center/cover no-repeat;
   padding: clamp(56px, 10vw, 120px) 0;
   color: #fff;
   overflow: hidden;
-  min-height: clamp(420px, 52vw, 620px);
+  min-height: clamp(300px, 45vw, 400px);
 }
 
 .heroBg {
@@ -123,6 +98,7 @@ const info = [
   margin: 0 0 12px;
   font-weight: 500;
 }
+
 .heroTitle span {
   color: #f6c453;
 }
@@ -138,15 +114,18 @@ const info = [
 .heroInfo {
   margin: 0 0 32px;
 }
+
 .heroInfoRow {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 10px;
 }
+
 .heroInfoText {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   color: #f6c453;
+  white-space: wrap;
 }
 
 .btn {
@@ -173,6 +152,7 @@ const info = [
   background: transparent;
   color: #fff;
   border-color: #fff;
+  margin-left: 12px;
 }
 .btnGhost:hover {
   background: #fff;

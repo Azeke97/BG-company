@@ -29,9 +29,6 @@ const onCommand = (newLocale: string) => {
           :command="lang.code"
           :disabled="lang.code === locale"
         >
-          <span v-if="lang.code === 'ru'">🇷🇺</span>
-          <span v-else-if="lang.code === 'en'">🇺🇸</span>
-          <span v-else>🇰🇿</span>
           {{ lang.label }}
         </ElDropdownItem>
       </ElDropdownMenu>
