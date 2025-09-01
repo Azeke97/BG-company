@@ -22,9 +22,9 @@ const info = [
   <section :class="s.hero">
     <div :class="[s.heroInner, s.container]">
       <div :class="s.heroContent">
-        <h1 :class="s.heroTitle">
+        <h2 :class="s.heroTitle">
           {{ t("ceiling.hero.title") }}
-        </h1>
+        </h2>
 
         <p :class="s.heroSubtitle">
           {{ t("ceiling.hero.desc") }}
@@ -69,13 +69,15 @@ const info = [
   min-height: clamp(300px, 45vw, 400px);
 }
 
-.heroBg {
+.hero::before {
+  content: "";
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  animation: hero-breathe 14s ease-in-out infinite;
   z-index: 0;
 }
 
@@ -90,6 +92,18 @@ const info = [
 .heroInner {
   position: relative;
   z-index: 2;
+}
+
+@keyframes hero-breathe {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.05) translate(1%, 1%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
 }
 
 .heroTitle {

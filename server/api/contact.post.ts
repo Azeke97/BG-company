@@ -5,6 +5,7 @@ export default defineEventHandler(async (event) => {
     phone?: string;
     email?: string;
     message?: string;
+    page?: string;
   }>(event);
 
   if (!body?.name || !body?.email) {
@@ -31,15 +32,21 @@ export default defineEventHandler(async (event) => {
   const sheet = process.env.GOOGLE_SHEET_TAB || "Лист1";
 
   const rawPhone = (body.phone || "").trim();
-  const phoneDigits = rawPhone.replace(/[^\d]/g, ""); // нормализуем с "+7 (707) 777-77-77" в "77077777777" чтоб не ругеался ексель
+  const phoneDigits = rawPhone.replace(/[^\d]/g, ""); // нормализуем с "+7 (707) 777-77-77" в "77077777777" чтоб не ругался ексель
 
   const values = [
-    [body.name || "", phoneDigits, body.email || "", body.message || ""],
+    [
+      body.name || "",
+      phoneDigits,
+      body.email || "",
+      body.message || "",
+      body.page || "",
+    ],
   ];
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${sheet}!A:D`,
+    range: `${sheet}!A:E`,
     valueInputOption: "RAW",
     requestBody: { values },
   });

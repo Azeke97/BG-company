@@ -102,6 +102,21 @@ const info = [
   object-fit: cover;
   object-position: center;
   z-index: 0;
+
+  animation: hero-breathe 12s ease-in-out infinite;
+  transform: scale(1);
+}
+
+@keyframes hero-breathe {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .heroOverlay {

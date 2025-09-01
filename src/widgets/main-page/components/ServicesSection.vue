@@ -94,12 +94,6 @@ const services: Services[] = [
   gap: 28px;
 }
 
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
 .card {
   position: relative;
   height: 320px;
@@ -125,6 +119,64 @@ const services: Services[] = [
   );
   pointer-events: none;
   transition: opacity 0.35s ease;
+  z-index: 1;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  border-radius: 16px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 40%,
+    rgba(255, 255, 255, 0.35) 48%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.35) 52%,
+    rgba(255, 255, 255, 0.06) 60%,
+    transparent 100%
+  );
+
+  transform: translateX(-20%) translateY(40%) rotate(-50deg);
+  opacity: 0;
+  filter: blur(0.3px);
+  will-change: transform, opacity;
+  animation: card-light-sweep 6s ease-in-out infinite;
+  z-index: 2;
+}
+
+.cardsGrid > *:nth-child(1) .card::before {
+  animation: card-light-sweep 2s ease-in-out infinite;
+  animation-delay: 0s;
+}
+.cardsGrid > *:nth-child(2) .card::before {
+  animation: card-light-sweep 6s ease-in-out infinite;
+  animation-delay: 10s;
+}
+.cardsGrid > *:nth-child(3) .card::before {
+  animation: card-light-sweep 8s ease-in-out infinite;
+  animation-delay: 6s;
+}
+
+@keyframes card-light-sweep {
+  0% {
+    transform: translateX(-70%) translateY(40%) rotate(-18deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0%) translateY(0%) rotate(-18deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(70%) translateY(-40%) rotate(-18deg);
+    opacity: 0;
+  }
 }
 
 .cardHeading {
@@ -138,7 +190,7 @@ const services: Services[] = [
   line-height: 1.2;
   font-weight: 700;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 2.45);
-  z-index: 2;
+  z-index: 3;
 }
 
 .cardDesc {
@@ -176,11 +228,6 @@ const services: Services[] = [
   transform: scale(1.03);
 }
 
-.card:hover::after,
-.card:focus-within::after {
-  opacity: 0.25;
-}
-
 .card:hover .cardDesc,
 .card:focus-within .cardDesc {
   transform: translateY(0);
@@ -210,8 +257,10 @@ const services: Services[] = [
 @media (prefers-reduced-motion: reduce) {
   .card,
   .card::after,
+  .card::before,
   .cardDesc {
     transition: none !important;
+    animation: none !important;
   }
 }
 </style>

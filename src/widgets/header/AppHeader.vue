@@ -12,6 +12,8 @@ const activeSection = ref<string | null>(null);
 const isMobileNav = ref(false);
 const scrollProgress = ref(0);
 
+const isHome = computed(() => route.path === "/");
+
 const goTo = (hash: string) => {
   const el = document.querySelector(hash);
   if (el) {
@@ -24,19 +26,21 @@ const goTo = (hash: string) => {
 };
 
 onMounted(() => {
-  const ids = ["#home", "#services", "#projects", "#reviews", "#contact"];
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) activeSection.value = `#${entry.target.id}`;
-      });
-    },
-    { threshold: 0.5 },
-  );
-  ids.forEach((id) => {
-    const el = document.querySelector(id);
-    if (el) observer.observe(el);
-  });
+  if (isHome.value) {
+    const ids = ["#home", "#services", "#projects", "#reviews", "#contact"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) activeSection.value = `#${entry.target.id}`;
+        });
+      },
+      { threshold: 0.5 },
+    );
+    ids.forEach((id) => {
+      const el = document.querySelector(id);
+      if (el) observer.observe(el);
+    });
+  }
 
   window.scrollTo(0, 0);
   window.addEventListener("scroll", () => {
@@ -61,7 +65,7 @@ watch(
   <header :class="$style.wrap">
     <div :class="$style.container" :style="{ padding: containerPadding }">
       <div :class="$style.inner">
-        <NuxtLink to="/" :class="$style.brand">
+        <NuxtLinkLocale to="/" :class="$style.brand">
           <Logo
             width="40"
             height="40"
@@ -69,10 +73,11 @@ watch(
             aria-hidden="true"
           />
           <span>{{ t("header.brand") }}</span>
-        </NuxtLink>
+        </NuxtLinkLocale>
 
         <nav :class="$style.nav">
           <button
+            v-if="isHome"
             type="button"
             :class="[
               $style.navLink,
@@ -82,8 +87,16 @@ watch(
           >
             {{ t("header.menu.home") }}
           </button>
+          <NuxtLinkLocale
+            v-else
+            to="/"
+            :class="[$style.navLink, { [$style.active]: route.path === '/' }]"
+          >
+            {{ t("header.menu.home") }}
+          </NuxtLinkLocale>
 
           <button
+            v-if="isHome"
             type="button"
             :class="[
               $style.navLink,
@@ -99,7 +112,7 @@ watch(
             content="Раздел в разработке"
             placement="bottom"
           >
-            <NuxtLink
+            <NuxtLinkLocale
               :class="[
                 $style.navLink,
                 { [$style.active]: route.path === '/shop' },
@@ -107,7 +120,7 @@ watch(
               @click.prevent
             >
               {{ t("header.menu.shop") }}
-            </NuxtLink>
+            </NuxtLinkLocale>
           </ElTooltip>
 
           <button

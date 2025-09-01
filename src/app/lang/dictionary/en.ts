@@ -114,6 +114,39 @@ export default defineI18nLocale(() => {
           customer: "Customer",
         },
       },
+
+      faq: {
+        title: "Frequently Asked Questions",
+        subtitle:
+          "Here are answers to the most common questions about our services.",
+        items: [
+          {
+            question: "How long does renovation or furniture production take?",
+            answer:
+              "Renovation work usually takes from 2 weeks depending on the area and complexity of the project. Furniture production takes on average 2–4 weeks, and stretch ceiling installation only 1–2 days.",
+          },
+          {
+            question: "Can I order a full 'turnkey' service?",
+            answer:
+              "Yes, we provide a complete range of services: from apartment renovation and ceiling installation to custom furniture production. You don’t need to look for different contractors — we handle everything in one project.",
+          },
+          {
+            question: "Do you provide a warranty?",
+            answer:
+              "Yes, all works and materials are covered by a warranty of up to 1 year. We are confident in our quality and also provide post-warranty service.",
+          },
+          {
+            question: "Do you offer installments or staged payments?",
+            answer:
+              "Yes, staged payment is possible — details are discussed when signing the contract.",
+          },
+          {
+            question: "Can I order only furniture or only ceilings?",
+            answer:
+              "Yes, services can be ordered separately or as part of a complete project.",
+          },
+        ],
+      },
     },
 
     ceiling: {
@@ -222,6 +255,252 @@ export default defineI18nLocale(() => {
       },
     },
 
+    furniture: {
+      hero: {
+        title: "Custom furniture tailored to your interior",
+        desc: "Bespoke cabinet and upholstered pieces — comfort and style in every room.",
+        items: [
+          "Free measurement & consultation",
+          "Estimate within 1 day",
+          "Quality and durability warranty",
+        ],
+      },
+      types: {
+        case: {
+          title: "Cabinet Furniture",
+          desc: "Made-to-measure for your space. We use quality materials:",
+          materials: [
+            "Chipboard — for cabinets, kitchens and pedestals",
+            "MDF — for fronts and doors, durable and eco-friendly",
+          ],
+          cards: [
+            {
+              title: "Kitchen Sets",
+              desc: "thought-out storage and ergonomics.",
+            },
+            {
+              title: "Walk-in Closets",
+              desc: "custom shelving and drawer layouts.",
+            },
+            {
+              title: "Wardrobes",
+              desc: "mirror or matte fronts, precise fit.",
+            },
+          ],
+        },
+        soft: {
+          title: "Upholstered Furniture",
+          desc: "Sofas, beds and armchairs made to order: premium fabrics, eco fillings, ergonomics and durability.",
+          cards: [
+            {
+              title: "Sofas",
+              desc: "folding mechanisms, storage niches, removable covers.",
+            },
+            {
+              title: "Beds",
+              desc: "soft headboards, built-in drawers for storage.",
+            },
+            {
+              title: "Armchairs & Poufs",
+              desc: "statement pieces for a modern interior.",
+            },
+          ],
+        },
+        cta: "Request a Quote",
+      },
+      whyChoose: {
+        title: "Why choose our furniture?",
+        items: [
+          {
+            title: "Premium materials & durability",
+            desc: "We use tested materials — chipboard, MDF, natural veneer and solid wood — ensuring longevity and resistance to daily wear.",
+          },
+          {
+            title: "Modern hardware & mechanisms",
+            desc: "We apply up-to-date fittings and soft-close systems for comfort, silent operation and functionality.",
+          },
+          {
+            title: "Style and design variety",
+            desc: "A wide palette of styles and finishes to match any interior — from timeless classics to modern minimalism.",
+          },
+        ],
+      },
+      faq: {
+        title: "Furniture FAQ",
+        subtitle:
+          "Answers to the most common questions about custom furniture.",
+        items: [
+          {
+            question: "Which materials are best for furniture?",
+            answer:
+              "Chipboard and MDF are common for carcasses, while facades often use solid wood, veneer, or acrylic. It depends on your budget and style.",
+          },
+          {
+            question: "How long does it take to produce custom furniture?",
+            answer:
+              "On average 2–6 weeks, depending on project complexity, material availability, and order volume.",
+          },
+          {
+            question: "Can furniture be made to custom sizes?",
+            answer:
+              "Yes, furniture is designed to fit your exact dimensions and room features: unusual niches, ceilings, and corners are not a problem.",
+          },
+          {
+            question: "What warranty is provided?",
+            answer:
+              "Typically, 12 months for structures and fittings, plus after-warranty service.",
+          },
+          {
+            question: "Which is better: ready-made or custom furniture?",
+            answer:
+              "Ready-made is faster and cheaper but limited to standard models. Custom furniture fits perfectly in size and style.",
+          },
+          {
+            question: "How to care for chipboard or MDF furniture?",
+            answer:
+              "Wipe with a soft damp cloth without abrasives or aggressive cleaners. Avoid excess moisture.",
+          },
+        ],
+      },
+    },
+
+    renovate: {
+      hero: {
+        title: "Turnkey designer renovation in Astana with a 1-year warranty",
+        desc: "Pick renovation options that fit your budget.",
+        items: [
+          "Fixed estimate: The price won’t change during the project.",
+          "1-year warranty: We stand behind every stage.",
+          "Transparent plans: Choose a package and add your preferences.",
+          "Design project included: See the outcome before work begins.",
+        ],
+        cta: "Get a free estimate",
+      },
+      pricing: {
+        title: "Three Transparent Renovation Packages",
+        subtitle:
+          "We designed three all-in-one bundles covering all essential works and materials. Choose the one that fits you best.",
+        cta: "Learn more",
+        plans: [
+          {
+            name: "BASIC",
+            price: "90,000 KZT/m²",
+            for: "Rent-ready or quick flip for resale",
+            desc: "Perfect for fast, quality move-in prep or rentals. Includes essential finishing works and materials.",
+            features: [
+              "Technical design brief",
+              "Walls aligned, wallpaper of choice",
+              "Laminate 32–33 class",
+              "Porcelain tile 60×60 (Kazakhstan/Uzbekistan)",
+              "Doors 2.0 m high",
+              "Final plumbing (ready bathroom: mixers, wall-hung toilet, bath/shower)",
+              "Final electrics: switches & sockets",
+              "Underfloor heating: hallway, bathroom, balcony",
+            ],
+            note: "Note: Ceiling is not included. Result: finished walls, floors and bathroom (ceiling — separately).",
+            pdf: "/package-basic.pdf",
+          },
+          {
+            name: "PREMIUM",
+            price: "120,000 KZT/m²",
+            for: "Best value for comfort and longevity",
+            desc: "Upgraded materials and works with a balanced budget and comfort.",
+            features: [
+              "Full design project",
+              "Walls by beacons, paint or wallpaper",
+              "Herringbone laminate or SPC/LVT",
+              "Porcelain tile (Iran, China)",
+              "Doors 2.0–2.3 m",
+              "Stretch ceiling or drywall in bedrooms",
+              "Underfloor heating",
+              "Bamboo panels",
+              "Smart-home elements",
+              "Includes turnkey cabinet furniture (TV stand with fireplace; humidifier as a gift)",
+            ],
+            pdf: "/package-premium.pdf",
+          },
+          {
+            name: "LUXE",
+            price: "250,000 KZT/m²",
+            for: "Penthouse & townhouse level, no compromises",
+            desc: "Premium materials, exclusive finishes and a complete smart-home system.",
+            features: [
+              "Design project with supervision",
+              "Walls to ‘Losev lamp’ standard, OLSTA paint, ‘Rock’ décor, bamboo panels",
+              "Herringbone laminate (ENG/FRA) or 43-class SPC/LVT",
+              "Premium porcelain tile (Italy, Spain)",
+              "Concealed doors from 2.3 m, glass partitions",
+              "Floating ceiling, drywall and shadow profile",
+              "Full smart-home: lights, curtains, sensors",
+            ],
+            pdf: "/package-lux.pdf",
+          },
+        ],
+      },
+
+      workflow: {
+        title: "From project to cleanup: how we work",
+        subtitle:
+          "We run your project from A to Z, ensuring full control at every stage.",
+        items: [
+          {
+            title: "Design project",
+            desc: "We create visualization and a full set of drawings. You’ll see the final result before any work starts and avoid unplanned expenses.",
+          },
+          {
+            title: "Rough works",
+            desc: "Demolition of old structures, building new partitions, complete electrical and plumbing routing, wall leveling, and floor screed.",
+          },
+          {
+            title: "Finishing works",
+            desc: "The most exciting stage: laying tiles and laminate, painting or wallpapering, installing ceilings, lighting fixtures, and doors.",
+          },
+          {
+            title: "Installation & cleaning",
+            desc: "We install plumbing, sockets and switches, implement smart home, assemble case furniture. Finally, we carry out professional cleaning so you can move in immediately.",
+          },
+        ],
+      },
+      faq: {
+        title: "Frequently Asked Questions about Renovation",
+        subtitle:
+          "Here are the most common questions clients ask about apartment and house renovation.",
+
+        items: [
+          {
+            question:
+              "How long does it take to renovate an apartment or house?",
+            answer:
+              "It depends on the size and complexity. On average, a renovation takes 1 to 3 months.",
+          },
+          {
+            question: "Do you provide materials or can I supply my own?",
+            answer:
+              "We offer both options: with our materials or yours. Everything is discussed when preparing the estimate.",
+          },
+          {
+            question: "Is it necessary to order a design project?",
+            answer:
+              "No, it is optional. However, a design project helps visualize the result and avoid mistakes.",
+          },
+          {
+            question: "Do you provide a warranty for renovation work?",
+            answer:
+              "Yes, all our work comes with a warranty of at least 12 months.",
+          },
+          {
+            question: "Can I pay for the renovation in installments?",
+            answer:
+              "Yes, payments are made in stages: prepayment, intermediate, and final after delivery.",
+          },
+          {
+            question: "Is cleaning included after renovation?",
+            answer: "Yes, we hand over a clean, move-in ready space.",
+          },
+        ],
+      },
+    },
+
     contact: {
       title: "Get in Touch",
       subtitle:
@@ -241,6 +520,15 @@ export default defineI18nLocale(() => {
         sending: "Sending…",
       },
       success: "Thanks! We will contact you shortly.",
+    },
+
+    pageNames: {
+      home: "Главная",
+      services: "Услуги",
+      ceilings: "Страница потолков",
+      renovation: "Страница ремонта",
+      carpentry: "Страница мебели",
+      other: "Другая страница",
     },
 
     social: {

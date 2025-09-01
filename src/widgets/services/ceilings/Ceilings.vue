@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import ContactSection from "~/widgets/main-page/components/ContactSection.vue";
 import { Reveal } from "~/shared/ui";
 import HeroSection from "~/widgets/services/ceilings/components/HeroSection.vue";
 import CeilingsStepsSection from "~/widgets/services/ceilings/components/CeilingsStepsSection.vue";
-import FaqSection from "~/widgets/services/ceilings/components/FaqSection.vue";
+import { ContactSection } from "~/widgets/contact";
+import { FaqSection } from "~/widgets/faq";
 
 const { t } = useI18n();
+
+definePageMeta({ contactLabelKey: "pageNames.ceilings" });
 
 const faqItems = [
   {

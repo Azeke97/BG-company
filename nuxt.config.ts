@@ -22,7 +22,6 @@ export default defineNuxtConfig({
   dir: {
     plugins: "app/plugins",
     middleware: "app/middleware",
-    public: "app/public",
     layouts: "app/layouts",
     pages: "pages",
   },

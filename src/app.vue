@@ -45,6 +45,12 @@ useHead(() => ({
       rel: "canonical",
       href: canonical.value,
     },
+    {
+      rel: "icon",
+      type: "image/png",
+      href: "/favicon.png",
+      sizes: "32x32",
+    },
     ...(i18nHead.value.link || []),
   ],
   htmlAttrs: i18nHead.value.htmlAttrs,
