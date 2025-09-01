@@ -200,6 +200,10 @@ const info = computed<string[]>(() => {
 }
 
 @media (max-width: 640px) {
+  .hero {
+    background: url("../assets/images/hero-bg.jpg") no-repeat fixed center;
+    animation: none;
+  }
   .heroTitle {
     text-align: center;
   }

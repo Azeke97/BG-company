@@ -284,6 +284,10 @@ const perks = computed<string[]>(() => {
   }
 }
 @media (max-width: 640px) {
+  .hero {
+    background: url("../assets/images/hero.jpg") no-repeat fixed center;
+    animation: none;
+  }
   .heroTitle,
   .heroSubtitle {
     text-align: center;

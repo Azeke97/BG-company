@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare",
     "tsc": "vue-tsc --noEmit",
     "lint": "eslint . '**/*.ts' '**/*.vue'",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "start": "node .output/server/index.mjs"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.4",
