@@ -1,15 +1,158 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  // если собираешь клиент вне сервера и деплоишь — оставь оба таргета
+  // binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum OrderStatus {
+  DRAFT // создан, но ещё без оплаты
+  PENDING // платёж инициирован / ожидаем
+  PAID // оплачен
+  CANCELLED // отменён
+}
+
+enum PromoType {
+  PERCENT // скидка в %
+  FIXED // скидка в деньгах (в копейках/тиынах)
+}
+
+enum AppliesTo {
+  ALL
+  CATEGORY
+  PRODUCTS
+}
+
+enum PaymentMethod {
+  KASPI_QR
+  CARD
+  CASH
+}
+
+model User {
+  id           String  @id @default(cuid())
+  email        String  @unique
+  passwordHash String
+  name         String?
+  phone        String?
+  role         Role    @default(USER)
+  orders       Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id       String     @id @default(cuid())
+  name     String
+  slug     String     @unique
+  parentId String?
+  parent   Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryToCategory")
+
+  products   Product[]
+  promoCodes PromoCode[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([parentId])
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String? @db.Text
+  price       Int // деньги ХРАНИМ в целых (тиынах/копейках)
+  oldPrice    Int?
+  sku         String? @unique
+  stock       Int     @default(0)
+  images      Json    @default("[]") // массив URL/путей
+  attrs       Json    @default("{}") // произвольные характеристики (цвет/размер и т.п.)
+  isActive    Boolean @default(true)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([isActive, createdAt])
+}
+
+model PromoCode {
+  code       String    @id
+  type       PromoType
+  value      Int
+  appliesTo  AppliesTo @default(ALL)
+  categoryId String?
+  productIds String[]
+  startsAt   DateTime?
+  endsAt     DateTime?
+  usageLimit Int?
+  used       Int       @default(0)
+
+  category Category? @relation(fields: [categoryId], references: [id]) // back-relation теперь есть в Category
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([appliesTo, categoryId])
+  @@index([endsAt])
+}
+
+model OrderItem {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id]) // back-relation теперь есть в Product
+
+  title String
+  sku   String?
+  price Int
+  qty   Int
+
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Order {
+  id     String  @id @default(cuid())
+  number String  @unique // человеко-читаемый номер, например BG-2025-0001
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  status        OrderStatus    @default(DRAFT)
+  paymentMethod PaymentMethod?
+  paymentRef    String? // внешний ID платежа (например Kaspi)
+
+  subtotal      Int // без скидок
+  discountTotal Int @default(0)
+  total         Int // к оплате (>=0)
+
+  items OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([userId, createdAt])
 }
