@@ -1,12 +1,9 @@
 export const loadRecaptcha = () => {
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     const renderWait = () => {
       setTimeout(() => {
-        if (
-          typeof window.grecaptcha !== "undefined" &&
-          typeof window.grecaptcha.render !== "undefined"
-        ) {
-          resolve(true);
+        if (window.grecaptcha?.render) {
+          resolve();
         } else {
           renderWait();
         }
@@ -19,7 +16,7 @@ export const loadRecaptcha = () => {
       script.onload = () => renderWait();
       document.head.appendChild(script);
     } else {
-      resolve(true);
+      resolve();
     }
   });
 };

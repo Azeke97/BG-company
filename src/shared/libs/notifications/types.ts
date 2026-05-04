@@ -7,5 +7,7 @@ export type NotificationType =
   | "error"
   | "info";
 
-export interface NotificationOptions
-  extends Omit<NotificationProps, "message" | "type"> {}
+export interface NotificationOptions extends Omit<
+  NotificationProps,
+  "message" | "type"
+> {}

@@ -1,6 +1,9 @@
 export default defineNuxtPlugin(() => {
   const runtime = useRuntimeConfig();
-  const apiKey = runtime.public?.YANDEX_MAPS_API_KEY || "";
+  const apiKey =
+    typeof runtime.public?.YANDEX_MAPS_API_KEY === "string"
+      ? runtime.public.YANDEX_MAPS_API_KEY
+      : "";
 
   let readyPromise: Promise<typeof ymaps> | null = null;
 

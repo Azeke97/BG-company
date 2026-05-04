@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ElPopover } from "element-plus";
-import { withDefaults, defineProps, defineEmits } from "vue";
 import type { UiMarkerPopupProps, UiMarkerPopupEvents } from "./types";
 import MarkerIcon from "../marker-popup/assets/icons/marker-icon.svg";
 

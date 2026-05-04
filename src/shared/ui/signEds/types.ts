@@ -1,7 +1,9 @@
 import type { UiButtonProps } from "~/shared/ui/button";
 
-export interface UiSignEDSProps<T extends XMLDocument | string>
-  extends Omit<UiButtonProps, "to" | "forceTo"> {
+export interface UiSignEDSProps<T extends XMLDocument | string> extends Omit<
+  UiButtonProps,
+  "to" | "forceTo"
+> {
   text: string;
   errorText: string;
   content: T;

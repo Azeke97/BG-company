@@ -13,17 +13,21 @@ const { formItem } = useFormItem();
 
 const locale = useNormalizedLocale();
 const config = useRuntimeConfig();
-let grecaptcha: any = null;
+const siteKey =
+  typeof config.public.recaptcha === "string" ? config.public.recaptcha : "";
+let widgetId: number | null = null;
 const isLoaded = ref(false);
 
 const render = () => {
   try {
-    grecaptcha = window.grecaptcha.render("recaptcha", {
-      sitekey: config.public.recaptcha,
+    if (!window.grecaptcha || !siteKey) return;
+
+    widgetId = window.grecaptcha.render("recaptcha", {
+      sitekey: siteKey,
       theme: props.theme,
       size: "normal",
       hl: locale.value,
-      callback: (res) => {
+      callback: (res: string) => {
         emit("update:captchaValid", true);
         emit("update:captchaResponse", res);
         formItem?.validate("blur");
@@ -54,9 +58,9 @@ onMounted(async () => {
 });
 
 const reset = () => {
-  if (grecaptcha === null) return;
+  if (widgetId === null || !window.grecaptcha) return;
 
-  window.grecaptcha.reset(grecaptcha);
+  window.grecaptcha.reset(widgetId);
 
   emit("update:captchaValid", false);
   emit("update:captchaResponse", "");

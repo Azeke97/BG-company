@@ -7,7 +7,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -18,7 +17,10 @@ enum Role {
 enum OrderStatus {
   DRAFT // создан, но ещё без оплаты
   PENDING // платёж инициирован / ожидаем
+  NEW // новый заказ
+  PROCESSING // в обработке
   PAID // оплачен
+  COMPLETED // завершён
   CANCELLED // отменён
 }
 
@@ -46,6 +48,7 @@ model User {
   name         String?
   phone        String?
   role         Role    @default(USER)
+  isBlocked    Boolean @default(false)
   orders       Order[]
 
   createdAt DateTime @default(now())
@@ -56,6 +59,8 @@ model Category {
   id       String     @id @default(cuid())
   name     String
   slug     String     @unique
+  sortOrder Int       @default(0)
+  isActive Boolean    @default(true)
   parentId String?
   parent   Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
   children Category[] @relation("CategoryToCategory")
@@ -140,9 +145,10 @@ model Order {
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
 
-  status        OrderStatus    @default(DRAFT)
+  status        OrderStatus    @default(NEW)
   paymentMethod PaymentMethod?
   paymentRef    String? // внешний ID платежа (например Kaspi)
+  adminComment  String?
 
   subtotal      Int // без скидок
   discountTotal Int @default(0)

@@ -4,6 +4,13 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-08-22",
   devtools: { enabled: true },
   ssr: true,
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.NUXT_PUBLIC_BASE_URL || "/",
+      recaptcha: process.env.NUXT_PUBLIC_RECAPTCHA || "",
+      YANDEX_MAPS_API_KEY: process.env.NUXT_PUBLIC_YANDEX_MAPS_API_KEY || "",
+    },
+  },
   modules: [
     "@pinia/nuxt",
     "@nuxtjs/i18n",
@@ -14,7 +21,6 @@ export default defineNuxtConfig({
     "@element-plus/nuxt",
     "nuxt-svgo",
     "@nuxtjs/sitemap",
-    "@nuxt/image",
   ],
 
   srcDir: "src/",
@@ -107,19 +113,6 @@ export default defineNuxtConfig({
       priority: 0.7,
     },
     exclude: ["/admin/**"],
-  },
-
-  image: {
-    format: ["avif", "webp", "png"],
-    quality: 70,
-    screens: {
-      xs: 360,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-      "2xl": 1536,
-    },
   },
 
   robots:

@@ -26,7 +26,8 @@ export function useBaseConfig(userConfig: RequestConfig = {}): RequestConfig {
     }
   }
 
-  config.baseURL = $config.public.baseURL;
+  config.baseURL =
+    typeof $config.public.baseURL === "string" ? $config.public.baseURL : "";
 
   return config;
 }

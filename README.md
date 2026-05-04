@@ -1,75 +1,33 @@
-# Nuxt Minimal Starter
+# BG Company
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt 4 project: landing + service pages + mini-shop backend + mini admin.
 
-## Setup
-
-Make sure to install dependencies:
+## Quick Start
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+cp .env.example .env
+npm run db:up
+npm run db:migrate
+npm run db:generate
+npm run db:seed
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+## Main URLs
 
-Build the application for production:
+- Site: `http://localhost:3000` (or next free port)
+- Admin: `http://localhost:3000/admin`
+
+## Useful Commands
 
 ```bash
-# npm
+npm run tsc
+npm run lint
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+## Docs
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Local setup: [docs/local-setup.md](docs/local-setup.md)
+- DB tables: [docs/db-tables.md](docs/db-tables.md)
