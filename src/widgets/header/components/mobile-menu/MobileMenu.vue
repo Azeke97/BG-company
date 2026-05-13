@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ElDialog, ElTooltip } from "element-plus";
+import { ElDialog } from "element-plus";
 import { LangSwitcher } from "~/widgets/header/components/lang-switcher";
 
 const { t } = useI18n();
+const route = useRoute();
+const localePath = useLocalePath();
 
 const modelValue = defineModel<boolean>({ required: true });
 
@@ -13,6 +15,17 @@ const emit = defineEmits<{
 
 const close = () => emit("update:modelValue", false);
 const goTo = (hash: string) => emit("goTo", hash);
+const isHome = computed(() => route.name?.toString().startsWith("index"));
+const contactLink = computed(() => `${localePath("/")}#contact`);
+
+const onContactClick = () => {
+  if (isHome.value) {
+    goTo("#contact");
+    return;
+  }
+
+  close();
+};
 </script>
 
 <template>
@@ -48,13 +61,25 @@ const goTo = (hash: string) => emit("goTo", hash);
         {{ t("header.menu.services") }}
       </button>
 
-      <ElTooltip content="Раздел в разработке" placement="bottom">
-        <button type="button" class="mobile-menu__item" @click.prevent>
-          {{ t("header.menu.shop") }}
-        </button>
-      </ElTooltip>
+      <NuxtLinkLocale to="/shop" class="mobile-menu__item" @click="close">
+        {{ t("header.menu.shop") }}
+      </NuxtLinkLocale>
 
-      <button type="button" class="mobile-menu__cta" @click="goTo('#contact')">
+      <NuxtLinkLocale
+        v-if="!isHome"
+        :to="contactLink"
+        class="mobile-menu__cta"
+        @click="close"
+      >
+        {{ t("header.menu.contact") }}
+      </NuxtLinkLocale>
+
+      <button
+        v-else
+        type="button"
+        class="mobile-menu__cta"
+        @click="onContactClick"
+      >
         {{ t("header.menu.contact") }}
       </button>
 

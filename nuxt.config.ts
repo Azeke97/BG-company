@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   },
   modules: [
     "@pinia/nuxt",
+    "@nuxt/icon",
     "@nuxtjs/i18n",
     "@nuxt/eslint",
     "dayjs-nuxt",
@@ -102,6 +103,7 @@ export default defineNuxtConfig({
     autoI18n: true,
     urls: [
       "/",
+      "/shop",
       "/services",
       "/services/renovation",
       "/services/ceilings",

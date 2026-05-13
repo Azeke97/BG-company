@@ -21,6 +21,7 @@
   "dependencies": {
     "@dicebear/collection": "^9.2.4",
     "@dicebear/core": "^9.2.4",
+    "@nuxt/icon": "^2.2.2",
     "@nuxt/image": "^1.11.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
@@ -56,6 +57,7 @@
     "nuxt-svgo": "^4.2.5",
     "prettier": "^3.6.2",
     "prisma": "^7.8.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3",
     "vite-plugin-eslint2": "^5.0.4",
     "vite-plugin-imagemin": "^0.6.1",

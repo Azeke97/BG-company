@@ -1,12 +1,16 @@
 <script setup lang="ts">
-// import Instagram from "@/shared/assets/icons/social-instagram.svg";
-// import Whatsapp from "@/shared/assets/icons/social-whatsapp.svg";
-// import Telegram from "@/shared/assets/icons/social-telegram.svg";
-// import Phone from "@/shared/assets/icons/phone.svg";
+import { Icon } from "#components";
 import type { SocialItem } from "~/widgets/social-dial/types";
 
 const s = useCssModule();
 const { t } = useI18n();
+
+const ITEM_ICON_MAP = {
+  telegram: "simple-icons:telegram",
+  whatsapp: "simple-icons:whatsapp",
+  instagram: "simple-icons:instagram",
+  phone: "lucide:phone",
+} as const;
 
 const props = withDefaults(
   defineProps<{
@@ -43,14 +47,16 @@ const props = withDefaults(
 
 const root = ref<HTMLElement | null>(null);
 const open = ref(false);
-const items = computed(() =>
-  (props.items || [])
-    .filter((i) => !!i.href)
-    .map((i) => ({
-      ...i,
-      label: i.label ?? t(`social.${i.id}`),
-    })),
-);
+const items = computed(() => {
+  return (props.items || [])
+    .filter((item) => Boolean(item.href))
+    .map((item) => ({
+      ...item,
+      label: item.label ?? t(`social.${item.id}`),
+      icon: ITEM_ICON_MAP[item.id],
+      isExternal: !item.href.startsWith("tel:"),
+    }));
+});
 
 const toggle = () => {
   open.value = !open.value;
@@ -60,24 +66,31 @@ const close = () => {
   open.value = false;
 };
 
-if (import.meta.client) {
-  const onDocClick = (e: MouseEvent) => {
-    if (root.value && !root.value.contains(e.target as Node)) close();
-  };
-  const onEsc = (e: KeyboardEvent) => {
-    if (e.key === "Escape") close();
-  };
+const onDocClick = (e: MouseEvent) => {
+  if (root.value && !root.value.contains(e.target as Node)) {
+    close();
+  }
+};
 
-  onMounted(() => {
+const onEsc = (e: KeyboardEvent) => {
+  if (e.key === "Escape") {
+    close();
+  }
+};
+
+onMounted(() => {
+  if (import.meta.client) {
     document.addEventListener("click", onDocClick);
     document.addEventListener("keydown", onEsc);
-  });
+  }
+});
 
-  onBeforeUnmount(() => {
+onBeforeUnmount(() => {
+  if (import.meta.client) {
     document.removeEventListener("click", onDocClick);
     document.removeEventListener("keydown", onEsc);
-  });
-}
+  }
+});
 </script>
 
 <template>
@@ -91,7 +104,7 @@ if (import.meta.client) {
   >
     <div :class="s.backdrop" @click="close" />
 
-    <ul :class="s.list" aria-hidden="false">
+    <ul :class="s.list" :aria-hidden="!open">
       <li
         v-for="(it, i) in items"
         :key="it.id"
@@ -100,35 +113,13 @@ if (import.meta.client) {
       >
         <a
           :href="it.href"
-          target="_blank"
-          rel="noopener"
+          :target="it.isExternal ? '_blank' : undefined"
+          :rel="it.isExternal ? 'noopener noreferrer' : undefined"
           :aria-label="it.label"
           :class="[s.item, s[it.id]]"
+          @click="close"
         >
-          <img
-            v-if="it.id === 'telegram'"
-            src="../../shared/assets/icons/social-telegram.svg"
-            alt="social-telegram"
-            width="40px"
-          />
-          <img
-            v-else-if="it.id === 'whatsapp'"
-            src="../../shared/assets/icons/social-whatsapp.svg"
-            alt="social-whatsapp"
-            width="40px"
-          />
-          <img
-            v-else-if="it.id === 'instagram'"
-            src="../../shared/assets/icons/social-instagram.svg"
-            alt="social-instagram"
-            width="40px"
-          />
-          <img
-            v-else
-            src="../../shared/assets/icons/phone.svg"
-            alt="social-instagram"
-            width="30px"
-          />
+          <Icon :name="it.icon" :class="s.icon" />
           <span :class="s.tooltip">{{ it.label }}</span>
         </a>
       </li>
@@ -140,18 +131,11 @@ if (import.meta.client) {
       :aria-label="open ? t('social.close') : t('social.open')"
       @click="toggle"
     >
-      <svg
-        viewBox="0 0 24 24"
+      <Icon
+        name="lucide:plus"
         :class="[s.fabIcon, open && s.fabIconOpen]"
         aria-hidden="true"
-      >
-        <path
-          d="M12 5v14M5 12h14"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-      </svg>
+      />
     </button>
   </div>
 </template>

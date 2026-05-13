@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElMessage, ElMessageBox } from "element-plus";
 import { adminApi } from "~/shared/api";
-import type { Category, Promo } from "~/shared/types/admin";
+import type { Category, Product, Promo } from "~/shared/types/admin";
 import PromoFormDialog from "~/widgets/admin/promo-form-dialog/PromoFormDialog.vue";
 
 definePageMeta({ layout: "admin" });
@@ -10,6 +10,7 @@ const tableLoading = ref(false);
 const saving = ref(false);
 const promos = ref<Promo[]>([]);
 const categories = ref<Category[]>([]);
+const products = ref<Product[]>([]);
 const dialogVisible = ref(false);
 const editing = ref<Promo | null>(null);
 
@@ -26,12 +27,14 @@ const categoryNameMap = computed(() => {
 const load = async () => {
   tableLoading.value = true;
   try {
-    const [promoRes, categoryRes] = await Promise.all([
+    const [promoRes, categoryRes, productRes] = await Promise.all([
       adminApi.listPromos(),
       adminApi.listCategories(),
+      adminApi.listProducts(),
     ]);
     promos.value = promoRes.items;
     categories.value = categoryRes.items;
+    products.value = productRes.items;
   } catch (error) {
     ElMessage.error(String((error as Error).message || error));
   } finally {
@@ -183,6 +186,7 @@ onMounted(() => {
       :is-edit="!!editing"
       :model="editing"
       :categories="categories"
+      :products="products"
       :loading="saving"
       @submit="savePromo"
     />

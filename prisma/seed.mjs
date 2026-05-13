@@ -69,8 +69,27 @@ async function main() {
         const discount = Math.floor(subtotal * 10 / 100)
         const total = subtotal - discount
 
-        await prisma.order.create({
-            data: {
+        await prisma.order.upsert({
+            where: { number: 'BG-2025-0001' },
+            update: {
+                status: 'PAID',
+                paymentMethod: 'KASPI_QR',
+                paymentRef: 'demo-payment-1',
+                subtotal,
+                discountTotal: discount,
+                total,
+                items: {
+                    deleteMany: {},
+                    create: [{
+                        productId: product.id,
+                        title: product.title,
+                        sku: null,
+                        price: product.price,
+                        qty: 2
+                    }]
+                }
+            },
+            create: {
                 number: 'BG-2025-0001',
                 status: 'PAID',
                 paymentMethod: 'KASPI_QR',

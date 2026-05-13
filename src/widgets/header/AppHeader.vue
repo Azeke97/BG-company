@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ElTooltip } from "element-plus";
 import { LangSwitcher } from "~/widgets/header/components/lang-switcher";
 import { MobileMenu } from "~/widgets/header/components/mobile-menu";
 import { BurgerButton } from "~/widgets/header/components/burger-button";
@@ -7,12 +6,15 @@ import Logo from "~/shared/assets/icons/logo.svg";
 
 const { t } = useI18n();
 const route = useRoute();
+const localePath = useLocalePath();
 
 const activeSection = ref<string | null>(null);
 const isMobileNav = ref(false);
 const scrollProgress = ref(0);
 
-const isHome = computed(() => route.path === "/");
+const isHome = computed(() => route.name?.toString().startsWith("index"));
+const isShopRoute = computed(() => route.name?.toString().startsWith("shop"));
+const contactLink = computed(() => `${localePath("/")}#contact`);
 
 const goTo = (hash: string) => {
   const el = document.querySelector(hash);
@@ -59,6 +61,15 @@ watch(
   () => route.path,
   () => (isMobileNav.value = false),
 );
+
+const onContactClick = async () => {
+  if (isHome.value) {
+    goTo("#contact");
+    return;
+  }
+
+  await navigateTo(contactLink.value);
+};
 </script>
 
 <template>
@@ -107,26 +118,17 @@ watch(
             {{ t("header.menu.services") }}
           </button>
 
-          <ElTooltip
-            effect="light"
-            content="Раздел в разработке"
-            placement="bottom"
+          <NuxtLinkLocale
+            to="/shop"
+            :class="[$style.navLink, { [$style.active]: isShopRoute }]"
           >
-            <NuxtLinkLocale
-              :class="[
-                $style.navLink,
-                { [$style.active]: route.path === '/shop' },
-              ]"
-              @click.prevent
-            >
-              {{ t("header.menu.shop") }}
-            </NuxtLinkLocale>
-          </ElTooltip>
+            {{ t("header.menu.shop") }}
+          </NuxtLinkLocale>
 
           <button
             type="button"
             :class="$style.contactBtn"
-            @click="goTo('#contact')"
+            @click="onContactClick"
           >
             {{ t("header.menu.contact") }}
           </button>

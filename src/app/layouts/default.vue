@@ -45,7 +45,7 @@ const socialItems: SocialItem[] = [
     <ClientOnly>
       <SocialDial
         v-if="showDial"
-        :offset="{ x: 20, y: 20 }"
+        :offset="{ x: 20, y: 280 }"
         :items="socialItems"
         position="br"
       />

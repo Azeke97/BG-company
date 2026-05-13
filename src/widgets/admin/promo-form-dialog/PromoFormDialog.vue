@@ -2,6 +2,7 @@
 import type {
   AppliesTo,
   Category,
+  Product,
   Promo,
   PromoType,
 } from "~/shared/types/admin";
@@ -25,6 +26,7 @@ const props = defineProps<{
   isEdit?: boolean;
   model?: Promo | null;
   categories: Category[];
+  products: Product[];
   loading?: boolean;
 }>();
 
@@ -34,7 +36,6 @@ const emit = defineEmits<{
 }>();
 
 const formRef = ref();
-const productIdsText = ref("");
 
 const form = reactive<PromoFormModel>({
   code: "",
@@ -70,16 +71,11 @@ watch(
     form.endsAt = toDatetimeLocal(props.model?.endsAt);
     form.usageLimit = props.model?.usageLimit ?? null;
     form.used = props.model?.used ?? 0;
-    productIdsText.value = form.productIds.join("\n");
   },
 );
 
 const submit = async () => {
   await formRef.value?.validate();
-  const productIds = productIdsText.value
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
 
   emit("submit", {
     code: form.code.trim().toUpperCase(),
@@ -87,7 +83,7 @@ const submit = async () => {
     value: Number(form.value) || 0,
     appliesTo: form.appliesTo,
     categoryId: form.appliesTo === "CATEGORY" ? form.categoryId || null : null,
-    productIds: form.appliesTo === "PRODUCTS" ? productIds : [],
+    productIds: form.appliesTo === "PRODUCTS" ? form.productIds : [],
     startsAt: form.startsAt ? new Date(form.startsAt).toISOString() : null,
     endsAt: form.endsAt ? new Date(form.endsAt).toISOString() : null,
     usageLimit: form.usageLimit === null ? null : Number(form.usageLimit) || 0,
@@ -178,11 +174,23 @@ const submit = async () => {
         </ElSelect>
       </ElFormItem>
 
-      <ElFormItem
-        v-if="form.appliesTo === 'PRODUCTS'"
-        label="ID товаров (по одному на строку)"
-      >
-        <ElInput v-model="productIdsText" type="textarea" :rows="3" />
+      <ElFormItem v-if="form.appliesTo === 'PRODUCTS'" label="Товары">
+        <ElSelect
+          v-model="form.productIds"
+          multiple
+          filterable
+          collapse-tags
+          collapse-tags-tooltip
+          placeholder="Выберите товары"
+          style="width: 100%"
+        >
+          <ElOption
+            v-for="item in products"
+            :key="item.id"
+            :label="item.title"
+            :value="item.id"
+          />
+        </ElSelect>
       </ElFormItem>
 
       <ElRow :gutter="12">
