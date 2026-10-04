@@ -2,7 +2,7 @@
 import { useDebounceFn } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 import { shopApi } from "~/shared/api";
-import { UiContainer } from "~/shared/ui";
+import { UiContainer, UiTypography } from "~/shared/ui";
 import { ShopFilters } from "~/features/shop-filters";
 import {
   ShopCartButton,
@@ -159,13 +159,13 @@ const addToCart = (item: ShopProductListItem) => {
     <section :class="$style.catalog">
       <header :class="$style.header">
         <div>
-          <h1 :class="$style.title">
+          <UiTypography tag="h1" variant="h2" :class="$style.title">
             {{
               catalog.selectedCategory
                 ? catalog.selectedCategory.name
                 : t("shop.title")
             }}
-          </h1>
+          </UiTypography>
           <p :class="$style.subtitle">{{ t("shop.subtitle") }}</p>
           <p :class="$style.counter">
             {{ t("shop.resultsCount", { count: catalog.total }) }}
@@ -216,19 +216,17 @@ const addToCart = (item: ShopProductListItem) => {
 
 .title {
   margin: 0;
-  font-size: 34px;
-  color: #111827;
 }
 
 .subtitle {
   margin: 0;
-  color: #4b5563;
+  color: var(--color-text-secondary);
   max-width: 740px;
 }
 
 .counter {
   margin: 0;
-  color: #6b7280;
+  color: var(--color-text-secondary);
   font-size: 14px;
 }
 
@@ -240,10 +238,6 @@ const addToCart = (item: ShopProductListItem) => {
   .header {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .title {
-    font-size: 28px;
   }
 }
 </style>

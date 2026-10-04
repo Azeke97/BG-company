@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ShopProductCard } from "~/entities/shop-product";
+import { UiCard, UiEmptyState } from "~/shared/ui";
 import type { ShopProductListItem } from "~/shared/types/shop";
 
 defineProps<{
@@ -18,11 +19,13 @@ const { t } = useI18n();
     <div v-for="i in 6" :key="i" :class="$style.skeletonCard" />
   </div>
 
-  <div v-else-if="items.length === 0" :class="$style.empty">
-    <Icon name="lucide:package-search" :class="$style.emptyIcon" />
-    <h2 :class="$style.emptyTitle">{{ t("shop.emptyTitle") }}</h2>
-    <p :class="$style.emptySubtitle">{{ t("shop.emptySubtitle") }}</p>
-  </div>
+  <UiCard v-else-if="items.length === 0" padding="0">
+    <UiEmptyState
+      icon="lucide:package-search"
+      :title="t('shop.emptyTitle')"
+      :text="t('shop.emptySubtitle')"
+    />
+  </UiCard>
 
   <div v-else :class="$style.grid">
     <ShopProductCard
@@ -41,34 +44,6 @@ const { t } = useI18n();
   gap: 16px;
 }
 
-.empty {
-  border: 1px solid #e4e8ee;
-  border-radius: 8px;
-  background: #fff;
-  min-height: 280px;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.emptyIcon {
-  width: 34px;
-  height: 34px;
-  color: #7a8392;
-}
-
-.emptyTitle {
-  margin: 8px 0 4px;
-  font-size: 20px;
-  color: #1f2937;
-}
-
-.emptySubtitle {
-  margin: 0;
-  color: #5d6675;
-}
-
 .skeletonGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -77,8 +52,13 @@ const { t } = useI18n();
 
 .skeletonCard {
   min-height: 390px;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #f2f4f7 0%, #eceff4 50%, #f2f4f7 100%);
+  border-radius: var(--border-radius);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-secondary) 0%,
+    var(--color-background-inactive) 50%,
+    var(--color-background-secondary) 100%
+  );
   background-size: 200% 100%;
   animation: pulse 1.4s linear infinite;
 }

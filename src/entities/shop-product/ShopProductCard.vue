@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UiButton, UiCard, UiTag } from "~/shared/ui";
 import type { ShopProductListItem } from "~/shared/types/shop";
 
 const props = defineProps<{
@@ -31,7 +32,7 @@ const formattedOldPrice = computed(() => {
 </script>
 
 <template>
-  <article :class="$style.card">
+  <UiCard tag="article" padding="0" hoverable :class="$style.card">
     <NuxtLinkLocale :to="productLink" :class="$style.media">
       <img
         v-if="preview"
@@ -43,17 +44,15 @@ const formattedOldPrice = computed(() => {
       <div v-else :class="$style.fallback">
         <Icon name="lucide:image" :class="$style.fallbackIcon" />
       </div>
-      <span
-        :class="[
-          $style.stockBadge,
-          item.stock > 0 ? $style.inStock : $style.outOfStock,
-        ]"
-      >
-        {{
-          item.stock > 0
-            ? t("shop.stockIn", { count: item.stock })
-            : t("shop.stockOut")
-        }}
+
+      <span :class="$style.stockBadge">
+        <UiTag :variant="item.stock > 0 ? 'success' : 'danger'">
+          {{
+            item.stock > 0
+              ? t("shop.stockIn", { count: item.stock })
+              : t("shop.stockOut")
+          }}
+        </UiTag>
       </span>
     </NuxtLinkLocale>
 
@@ -80,38 +79,36 @@ const formattedOldPrice = computed(() => {
       </div>
 
       <div :class="$style.actions">
-        <button
-          type="button"
-          :class="$style.cartBtn"
+        <UiButton
+          variant="primary"
           :disabled="item.stock <= 0"
+          full
           @click="$emit('add', item)"
         >
           {{ item.stock > 0 ? t("shop.cart.add") : t("shop.stockOut") }}
-        </button>
+        </UiButton>
 
         <NuxtLinkLocale :to="contactLink" :class="$style.cta">
           {{ t("shop.ctaConsult") }}
         </NuxtLinkLocale>
       </div>
     </div>
-  </article>
+  </UiCard>
 </template>
 
 <style module>
 .card {
   display: flex;
   flex-direction: column;
-  border: 1px solid #eceef2;
-  border-radius: 8px;
-  background: #fff;
   min-height: 100%;
+  overflow: hidden;
 }
 
 .media {
   position: relative;
   display: block;
   aspect-ratio: 4 / 3;
-  border-bottom: 1px solid #eceef2;
+  border-bottom: 1px solid var(--color-border);
   overflow: hidden;
 }
 
@@ -136,33 +133,19 @@ const formattedOldPrice = computed(() => {
   height: 100%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #f8f9fb 0%, #f1f3f6 100%);
+  background: var(--color-background-secondary);
 }
 
 .fallbackIcon {
   width: 28px;
   height: 28px;
-  color: #9aa0ac;
+  color: var(--color-text-secondary-light);
 }
 
 .stockBadge {
   position: absolute;
   left: 10px;
   top: 10px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.inStock {
-  background: #eaf8ef;
-  color: #177a35;
-}
-
-.outOfStock {
-  background: #fdecef;
-  color: #ad2235;
 }
 
 .body {
@@ -174,19 +157,19 @@ const formattedOldPrice = computed(() => {
 .category {
   margin: 0;
   font-size: 12px;
-  color: #666d7a;
+  color: var(--color-text-secondary);
 }
 
 .title {
   margin: 0;
   font-size: 18px;
   line-height: 1.3;
-  color: #1f2937;
+  color: var(--color-text-black);
 }
 
 .description {
   margin: 0;
-  color: #4f5867;
+  color: var(--color-text-secondary);
   font-size: 14px;
   line-height: 1.45;
   display: -webkit-box;
@@ -203,32 +186,13 @@ const formattedOldPrice = computed(() => {
 
 .price {
   font-size: 20px;
-  color: #111827;
+  color: var(--color-text-black);
 }
 
 .oldPrice {
   font-size: 14px;
-  color: #7c8493;
+  color: var(--color-text-secondary-light);
   text-decoration: line-through;
-}
-
-.cta {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 40px;
-  border-radius: 8px;
-  border: 1px solid #d9dfe8;
-  color: #1f2937;
-  background: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 13px;
-}
-
-.cta:hover {
-  background: #f5f6f8;
 }
 
 .actions {
@@ -237,19 +201,25 @@ const formattedOldPrice = computed(() => {
   gap: 8px;
 }
 
-.cartBtn {
-  min-height: 40px;
-  border: 0;
-  border-radius: 8px;
-  background: #f6c453;
-  color: #1f2937;
+.cta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: var(--input-height);
+  border-radius: var(--button-radius);
+  border: 2px solid var(--color-secondary);
+  color: var(--color-text-black);
+  background: transparent;
+  text-decoration: none;
   font-weight: 600;
   font-size: 13px;
-  cursor: pointer;
+  transition:
+    background-color var(--transition-duration),
+    color var(--transition-duration);
 }
 
-.cartBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.cta:hover {
+  background: var(--color-secondary);
+  color: var(--color-text-white);
 }
 </style>

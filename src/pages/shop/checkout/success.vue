@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UiContainer } from "~/shared/ui";
+import { UiContainer, UiTypography } from "~/shared/ui";
 
 const { t } = useI18n();
 const route = useRoute();
@@ -19,7 +19,9 @@ useSeoMeta({
     <section :class="$style.page">
       <Icon name="lucide:circle-check" :class="$style.icon" />
 
-      <h1 :class="$style.title">{{ t("shop.checkout.success.title") }}</h1>
+      <UiTypography tag="h1" variant="h2" :class="$style.title">
+        {{ t("shop.checkout.success.title") }}
+      </UiTypography>
 
       <p v-if="orderNumber" :class="$style.text">
         {{ t("shop.checkout.success.orderNumber", { number: orderNumber }) }}
@@ -49,18 +51,16 @@ useSeoMeta({
 .icon {
   width: 48px;
   height: 48px;
-  color: #177a35;
+  color: var(--color-success);
 }
 
 .title {
   margin: 0;
-  font-size: 28px;
-  color: #111827;
 }
 
 .text {
   margin: 0;
-  color: #4b5563;
+  color: var(--color-text-secondary);
   max-width: 480px;
 }
 
@@ -69,17 +69,18 @@ useSeoMeta({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
+  min-height: var(--input-height);
   padding: 0 18px;
-  border-radius: 8px;
-  border: 1px solid #d9dfe8;
-  color: #1f2937;
+  border-radius: var(--button-radius);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-black);
   text-decoration: none;
   font-weight: 500;
+  transition: background-color var(--transition-duration);
 }
 
 .backLink:hover {
-  background: #f5f6f8;
+  background: var(--color-background-hover);
 }
 
 @media (max-width: 768px) {

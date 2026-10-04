@@ -2,7 +2,14 @@
 import { shopApi } from "~/shared/api";
 import { addNotification } from "~/shared/libs/notifications";
 import { useShopCartStore } from "~/features/shop-cart";
-import { UiContainer } from "~/shared/ui";
+import {
+  UiButton,
+  UiCard,
+  UiContainer,
+  UiEmptyState,
+  UiTag,
+  UiTypography,
+} from "~/shared/ui";
 
 const { t } = useI18n();
 const route = useRoute();
@@ -88,13 +95,14 @@ useSeoMeta({
 <template>
   <UiContainer>
     <section v-if="notFound" :class="$style.notFound">
-      <Icon name="lucide:package-x" :class="$style.notFoundIcon" />
-      <h1 :class="$style.notFoundTitle">
-        {{ t("shop.product.notFoundTitle") }}
-      </h1>
-      <NuxtLinkLocale to="/shop" :class="$style.backLink">
-        {{ t("shop.checkout.backToShop") }}
-      </NuxtLinkLocale>
+      <UiEmptyState
+        icon="lucide:package-x"
+        :title="t('shop.product.notFoundTitle')"
+      >
+        <NuxtLinkLocale to="/shop" :class="$style.backLink">
+          {{ t("shop.checkout.backToShop") }}
+        </NuxtLinkLocale>
+      </UiEmptyState>
     </section>
 
     <section v-else-if="!product" :class="$style.skeleton" />
@@ -140,15 +148,20 @@ useSeoMeta({
         </div>
 
         <div :class="$style.info">
-          <h1 :class="$style.title">{{ product.title }}</h1>
+          <UiTypography tag="h1" variant="h2" :class="$style.title">
+            {{ product.title }}
+          </UiTypography>
 
-          <p :class="$style.stock">
+          <UiTag
+            :variant="product.stock > 0 ? 'success' : 'danger'"
+            :class="$style.stock"
+          >
             {{
               product.stock > 0
                 ? t("shop.stockIn", { count: product.stock })
                 : t("shop.stockOut")
             }}
-          </p>
+          </UiTag>
 
           <div :class="$style.priceRow">
             <strong :class="$style.price">{{ formattedPrice }} ₸</strong>
@@ -157,29 +170,31 @@ useSeoMeta({
             </span>
           </div>
 
-          <button
-            type="button"
-            :class="$style.cartBtn"
+          <UiButton
+            variant="primary"
             :disabled="product.stock <= 0"
+            :class="$style.cartBtn"
             @click="addToCart"
           >
             {{ product.stock > 0 ? t("shop.cart.add") : t("shop.stockOut") }}
-          </button>
+          </UiButton>
 
           <p v-if="product.description" :class="$style.description">
             {{ product.description }}
           </p>
 
           <div v-if="attrEntries.length > 0" :class="$style.attrs">
-            <h2 :class="$style.attrsTitle">
+            <UiTypography tag="h2" variant="h5" :class="$style.attrsTitle">
               {{ t("shop.product.attrsTitle") }}
-            </h2>
-            <ul :class="$style.attrsList">
-              <li v-for="[key, value] in attrEntries" :key="key">
-                <span :class="$style.attrKey">{{ key }}:</span>
-                <span>{{ value }}</span>
-              </li>
-            </ul>
+            </UiTypography>
+            <UiCard padding="0">
+              <dl :class="$style.attrsList">
+                <template v-for="[key, value] in attrEntries" :key="key">
+                  <dt :class="$style.attrKey">{{ key }}</dt>
+                  <dd :class="$style.attrValue">{{ value }}</dd>
+                </template>
+              </dl>
+            </UiCard>
           </div>
         </div>
       </div>
@@ -199,9 +214,14 @@ useSeoMeta({
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #4b5563;
+  color: var(--color-text-secondary);
   text-decoration: none;
   font-size: 14px;
+  transition: color var(--transition-duration);
+}
+
+.categoryLink:hover {
+  color: var(--color-primary);
 }
 
 .backIcon {
@@ -223,10 +243,10 @@ useSeoMeta({
 
 .mainMedia {
   aspect-ratio: 4 / 3;
-  border: 1px solid #eceef2;
-  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
   overflow: hidden;
-  background: #f4f6f9;
+  background: var(--color-background-secondary);
 }
 
 .mainImage {
@@ -246,7 +266,7 @@ useSeoMeta({
 .fallbackIcon {
   width: 36px;
   height: 36px;
-  color: #9aa0ac;
+  color: var(--color-text-secondary-light);
 }
 
 .thumbs {
@@ -258,16 +278,17 @@ useSeoMeta({
 .thumbBtn {
   width: 64px;
   height: 64px;
-  border-radius: 6px;
+  border-radius: var(--border-radius-small);
   overflow: hidden;
   border: 2px solid transparent;
   padding: 0;
   cursor: pointer;
-  background: #f4f6f9;
+  background: var(--color-background-secondary);
+  transition: border-color var(--transition-duration);
 }
 
 .thumbActive {
-  border-color: #f6c453;
+  border-color: var(--color-primary);
 }
 
 .thumbImage {
@@ -285,14 +306,10 @@ useSeoMeta({
 
 .title {
   margin: 0;
-  font-size: 28px;
-  color: #111827;
 }
 
 .stock {
-  margin: 0;
-  font-size: 13px;
-  color: #4b5563;
+  justify-self: start;
 }
 
 .priceRow {
@@ -303,70 +320,72 @@ useSeoMeta({
 
 .price {
   font-size: 26px;
-  color: #111827;
+  color: var(--color-text-black);
 }
 
 .oldPrice {
   font-size: 16px;
-  color: #7c8493;
+  color: var(--color-text-secondary-light);
   text-decoration: line-through;
 }
 
 .cartBtn {
-  min-height: 44px;
-  border: 0;
-  border-radius: 8px;
-  background: #f6c453;
-  color: #1f2937;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0 20px;
   justify-self: start;
-}
-
-.cartBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .description {
   margin: 0;
-  color: #4f5867;
+  color: var(--color-text-secondary);
   line-height: 1.5;
 }
 
 .attrs {
-  border-top: 1px solid #e5e9f0;
+  border-top: 1px solid var(--color-border);
   padding-top: 12px;
 }
 
 .attrsTitle {
   margin: 0 0 8px;
-  font-size: 16px;
-  color: #1f2937;
 }
 
 .attrsList {
   margin: 0;
-  padding: 0;
-  list-style: none;
   display: grid;
-  gap: 6px;
-  color: #4b5563;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   font-size: 14px;
+}
+
+.attrKey,
+.attrValue {
+  margin: 0;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.attrsList > *:nth-last-child(-n + 2) {
+  border-bottom: none;
 }
 
 .attrKey {
   font-weight: 600;
-  color: #1f2937;
-  margin-right: 6px;
+  color: var(--color-text-black);
+  background: var(--color-background-secondary);
+}
+
+.attrValue {
+  color: var(--color-text-secondary);
 }
 
 .skeleton {
   min-height: 420px;
   margin-top: 104px;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #f2f4f7 0%, #eceff4 50%, #f2f4f7 100%);
+  border-radius: var(--border-radius);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-secondary) 0%,
+    var(--color-background-inactive) 50%,
+    var(--color-background-secondary) 100%
+  );
   background-size: 200% 100%;
   animation: pulse 1.4s linear infinite;
 }
@@ -385,26 +404,24 @@ useSeoMeta({
   margin-top: 104px;
   display: grid;
   place-items: center;
-  justify-items: center;
-  gap: 10px;
-  text-align: center;
-}
-
-.notFoundIcon {
-  width: 42px;
-  height: 42px;
-  color: #9aa0ac;
-}
-
-.notFoundTitle {
-  margin: 0;
-  font-size: 24px;
-  color: #1f2937;
 }
 
 .backLink {
-  color: #1f2937;
-  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--input-height);
+  padding: 0 18px;
+  border-radius: var(--button-radius);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-black);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color var(--transition-duration);
+}
+
+.backLink:hover {
+  background: var(--color-background-hover);
 }
 
 @media (max-width: 860px) {

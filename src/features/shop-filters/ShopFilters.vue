@@ -123,23 +123,30 @@ const categoryLink = (slug: string | null) => {
   align-items: center;
   gap: 6px;
   min-height: 34px;
-  border: 1px solid #dde2ea;
-  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
   padding: 0 12px;
   text-decoration: none;
-  color: #1f2937;
+  color: var(--color-text-black);
   font-size: 14px;
-  background: #fff;
+  background: var(--color-background);
+  transition:
+    border-color var(--transition-duration),
+    background-color var(--transition-duration);
+}
+
+.categoryLink:hover {
+  border-color: var(--color-border-hover);
 }
 
 .counter {
-  color: #6b7280;
+  color: var(--color-text-secondary);
   font-size: 12px;
 }
 
 .active {
-  border-color: #f6c453;
-  background: #fff5dc;
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 14%, white);
 }
 
 @media (max-width: 900px) {

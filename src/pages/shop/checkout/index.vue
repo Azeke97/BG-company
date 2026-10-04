@@ -3,7 +3,17 @@ import { storeToRefs } from "pinia";
 import { shopApi } from "~/shared/api";
 import { addNotification } from "~/shared/libs/notifications";
 import { useShopCartStore } from "~/features/shop-cart";
-import { UiContainer } from "~/shared/ui";
+import {
+  UiButton,
+  UiCard,
+  UiContainer,
+  UiEmptyState,
+  UiInput,
+  UiRadio,
+  UiRadioGroup,
+  UiTextarea,
+  UiTypography,
+} from "~/shared/ui";
 
 const { t } = useI18n();
 const localePath = useLocalePath();
@@ -167,72 +177,73 @@ useSeoMeta({
 <template>
   <UiContainer>
     <section :class="$style.page">
-      <h1 :class="$style.title">{{ t("shop.checkout.title") }}</h1>
+      <UiTypography tag="h1" variant="h2" :class="$style.title">
+        {{ t("shop.checkout.title") }}
+      </UiTypography>
 
       <div v-if="!isHydrated" :class="$style.skeleton" />
 
-      <div v-else-if="items.length === 0" :class="$style.empty">
-        <Icon name="lucide:shopping-cart" :class="$style.emptyIcon" />
-        <p :class="$style.emptyText">{{ t("shop.checkout.empty") }}</p>
-        <NuxtLinkLocale to="/shop" :class="$style.backLink">
-          {{ t("shop.checkout.backToShop") }}
-        </NuxtLinkLocale>
-      </div>
+      <UiCard v-else-if="items.length === 0" padding="0">
+        <UiEmptyState
+          icon="lucide:shopping-cart"
+          :text="t('shop.checkout.empty')"
+        >
+          <NuxtLinkLocale to="/shop" :class="$style.backLink">
+            {{ t("shop.checkout.backToShop") }}
+          </NuxtLinkLocale>
+        </UiEmptyState>
+      </UiCard>
 
       <div v-else :class="$style.layout">
         <ul :class="$style.list">
-          <li v-for="item in items" :key="item.id" :class="$style.item">
-            <div :class="$style.thumb">
-              <img
-                v-if="item.image"
-                :src="item.image"
-                :alt="item.title"
-                :class="$style.image"
-              />
-              <Icon v-else name="lucide:image" :class="$style.fallbackIcon" />
-            </div>
+          <li v-for="item in items" :key="item.id">
+            <UiCard padding="10px" :class="$style.item">
+              <div :class="$style.thumb">
+                <img
+                  v-if="item.image"
+                  :src="item.image"
+                  :alt="item.title"
+                  :class="$style.image"
+                />
+                <Icon v-else name="lucide:image" :class="$style.fallbackIcon" />
+              </div>
 
-            <div :class="$style.meta">
-              <p :class="$style.name">{{ item.title }}</p>
-              <p :class="$style.lineTotal">
-                {{ item.qty }} × {{ formatMoney(item.price) }} ₸ =
-                <strong>{{ formatMoney(item.qty * item.price) }} ₸</strong>
-              </p>
-            </div>
+              <div :class="$style.meta">
+                <p :class="$style.name">{{ item.title }}</p>
+                <p :class="$style.lineTotal">
+                  {{ item.qty }} × {{ formatMoney(item.price) }} ₸ =
+                  <strong>{{ formatMoney(item.qty * item.price) }} ₸</strong>
+                </p>
+              </div>
+            </UiCard>
           </li>
         </ul>
 
-        <div :class="$style.panel">
+        <UiCard padding="16px" :class="$style.panel">
           <div :class="$style.promoBox">
-            <label :class="$style.field">
-              <span>{{ t("shop.cart.promo.label") }}</span>
-              <div :class="$style.promoRow">
-                <input
-                  v-model="promoCode"
-                  type="text"
-                  :placeholder="t('shop.cart.promo.placeholder')"
-                  :class="$style.input"
-                  :disabled="checkoutLoading || promoLoading"
-                />
-                <button
-                  type="button"
-                  :class="$style.promoApplyBtn"
-                  :disabled="
-                    checkoutLoading ||
-                    promoLoading ||
-                    !normalizedPromoCode ||
-                    items.length === 0
-                  "
-                  @click="applyPromo"
-                >
-                  {{
-                    promoLoading
-                      ? t("shop.cart.promo.checking")
-                      : t("shop.cart.promo.apply")
-                  }}
-                </button>
-              </div>
-            </label>
+            <div :class="$style.promoRow">
+              <UiInput
+                v-model="promoCode"
+                :label="t('shop.cart.promo.label')"
+                :placeholder="t('shop.cart.promo.placeholder')"
+                :disabled="checkoutLoading || promoLoading"
+                full-width
+              />
+              <UiButton
+                variant="secondary"
+                outline
+                :loading="promoLoading"
+                :disabled="
+                  checkoutLoading ||
+                  promoLoading ||
+                  !normalizedPromoCode ||
+                  items.length === 0
+                "
+                @click="applyPromo"
+              >
+                {{ t("shop.cart.promo.apply") }}
+              </UiButton>
+            </div>
 
             <button
               v-if="appliedPromo"
@@ -266,65 +277,61 @@ useSeoMeta({
           </div>
 
           <form :class="$style.checkoutForm" @submit.prevent="submitOrder">
-            <label :class="$style.field">
-              <span>{{ t("shop.cart.form.name") }}</span>
-              <input
-                v-model="form.name"
-                type="text"
-                :placeholder="t('shop.cart.form.namePlaceholder')"
-                :class="$style.input"
-                :disabled="checkoutLoading"
-                required
-              />
-            </label>
+            <UiInput
+              v-model="form.name"
+              type="text"
+              :label="t('shop.cart.form.name')"
+              :placeholder="t('shop.cart.form.namePlaceholder')"
+              :disabled="checkoutLoading"
+              full-width
+            />
 
-            <label :class="$style.field">
-              <span>{{ t("shop.cart.form.phone") }}</span>
-              <input
-                v-model="form.phone"
-                type="tel"
-                :placeholder="t('shop.cart.form.phonePlaceholder')"
-                :class="$style.input"
-                :disabled="checkoutLoading"
-                required
-              />
-            </label>
+            <UiInput
+              v-model="form.phone"
+              type="tel"
+              :label="t('shop.cart.form.phone')"
+              :placeholder="t('shop.cart.form.phonePlaceholder')"
+              :disabled="checkoutLoading"
+              full-width
+            />
 
-            <label :class="$style.field">
-              <span>{{ t("shop.cart.form.comment") }}</span>
-              <textarea
-                v-model="form.comment"
-                :placeholder="t('shop.cart.form.commentPlaceholder')"
-                :class="$style.textarea"
-                rows="3"
-                :disabled="checkoutLoading"
-              />
-            </label>
+            <UiTextarea
+              v-model="form.comment"
+              :label="t('shop.cart.form.comment')"
+              :placeholder="t('shop.cart.form.commentPlaceholder')"
+              :rows="3"
+              :disabled="checkoutLoading"
+              full-width
+            />
 
             <div :class="$style.field">
-              <span>{{ t("shop.checkout.paymentMethod.label") }}</span>
-              <ElRadioGroup
+              <span :class="$style.fieldLabel">
+                {{ t("shop.checkout.paymentMethod.label") }}
+              </span>
+              <UiRadioGroup
                 v-model="form.paymentMethod"
                 :disabled="checkoutLoading"
               >
-                <ElRadio value="CASH">
+                <UiRadio value="CASH">
                   {{ t("shop.checkout.paymentMethod.cash") }}
-                </ElRadio>
-                <ElRadio value="INVOICE">
+                </UiRadio>
+                <UiRadio value="INVOICE">
                   {{ t("shop.checkout.paymentMethod.invoice") }}
-                </ElRadio>
-              </ElRadioGroup>
+                </UiRadio>
+              </UiRadioGroup>
             </div>
 
-            <button type="submit" :class="$style.submit" :disabled="!canSubmit">
-              {{
-                checkoutLoading
-                  ? t("shop.checkout.submitting")
-                  : t("shop.checkout.submit")
-              }}
-            </button>
+            <UiButton
+              native-type="submit"
+              variant="primary"
+              full
+              :loading="checkoutLoading"
+              :disabled="!canSubmit"
+            >
+              {{ t("shop.checkout.submit") }}
+            </UiButton>
           </form>
-        </div>
+        </UiCard>
       </div>
     </section>
   </UiContainer>
@@ -340,14 +347,17 @@ useSeoMeta({
 
 .title {
   margin: 0;
-  font-size: 30px;
-  color: #111827;
 }
 
 .skeleton {
   min-height: 320px;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #f2f4f7 0%, #eceff4 50%, #f2f4f7 100%);
+  border-radius: var(--border-radius);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-secondary) 0%,
+    var(--color-background-inactive) 50%,
+    var(--color-background-secondary) 100%
+  );
   background-size: 200% 100%;
   animation: pulse 1.4s linear infinite;
 }
@@ -361,28 +371,22 @@ useSeoMeta({
   }
 }
 
-.empty {
-  min-height: 240px;
-  display: grid;
-  place-items: center;
-  gap: 10px;
-  text-align: center;
-}
-
-.emptyIcon {
-  width: 30px;
-  height: 30px;
-  color: #8a93a2;
-}
-
-.emptyText {
-  margin: 0;
-  color: #4b5563;
-}
-
 .backLink {
-  color: #1f2937;
-  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--input-height);
+  padding: 0 18px;
+  border-radius: var(--button-radius);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-black);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color var(--transition-duration);
+}
+
+.backLink:hover {
+  background: var(--color-background-hover);
 }
 
 .layout {
@@ -404,18 +408,14 @@ useSeoMeta({
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
   gap: 10px;
-  border: 1px solid #e7ebf1;
-  border-radius: 8px;
-  padding: 10px;
-  background: #fff;
 }
 
 .thumb {
   width: 72px;
   aspect-ratio: 1 / 1;
-  border-radius: 6px;
+  border-radius: var(--border-radius-small);
   overflow: hidden;
-  background: #f4f6f9;
+  background: var(--color-background-secondary);
   display: grid;
   place-items: center;
 }
@@ -429,7 +429,7 @@ useSeoMeta({
 .fallbackIcon {
   width: 18px;
   height: 18px;
-  color: #9ba3af;
+  color: var(--color-text-secondary-light);
 }
 
 .meta {
@@ -441,22 +441,18 @@ useSeoMeta({
 .name {
   margin: 0;
   font-size: 14px;
-  color: #111827;
+  color: var(--color-text-black);
 }
 
 .lineTotal {
   margin: 0;
-  color: #6b7280;
+  color: var(--color-text-secondary);
   font-size: 13px;
 }
 
 .panel {
   display: grid;
   gap: 14px;
-  border: 1px solid #e7ebf1;
-  border-radius: 8px;
-  padding: 16px;
-  background: #fff;
 }
 
 .promoBox {
@@ -465,31 +461,21 @@ useSeoMeta({
 }
 
 .promoRow {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  align-items: flex-end;
   gap: 8px;
 }
 
-.promoApplyBtn {
-  min-width: 86px;
-  border: 1px solid #d4dbe6;
-  border-radius: 8px;
-  background: #fff;
-  padding: 0 10px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.promoApplyBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.promoRow > *:first-child {
+  flex: 1;
+  min-width: 0;
 }
 
 .promoRemoveBtn {
   justify-self: start;
   border: 0;
   background: transparent;
-  color: #b42336;
+  color: var(--color-error);
   padding: 0;
   font-size: 12px;
   cursor: pointer;
@@ -498,66 +484,36 @@ useSeoMeta({
 .summary {
   display: grid;
   gap: 6px;
-  border-top: 1px solid #e5e9f0;
-  border-bottom: 1px solid #e5e9f0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   padding: 10px 0;
 }
 
 .totalRow {
   display: flex;
   justify-content: space-between;
-  color: #111827;
+  color: var(--color-text-black);
 }
 
 .discountRow {
   display: flex;
   justify-content: space-between;
-  color: #0f766e;
+  color: var(--color-secondary);
 }
 
 .checkoutForm {
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
 .field {
   display: grid;
-  gap: 4px;
-  font-size: 12px;
-  color: #4b5563;
+  gap: 6px;
 }
 
-.input,
-.textarea {
-  border: 1px solid #d6dde8;
-  border-radius: 8px;
-  padding: 9px 10px;
-  font: inherit;
-}
-
-.input:disabled,
-.textarea:disabled {
-  background: #f3f5f8;
-  color: #6b7280;
-}
-
-.submit {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  width: 100%;
-  border-radius: 8px;
-  border: 0;
-  background: #f6c453;
-  color: #1f2937;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.fieldLabel {
+  font-size: var(--font-size-small);
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 860px) {

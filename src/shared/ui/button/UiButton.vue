@@ -53,6 +53,7 @@ const handleClick = (event: MouseEvent) => {
     :force-to="forceTo"
     :target="target"
     :type="type"
+    :native-type="nativeType"
     :size="size"
     :round="round"
     :disabled="isDisabled"
