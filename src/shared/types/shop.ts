@@ -67,3 +67,12 @@ export interface ShopPromoValidationResponse {
   discount: number;
   total: number;
 }
+
+export interface ShopProductDetail extends ShopProductListItem {
+  sku: string | null;
+  attrs: Record<string, unknown>;
+}
+
+export interface ShopProductResponse {
+  item: ShopProductDetail;
+}

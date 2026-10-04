@@ -13,6 +13,9 @@ const localePath = useLocalePath();
 
 const preview = computed(() => props.item.images[0] ?? "");
 const contactLink = computed(() => `${localePath("/")}#contact`);
+const productLink = computed(() =>
+  localePath(`/shop/product/${props.item.slug}`),
+);
 
 const formattedPrice = computed(() =>
   new Intl.NumberFormat("ru-RU").format(props.item.price),
@@ -29,7 +32,7 @@ const formattedOldPrice = computed(() => {
 
 <template>
   <article :class="$style.card">
-    <div :class="$style.media">
+    <NuxtLinkLocale :to="productLink" :class="$style.media">
       <img
         v-if="preview"
         :src="preview"
@@ -52,14 +55,18 @@ const formattedOldPrice = computed(() => {
             : t("shop.stockOut")
         }}
       </span>
-    </div>
+    </NuxtLinkLocale>
 
     <div :class="$style.body">
       <p v-if="item.category" :class="$style.category">
         {{ item.category.name }}
       </p>
 
-      <h3 :class="$style.title">{{ item.title }}</h3>
+      <h3 :class="$style.title">
+        <NuxtLinkLocale :to="productLink" :class="$style.titleLink">
+          {{ item.title }}
+        </NuxtLinkLocale>
+      </h3>
 
       <p v-if="item.description" :class="$style.description">
         {{ item.description }}
@@ -102,9 +109,19 @@ const formattedOldPrice = computed(() => {
 
 .media {
   position: relative;
+  display: block;
   aspect-ratio: 4 / 3;
   border-bottom: 1px solid #eceef2;
   overflow: hidden;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
 }
 
 .image {

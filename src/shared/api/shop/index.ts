@@ -3,6 +3,7 @@ import type {
   ShopCatalogSort,
   ShopCheckoutRequest,
   ShopCheckoutResponse,
+  ShopProductResponse,
   ShopPromoValidationResponse,
 } from "~/shared/types/shop";
 
@@ -36,5 +37,8 @@ export const shopApi = {
       method: "POST",
       body: payload,
     });
+  },
+  async getProduct(slug: string) {
+    return $fetch<ShopProductResponse>(`/api/shop/products/${slug}`);
   },
 };

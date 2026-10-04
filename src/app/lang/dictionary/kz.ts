@@ -62,6 +62,7 @@ export default defineI18nLocale(() => {
         lineTotal: "Позиция сомасы",
         remove: "Өшіру",
         clear: "Себетті тазарту",
+        goToCheckout: "Рәсімдеуге өту",
         validation: "Атыңыз бен телефоныңызды толтырыңыз",
         orderCreated: "{number} тапсырысы сәтті құрылды",
         error: "Тапсырысты рәсімдеу сәтсіз. Қайта көріңіз.",
@@ -93,6 +94,30 @@ export default defineI18nLocale(() => {
         categoryTitle: "{category} — жөндеуге арналған тауарлар | BG Company",
         categoryDescription:
           "BG Company дүкеніндегі {category} санаты: өзекті тауарлар, бағалар және жылдам тапсырыс беру.",
+      },
+      checkout: {
+        seoTitle: "Тапсырысты рәсімдеу | BG Company",
+        title: "Тапсырысты рәсімдеу",
+        empty: "Себет бос — рәсімдеу үшін тауар қосыңыз",
+        backToShop: "Дүкенге оралу",
+        submit: "Тапсырыс беру",
+        submitting: "Жіберілуде...",
+        paymentMethod: {
+          label: "Төлем әдісі",
+          cash: "Жеткізу кезінде қолма-қол ақшамен",
+          invoice: "Шот бойынша / менеджермен келісім бойынша",
+        },
+        success: {
+          seoTitle: "Тапсырыс рәсімделді | BG Company",
+          title: "Тапсырыс сәтті құрылды",
+          orderNumber: "Сіздің тапсырысыңыздың нөмірі: {number}",
+          contactSoon: "Жақын арада растау үшін сізбен хабарласамыз.",
+        },
+      },
+      product: {
+        seoTitle: "{title} | BG Company",
+        notFoundTitle: "Тауар табылмады",
+        attrsTitle: "Сипаттамалары",
       },
     },
     mainPage: {

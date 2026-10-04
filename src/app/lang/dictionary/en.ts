@@ -62,6 +62,7 @@ export default defineI18nLocale(() => {
         lineTotal: "Line total",
         remove: "Remove",
         clear: "Clear cart",
+        goToCheckout: "Proceed to checkout",
         validation: "Please enter your name and phone",
         orderCreated: "Order {number} created successfully",
         error: "Failed to create order. Please try again.",
@@ -93,6 +94,30 @@ export default defineI18nLocale(() => {
         categoryTitle: "{category} — renovation products | BG Company",
         categoryDescription:
           "Browse {category} products in BG Company shop with up-to-date prices and quick ordering flow.",
+      },
+      checkout: {
+        seoTitle: "Checkout | BG Company",
+        title: "Checkout",
+        empty: "Your cart is empty — add products to proceed to checkout",
+        backToShop: "Back to shop",
+        submit: "Place order",
+        submitting: "Submitting...",
+        paymentMethod: {
+          label: "Payment method",
+          cash: "Cash on delivery",
+          invoice: "By invoice / arranged with manager",
+        },
+        success: {
+          seoTitle: "Order placed | BG Company",
+          title: "Order placed successfully",
+          orderNumber: "Your order number: {number}",
+          contactSoon: "We will contact you shortly to confirm the order.",
+        },
+      },
+      product: {
+        seoTitle: "{title} | BG Company",
+        notFoundTitle: "Product not found",
+        attrsTitle: "Specifications",
       },
     },
     mainPage: {

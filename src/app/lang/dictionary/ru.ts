@@ -63,6 +63,7 @@ export default defineI18nLocale(() => {
         lineTotal: "Сумма позиции",
         remove: "Удалить",
         clear: "Очистить корзину",
+        goToCheckout: "Перейти к оформлению",
         validation: "Заполните имя и телефон",
         orderCreated: "Заказ {number} успешно создан",
         error: "Не удалось оформить заказ. Попробуйте еще раз.",
@@ -94,6 +95,31 @@ export default defineI18nLocale(() => {
         categoryTitle: "{category} — товары для ремонта | BG Company",
         categoryDescription:
           "Категория {category} в магазине BG Company: актуальные товары, цены и быстрый переход к заказу.",
+      },
+      checkout: {
+        seoTitle: "Оформление заказа | BG Company",
+        title: "Оформление заказа",
+        empty: "Корзина пуста — добавьте товары, чтобы оформить заказ",
+        backToShop: "Вернуться в магазин",
+        submit: "Оформить заказ",
+        submitting: "Отправка...",
+        paymentMethod: {
+          label: "Способ оплаты",
+          cash: "Наличные при получении",
+          invoice: "По счёту / по договорённости с менеджером",
+        },
+        success: {
+          seoTitle: "Заказ оформлен | BG Company",
+          title: "Заказ успешно создан",
+          orderNumber: "Номер вашего заказа: {number}",
+          contactSoon:
+            "Мы свяжемся с вами в ближайшее время для подтверждения.",
+        },
+      },
+      product: {
+        seoTitle: "{title} | BG Company",
+        notFoundTitle: "Товар не найден",
+        attrsTitle: "Характеристики",
       },
     },
     mainPage: {
