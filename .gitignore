@@ -65,3 +65,20 @@ coverage/
 .eslintcache
 
 /src/generated/prisma
+
+# AI coding agent tooling (local state/config, not meant to be shared)
+.claude/
+.codex/
+.agents/
+.cursor/
+.windsurf/
+.cline/
+.clinerules/
+.continue/
+.aider*
+.roo/
+.qwen/
+.gemini/
+CLAUDE.local.md
+.claude.json
+.mcp-local.json
