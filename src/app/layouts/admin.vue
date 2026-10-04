@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { adminApi } from "~/shared/api";
+import { useAdminUser } from "~/shared/helpers";
+
 const route = useRoute();
+const adminUser = useAdminUser();
 
 const activeIndex = computed(() => {
   const path = route.path;
@@ -10,6 +14,15 @@ const activeIndex = computed(() => {
   if (path.startsWith("/admin/users")) return "/admin/users";
   return "/admin";
 });
+
+const logout = async () => {
+  try {
+    await adminApi.logout();
+  } finally {
+    adminUser.value = null;
+    await navigateTo("/admin/login");
+  }
+};
 </script>
 
 <template>
@@ -17,7 +30,13 @@ const activeIndex = computed(() => {
     <header :class="$style.header">
       <div :class="$style.headerTop">
         <strong>BG Admin</strong>
-        <NuxtLink to="/" :class="$style.back">На сайт</NuxtLink>
+        <div :class="$style.headerActions">
+          <span v-if="adminUser" :class="$style.userEmail">{{
+            adminUser.email
+          }}</span>
+          <NuxtLink to="/" :class="$style.back">На сайт</NuxtLink>
+          <ElButton size="small" @click="logout">Выйти</ElButton>
+        </div>
       </div>
       <ElMenu
         mode="horizontal"
@@ -64,6 +83,17 @@ const activeIndex = computed(() => {
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.userEmail {
+  opacity: 0.75;
+  font-size: 13px;
 }
 
 .back {

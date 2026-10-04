@@ -1,3 +1,4 @@
+import { useBaseApi } from "~/shared/api/useBaseApi";
 import type {
   AppliesTo,
   Category,
@@ -48,109 +49,131 @@ type PromoUpdatePayload = Omit<Partial<PromoPayload>, "code"> & {
 };
 
 export const adminApi = {
-  getDashboard(days = 14) {
-    return $fetch<Dashboard>("/api/admin/dashboard", {
-      params: {
-        days,
+  login(email: string, password: string) {
+    return useBaseApi<{
+      user: { id: string; email: string; name: string | null };
+    }>("/api/admin/auth/login", {
+      method: "POST",
+      data: {
+        email,
+        password,
       },
     });
   },
 
+  logout() {
+    return useBaseApi<{ ok: boolean }>("/api/admin/auth/logout", {
+      method: "POST",
+    });
+  },
+
+  me() {
+    return useBaseApi<{
+      user: { id: string; email: string; name: string | null; role: string };
+    }>("/api/admin/auth/me");
+  },
+
+  getDashboard(days = 14) {
+    return useBaseApi<Dashboard>("/api/admin/dashboard", {
+      data: { days },
+    });
+  },
+
   listCategories() {
-    return $fetch<{ items: Category[] }>("/api/admin/categories");
+    return useBaseApi<{ items: Category[] }>("/api/admin/categories");
   },
 
   createCategory(payload: CategoryPayload) {
-    return $fetch<{ item: Category }>("/api/admin/categories", {
+    return useBaseApi<{ item: Category }>("/api/admin/categories", {
       method: "POST",
-      body: payload,
+      data: payload,
     });
   },
 
   updateCategory(id: string, payload: Partial<CategoryPayload>) {
-    return $fetch<{ item: Category }>(`/api/admin/categories/${id}`, {
+    return useBaseApi<{ item: Category }>(`/api/admin/categories/${id}`, {
       method: "PATCH",
-      body: payload,
+      data: payload,
     });
   },
 
   deleteCategory(id: string) {
-    return $fetch<{ ok: boolean }>(`/api/admin/categories/${id}`, {
+    return useBaseApi<{ ok: boolean }>(`/api/admin/categories/${id}`, {
       method: "DELETE",
     });
   },
 
   listProducts() {
-    return $fetch<{ items: Product[] }>("/api/admin/products");
+    return useBaseApi<{ items: Product[] }>("/api/admin/products");
   },
 
   createProduct(payload: ProductPayload) {
-    return $fetch<{ item: Product }>("/api/admin/products", {
+    return useBaseApi<{ item: Product }>("/api/admin/products", {
       method: "POST",
-      body: payload,
+      data: payload,
     });
   },
 
   updateProduct(id: string, payload: Partial<ProductPayload>) {
-    return $fetch<{ item: Product }>(`/api/admin/products/${id}`, {
+    return useBaseApi<{ item: Product }>(`/api/admin/products/${id}`, {
       method: "PATCH",
-      body: payload,
+      data: payload,
     });
   },
 
   deleteProduct(id: string) {
-    return $fetch<{ ok: boolean }>(`/api/admin/products/${id}`, {
+    return useBaseApi<{ ok: boolean }>(`/api/admin/products/${id}`, {
       method: "DELETE",
     });
   },
 
   listPromos() {
-    return $fetch<{ items: Promo[] }>("/api/admin/promos");
+    return useBaseApi<{ items: Promo[] }>("/api/admin/promos");
   },
 
   createPromo(payload: PromoPayload) {
-    return $fetch<{ item: Promo }>("/api/admin/promos", {
+    return useBaseApi<{ item: Promo }>("/api/admin/promos", {
       method: "POST",
-      body: payload,
+      data: payload,
     });
   },
 
   updatePromo(code: string, payload: PromoUpdatePayload) {
-    return $fetch<{ item: Promo }>(`/api/admin/promos/${code}`, {
+    return useBaseApi<{ item: Promo }>(`/api/admin/promos/${code}`, {
       method: "PATCH",
-      body: payload,
+      data: payload,
     });
   },
 
   deletePromo(code: string) {
-    return $fetch<{ ok: boolean }>(`/api/admin/promos/${code}`, {
+    return useBaseApi<{ ok: boolean }>(`/api/admin/promos/${code}`, {
       method: "DELETE",
     });
   },
 
   listOrders() {
-    return $fetch<{ items: Order[] }>("/api/admin/orders");
+    return useBaseApi<{ items: Order[] }>("/api/admin/orders");
   },
 
   updateOrder(
     id: string,
     payload: { status?: OrderStatus; adminComment?: string | null },
   ) {
-    return $fetch<{ item: Order }>(`/api/admin/orders/${id}`, {
+    return useBaseApi<{ item: Order }>(`/api/admin/orders/${id}`, {
       method: "PATCH",
-      body: payload,
+      data: payload,
     });
   },
 
   listUsers(q?: string) {
-    const params = q && q.trim().length > 0 ? { q: q.trim() } : undefined;
-    return $fetch<{ items: User[] }>("/api/admin/users", { params });
+    const data = q && q.trim().length > 0 ? { q: q.trim() } : undefined;
+    return useBaseApi<{ items: User[] }>("/api/admin/users", { data });
   },
 
   updateUser(id: string, isBlocked: boolean) {
-    return $fetch<{ item: User }>(`/api/admin/users/${id}`, {
+    return useBaseApi<{ item: User }>(`/api/admin/users/${id}`, {
       method: "PATCH",
-      body: {
+      data: {
         isBlocked,
       },
     });

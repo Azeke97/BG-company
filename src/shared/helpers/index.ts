@@ -7,3 +7,5 @@ export * from "./redirect";
 export * from "./useLoading";
 
 export * from "./useNormalizedLocale";
+
+export * from "./useAdminUser";
