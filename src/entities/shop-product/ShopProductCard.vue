@@ -44,16 +44,6 @@ const formattedOldPrice = computed(() => {
       <div v-else :class="$style.fallback">
         <Icon name="lucide:image" :class="$style.fallbackIcon" />
       </div>
-
-      <span :class="$style.stockBadge">
-        <UiTag :variant="item.stock > 0 ? 'success' : 'danger'">
-          {{
-            item.stock > 0
-              ? t("shop.stockIn", { count: item.stock })
-              : t("shop.stockOut")
-          }}
-        </UiTag>
-      </span>
     </NuxtLinkLocale>
 
     <div :class="$style.body">
@@ -70,6 +60,17 @@ const formattedOldPrice = computed(() => {
       <p v-if="item.description" :class="$style.description">
         {{ item.description }}
       </p>
+
+      <UiTag
+        :variant="item.stock > 0 ? 'success' : 'danger'"
+        :class="$style.stockTag"
+      >
+        {{
+          item.stock > 0
+            ? t("shop.stockIn", { count: item.stock })
+            : t("shop.stockOut")
+        }}
+      </UiTag>
 
       <div :class="$style.priceRow">
         <strong :class="$style.price">{{ formattedPrice }} ₸</strong>
@@ -142,18 +143,16 @@ const formattedOldPrice = computed(() => {
   color: var(--color-text-secondary-light);
 }
 
-.stockBadge {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-}
-
 .body {
   padding: 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   flex: 1;
+}
+
+.stockTag {
+  align-self: flex-start;
 }
 
 .category {

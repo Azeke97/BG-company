@@ -32,8 +32,7 @@ export default defineI18nLocale(() => {
     },
     shop: {
       title: "BG Company дүкені",
-      subtitle:
-        "Жөндеуге арналған тауарлар каталогы: төбелер, жиһаз және байланысты материалдар.",
+      subtitle: "Жөндеуге арналған тауарлар каталогы.",
       categoriesLabel: "Каталог санаттары",
       allCategories: "Барлық санат",
       searchLabel: "Іздеу",

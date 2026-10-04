@@ -119,6 +119,11 @@ const handleInput = (value: string) => {
   color: #999;
 }
 
+.ui-input__el :deep(.el-input__suffix) {
+  padding: 10px;
+  cursor: pointer;
+}
+
 .ui-input__el :deep(.el-input__clear) {
   opacity: 1 !important;
   color: var(--color-primary);

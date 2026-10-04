@@ -33,8 +33,7 @@ export default defineI18nLocale(() => {
 
     shop: {
       title: "Магазин BG Company",
-      subtitle:
-        "Каталог материалов и товаров для ремонта: потолки, мебель, комплектующие и сопутствующие позиции.",
+      subtitle: "Каталог материалов и товаров для ремонта.",
       categoriesLabel: "Категории каталога",
       allCategories: "Все категории",
       searchLabel: "Поиск",

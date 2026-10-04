@@ -32,8 +32,7 @@ export default defineI18nLocale(() => {
     },
     shop: {
       title: "BG Company Shop",
-      subtitle:
-        "A practical catalog for renovation materials and products: ceilings, furniture, and related items.",
+      subtitle: "A practical catalog for renovation materials and products.",
       categoriesLabel: "Catalog categories",
       allCategories: "All categories",
       searchLabel: "Search",

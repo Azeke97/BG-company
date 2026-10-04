@@ -198,6 +198,7 @@ const goToCheckout = () => {
   padding-top: 12px;
   display: grid;
   gap: 10px;
+  align-items: center;
 }
 
 .summary {

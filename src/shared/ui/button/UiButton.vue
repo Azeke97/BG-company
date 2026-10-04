@@ -96,6 +96,7 @@ const handleClick = (event: MouseEvent) => {
   min-width: max-content;
   outline: none;
   height: var(--input-height);
+  margin: 0 !important;
 }
 
 .ui-button.-outline {

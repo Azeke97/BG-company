@@ -95,6 +95,7 @@ const handleInput = (value: string) => {
   transition: border-color 0.2s ease;
   box-sizing: border-box;
   width: 100%;
+  box-shadow: none !important;
 }
 
 .ui-input__el :deep(.el-input__wrapper:hover) {
@@ -107,6 +108,11 @@ const handleInput = (value: string) => {
 
 .ui-input.-error .ui-input__el :deep(.el-input__wrapper) {
   border-color: var(--el-color-danger) !important;
+}
+
+.ui-input__el :deep(.el-input__suffix) {
+  padding: 10px;
+  cursor: pointer;
 }
 
 .ui-input__el :deep(.el-input__inner) {

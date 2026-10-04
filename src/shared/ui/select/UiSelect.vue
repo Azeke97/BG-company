@@ -103,7 +103,7 @@ const isOptionSelected = (value: any) => {
   font-size: var(--font-size);
   color: var(--color-text-primary);
   font-weight: 400;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .ui-select__message {

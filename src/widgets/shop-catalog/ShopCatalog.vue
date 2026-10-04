@@ -159,14 +159,14 @@ const addToCart = (item: ShopProductListItem) => {
     <section :class="$style.catalog">
       <header :class="$style.header">
         <div>
-          <UiTypography tag="h1" variant="h2" :class="$style.title">
+          <UiTypography tag="h1" variant="h3" :class="$style.title">
             {{
               catalog.selectedCategory
                 ? catalog.selectedCategory.name
-                : t("shop.title")
+                : t("shop.subtitle")
             }}
           </UiTypography>
-          <p :class="$style.subtitle">{{ t("shop.subtitle") }}</p>
+          <!--          <p :class="$style.subtitle">{{ t("shop.subtitle") }}</p>-->
           <p :class="$style.counter">
             {{ t("shop.resultsCount", { count: catalog.total }) }}
           </p>
@@ -216,6 +216,7 @@ const addToCart = (item: ShopProductListItem) => {
 
 .title {
   margin: 0;
+  max-width: 700px;
 }
 
 .subtitle {
@@ -225,9 +226,9 @@ const addToCart = (item: ShopProductListItem) => {
 }
 
 .counter {
-  margin: 0;
   color: var(--color-text-secondary);
   font-size: 14px;
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {

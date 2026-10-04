@@ -17,7 +17,12 @@ const formatMoney = (value: number) =>
 </script>
 
 <template>
-  <UiButton variant="secondary" outline @click="$emit('open')">
+  <UiButton
+    variant="secondary"
+    outline
+    :disabled="count === 0"
+    @click="$emit('open')"
+  >
     <span :class="$style.inner">
       <span :class="$style.iconWrap">
         <Icon name="lucide:shopping-cart" :class="$style.icon" />

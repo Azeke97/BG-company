@@ -42,12 +42,8 @@ const { modelValue, ...restProps } = props;
 
 .drawer :global(.el-drawer__header) {
   margin-bottom: 16px;
-  padding-bottom: 16px;
+  padding: 16px 0;
   border-bottom: 1px solid var(--color-border);
   color: var(--color-text-black);
-}
-
-.drawer :global(.el-drawer__body) {
-  padding-top: 0;
 }
 </style>
