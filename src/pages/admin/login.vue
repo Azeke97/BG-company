@@ -99,7 +99,7 @@ const submit = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f6f8;
+  background: var(--el-bg-color-page);
   padding: 16px;
 }
 

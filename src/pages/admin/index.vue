@@ -141,7 +141,7 @@ onMounted(() => {
 
 .caption {
   margin: 6px 0 0;
-  color: #6b7280;
+  color: var(--el-text-color-secondary);
 }
 
 .actions {

@@ -193,20 +193,20 @@ const submit = () => {
 .historyBlock {
   margin-top: 16px;
   padding-top: 12px;
-  border-top: 1px solid #e5e7eb;
+  border-top: var(--el-border);
 }
 
 .historyTitle {
   margin: 0 0 8px;
   font-size: 14px;
-  color: #374151;
+  color: var(--el-text-color-primary);
 }
 
 .historyList {
   margin: 0;
   padding-left: 18px;
   font-size: 13px;
-  color: #4b5563;
+  color: var(--el-text-color-regular);
   display: grid;
   gap: 4px;
 }

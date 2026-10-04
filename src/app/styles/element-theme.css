@@ -1,0 +1,53 @@
+/*
+ * Тема Element Plus на основе бренд-цветов компании (root.css: --color-primary, --color-success,
+ * --color-warning, --color-error). Оттенки light-3/5/7/9 и dark-2 посчитаны той же формулой,
+ * которую Element Plus использует для собственной палитры (mix(base, white, N/10) и
+ * mix(base, black, 0.2)) — так итоговые состояния hover/active/plain выглядят так же
+ * гармонично, как в дефолтной теме, только с другим базовым цветом.
+ *
+ * !important нужен, т.к. Element Plus переимпортирует свой base.css (с дефолтными значениями
+ * этих же :root-переменных) при каждом использовании компонента — порядок подключения CSS
+ * в бандле не гарантирует, что наш файл окажется последним в каскаде.
+ */
+:root {
+  --el-color-primary: #cca25e !important;
+  --el-color-primary-light-3: #dbbe8e !important;
+  --el-color-primary-light-5: #e6d1af !important;
+  --el-color-primary-light-7: #f0e3cf !important;
+  --el-color-primary-light-8: #f5ecdf !important;
+  --el-color-primary-light-9: #faf6ef !important;
+  --el-color-primary-dark-2: #a3824b !important;
+  --el-color-primary-rgb: 204, 162, 94 !important;
+
+  --el-color-success: #34a853 !important;
+  --el-color-success-light-3: #71c287 !important;
+  --el-color-success-light-5: #9ad4a9 !important;
+  --el-color-success-light-7: #c2e5cb !important;
+  --el-color-success-light-8: #d6eedd !important;
+  --el-color-success-light-9: #ebf6ee !important;
+  --el-color-success-dark-2: #2a8642 !important;
+
+  --el-color-warning: #fbbc04 !important;
+  --el-color-warning-light-3: #fcd04f !important;
+  --el-color-warning-light-5: #fdde82 !important;
+  --el-color-warning-light-7: #feebb4 !important;
+  --el-color-warning-light-8: #fef2cd !important;
+  --el-color-warning-light-9: #fff8e6 !important;
+  --el-color-warning-dark-2: #c99603 !important;
+
+  --el-color-danger: #d93025 !important;
+  --el-color-danger-light-3: #e46e66 !important;
+  --el-color-danger-light-5: #ec9892 !important;
+  --el-color-danger-light-7: #f4c1be !important;
+  --el-color-danger-light-8: #f7d6d3 !important;
+  --el-color-danger-light-9: #fbeae9 !important;
+  --el-color-danger-dark-2: #ae261e !important;
+
+  --el-color-error: #d93025 !important;
+  --el-color-error-light-3: #e46e66 !important;
+  --el-color-error-light-5: #ec9892 !important;
+  --el-color-error-light-7: #f4c1be !important;
+  --el-color-error-light-8: #f7d6d3 !important;
+  --el-color-error-light-9: #fbeae9 !important;
+  --el-color-error-dark-2: #ae261e !important;
+}

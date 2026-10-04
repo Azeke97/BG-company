@@ -162,7 +162,7 @@ onMounted(() => {
         >
           <template #default="{ row }">{{ row.adminComment || "—" }}</template>
         </ElTableColumn>
-        <ElTableColumn label="Действия" width="130" fixed="right">
+        <ElTableColumn label="Действия" width="130">
           <template #default="{ row }">
             <ElButton size="small" @click="openEditor(row as Order)">
               Изменить
@@ -201,7 +201,7 @@ onMounted(() => {
 
 .caption {
   margin: 6px 0 0;
-  color: #6b7280;
+  color: var(--el-text-color-secondary);
 }
 
 @media (max-width: 900px) {

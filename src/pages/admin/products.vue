@@ -210,7 +210,7 @@ onMounted(() => {
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Действия" width="280" fixed="right">
+        <ElTableColumn label="Действия" min-width="280">
           <template #default="{ row }">
             <ElSpace wrap>
               <ElButton size="small" @click="openEdit(row as Product)">
@@ -269,12 +269,12 @@ onMounted(() => {
 
 .caption {
   margin: 6px 0 0;
-  color: #6b7280;
+  color: var(--el-text-color-secondary);
 }
 
 .oldPrice {
   margin-left: 8px;
-  color: #9ca3af;
+  color: var(--el-text-color-placeholder);
   text-decoration: line-through;
 }
 
@@ -285,8 +285,8 @@ onMounted(() => {
   gap: 12px;
   margin-bottom: 12px;
   padding: 8px 12px;
-  background: #f5f7fa;
-  border-radius: 6px;
+  background: var(--el-fill-color-light);
+  border-radius: var(--el-border-radius-base);
 }
 
 @media (max-width: 900px) {

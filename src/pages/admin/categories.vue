@@ -135,7 +135,7 @@ onMounted(() => {
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Действия" width="180" fixed="right">
+        <ElTableColumn label="Действия" width="180">
           <template #default="{ row }">
             <ElSpace>
               <ElButton size="small" @click="openEdit(row as Category)">
@@ -186,7 +186,7 @@ onMounted(() => {
 
 .caption {
   margin: 6px 0 0;
-  color: #6b7280;
+  color: var(--el-text-color-secondary);
 }
 
 @media (max-width: 900px) {

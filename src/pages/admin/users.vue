@@ -87,7 +87,7 @@ onMounted(() => {
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Действия" width="170" fixed="right">
+        <ElTableColumn label="Действия" width="170">
           <template #default="{ row }">
             <ElButton
               size="small"
@@ -124,7 +124,7 @@ onMounted(() => {
 
 .caption {
   margin: 6px 0 0;
-  color: #6b7280;
+  color: var(--el-text-color-secondary);
 }
 
 @media (max-width: 900px) {

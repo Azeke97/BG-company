@@ -26,27 +26,10 @@ const logout = async () => {
 </script>
 
 <template>
-  <div :class="$style.adminLayout">
-    <header :class="$style.header">
-      <div :class="$style.headerTop">
-        <strong>BG Admin</strong>
-        <div :class="$style.headerActions">
-          <span v-if="adminUser" :class="$style.userEmail">{{
-            adminUser.email
-          }}</span>
-          <NuxtLink to="/" :class="$style.back">На сайт</NuxtLink>
-          <ElButton size="small" @click="logout">Выйти</ElButton>
-        </div>
-      </div>
-      <ElMenu
-        mode="horizontal"
-        :router="true"
-        :default-active="activeIndex"
-        :ellipsis="false"
-        background-color="#111827"
-        text-color="#e5e7eb"
-        active-text-color="#ffffff"
-      >
+  <ElContainer :class="$style.layout">
+    <ElAside width="220px" :class="$style.aside">
+      <div :class="$style.brand">BG Admin</div>
+      <ElMenu :router="true" :default-active="activeIndex" :class="$style.menu">
         <ElMenuItem index="/admin">Дашборд</ElMenuItem>
         <ElMenuItem index="/admin/categories">Категории</ElMenuItem>
         <ElMenuItem index="/admin/products">Товары</ElMenuItem>
@@ -54,57 +37,72 @@ const logout = async () => {
         <ElMenuItem index="/admin/promos">Промокоды</ElMenuItem>
         <ElMenuItem index="/admin/users">Пользователи</ElMenuItem>
       </ElMenu>
-    </header>
-    <main :class="$style.main">
-      <slot />
-    </main>
-  </div>
+    </ElAside>
+
+    <ElContainer :class="$style.content">
+      <ElHeader :class="$style.header">
+        <ElSpace :size="16">
+          <span v-if="adminUser" :class="$style.userEmail">
+            {{ adminUser.email }}
+          </span>
+          <ElButton text @click="navigateTo('/')">На сайт</ElButton>
+          <ElButton size="small" @click="logout">Выйти</ElButton>
+        </ElSpace>
+      </ElHeader>
+      <ElMain :class="$style.main">
+        <slot />
+      </ElMain>
+    </ElContainer>
+  </ElContainer>
 </template>
 
 <style module>
-.adminLayout {
+.layout {
   min-height: 100vh;
-  background: #f5f6f8;
-  color: #1f2937;
+}
+
+.aside {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: var(--el-border);
+  background: var(--el-bg-color);
+}
+
+.brand {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: var(--el-font-weight-primary);
+  color: var(--el-text-color-primary);
+  border-bottom: var(--el-border);
+}
+
+.menu {
+  border-right: none;
+}
+
+.content {
+  min-height: 100vh;
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  background: #111827;
-  color: #f9fafb;
-  border-bottom: 1px solid #1f2937;
-}
-
-.headerTop {
-  height: 52px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 16px;
-}
-
-.headerActions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: flex-end;
+  border-bottom: var(--el-border);
+  background: var(--el-bg-color);
 }
 
 .userEmail {
-  opacity: 0.75;
   font-size: 13px;
-}
-
-.back {
-  color: #f9fafb;
-  text-decoration: none;
-  opacity: 0.85;
+  color: var(--el-text-color-secondary);
 }
 
 .main {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 20px 16px;
+  background: var(--el-bg-color-page);
 }
 </style>
