@@ -88,6 +88,7 @@ const handleInput = (value: string) => {
 .ui-input__el :deep(.el-input__wrapper) {
   display: flex;
   align-items: center;
+  height: var(--input-height);
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--button-radius);
   background-color: #fff;

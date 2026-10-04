@@ -10,11 +10,13 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: var(--input-height);
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--button-radius);
   background-color: #fff;
   transition: border-color 0.2s ease;
   font-size: var(--font-size-small);
+  box-sizing: border-box;
 }
 
 .ui-select__el:hover {
@@ -111,7 +113,9 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: var(--input-height);
   padding: var(--input-padding);
+  box-sizing: border-box;
 }
 
 .ui-select .el-select__wrapper:hover {

@@ -59,7 +59,7 @@
 
   --input-padding: 12px 20px;
   --input-radius: 4px;
-  --input-height: 44px;
+  --input-height: 48px;
 
   --transition-duration: 0.3s;
   --transition: color var(--transition-duration) ease, transform var(--transition-duration) ease;
