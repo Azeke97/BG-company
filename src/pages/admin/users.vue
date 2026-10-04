@@ -93,7 +93,7 @@ onMounted(() => {
               size="small"
               :type="row.isBlocked ? 'success' : 'warning'"
               plain
-              @click="toggleBlock(row)"
+              @click="toggleBlock(row as User)"
             >
               {{ row.isBlocked ? "Разблокировать" : "Блокировать" }}
             </ElButton>

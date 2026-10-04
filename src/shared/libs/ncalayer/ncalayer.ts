@@ -62,6 +62,7 @@ export class NCALayerService extends EventTarget {
     } catch (error) {
       throw new Error(
         "Ошибка отключения от NCALayer: " + (error as Error).message,
+        { cause: error },
       );
     }
   }

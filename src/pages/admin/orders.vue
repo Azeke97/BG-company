@@ -141,7 +141,9 @@ onMounted(() => {
         </ElTableColumn>
         <ElTableColumn label="Действия" width="130" fixed="right">
           <template #default="{ row }">
-            <ElButton size="small" @click="openEditor(row)">Изменить</ElButton>
+            <ElButton size="small" @click="openEditor(row as Order)">
+              Изменить
+            </ElButton>
           </template>
         </ElTableColumn>
       </ElTable>

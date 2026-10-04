@@ -23,12 +23,12 @@ export const useAppHead = () => {
 
   const link = computed(() => [
     {
-      rel: "icon",
+      rel: "icon" as const,
       href: "/favicon.ico",
     },
     {
-      rel: "icon",
-      type: "image/svg+xml",
+      rel: "icon" as const,
+      type: "image/svg+xml" as const,
       href: "/favicon.png",
     },
   ]);

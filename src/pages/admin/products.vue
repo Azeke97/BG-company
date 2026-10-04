@@ -158,12 +158,14 @@ onMounted(() => {
         <ElTableColumn label="Действия" width="280" fixed="right">
           <template #default="{ row }">
             <ElSpace wrap>
-              <ElButton size="small" @click="openEdit(row)">Изменить</ElButton>
+              <ElButton size="small" @click="openEdit(row as Product)">
+                Изменить
+              </ElButton>
               <ElButton
                 size="small"
                 :type="row.isActive ? 'warning' : 'success'"
                 plain
-                @click="setArchived(row, row.isActive)"
+                @click="setArchived(row as Product, row.isActive)"
               >
                 {{ row.isActive ? "В архив" : "Публиковать" }}
               </ElButton>
@@ -171,7 +173,7 @@ onMounted(() => {
                 size="small"
                 type="danger"
                 plain
-                @click="removeProduct(row)"
+                @click="removeProduct(row as Product)"
               >
                 Удалить
               </ElButton>

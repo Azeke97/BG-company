@@ -138,12 +138,14 @@ onMounted(() => {
         <ElTableColumn label="Действия" width="180" fixed="right">
           <template #default="{ row }">
             <ElSpace>
-              <ElButton size="small" @click="openEdit(row)">Изменить</ElButton>
+              <ElButton size="small" @click="openEdit(row as Category)">
+                Изменить
+              </ElButton>
               <ElButton
                 size="small"
                 type="danger"
                 plain
-                @click="removeCategory(row)"
+                @click="removeCategory(row as Category)"
               >
                 Удалить
               </ElButton>

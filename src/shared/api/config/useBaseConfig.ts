@@ -14,7 +14,7 @@ export function useBaseConfig(userConfig: RequestConfig = {}): RequestConfig {
   }
 
   if (import.meta.server) {
-    const nodeHeaders = ssrContext?.event.node.req.headers;
+    const nodeHeaders = ssrContext?.event.node?.req.headers;
 
     config.headers = {
       ...nodeHeaders,

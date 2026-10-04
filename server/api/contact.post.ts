@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
   const { google } = await import("googleapis");
 
-  const auth = new (await import("google-auth-library")).JWT({
+  const auth = new google.auth.JWT({
     email: process.env.GOOGLE_SA_EMAIL!,
     key: process.env.GOOGLE_SA_PRIVATE_KEY!.replace(/\\n/g, "\n"),
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
