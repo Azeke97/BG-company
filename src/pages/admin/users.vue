@@ -87,16 +87,20 @@ onMounted(() => {
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Действия" width="170">
+        <ElTableColumn label="Действия" width="70" align="center">
           <template #default="{ row }">
-            <ElButton
-              size="small"
-              :type="row.isBlocked ? 'success' : 'warning'"
-              plain
-              @click="toggleBlock(row as User)"
-            >
-              {{ row.isBlocked ? "Разблокировать" : "Блокировать" }}
-            </ElButton>
+            <ElDropdown trigger="click" placement="bottom-end">
+              <ElButton size="small" circle text>
+                <Icon name="lucide:more-vertical" />
+              </ElButton>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem @click="toggleBlock(row as User)">
+                    {{ row.isBlocked ? "Разблокировать" : "Блокировать" }}
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
           </template>
         </ElTableColumn>
       </ElTable>

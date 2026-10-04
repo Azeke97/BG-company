@@ -162,21 +162,23 @@ onMounted(() => {
             >{{ row.usageLimit ?? "∞" }} / {{ row.used }}</template
           >
         </ElTableColumn>
-        <ElTableColumn label="Действия" width="180">
+        <ElTableColumn label="Действия" width="70" align="center">
           <template #default="{ row }">
-            <ElSpace>
-              <ElButton size="small" @click="openEdit(row as Promo)">
-                Изменить
+            <ElDropdown trigger="click" placement="bottom-end">
+              <ElButton size="small" circle text>
+                <Icon name="lucide:more-vertical" />
               </ElButton>
-              <ElButton
-                size="small"
-                type="danger"
-                plain
-                @click="removePromo(row as Promo)"
-              >
-                Удалить
-              </ElButton>
-            </ElSpace>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem @click="openEdit(row as Promo)">
+                    Изменить
+                  </ElDropdownItem>
+                  <ElDropdownItem divided @click="removePromo(row as Promo)">
+                    <span style="color: var(--el-color-danger)">Удалить</span>
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
           </template>
         </ElTableColumn>
       </ElTable>

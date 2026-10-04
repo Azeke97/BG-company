@@ -162,11 +162,20 @@ onMounted(() => {
         >
           <template #default="{ row }">{{ row.adminComment || "—" }}</template>
         </ElTableColumn>
-        <ElTableColumn label="Действия" width="130">
+        <ElTableColumn label="Действия" width="70" align="center">
           <template #default="{ row }">
-            <ElButton size="small" @click="openEditor(row as Order)">
-              Изменить
-            </ElButton>
+            <ElDropdown trigger="click" placement="bottom-end">
+              <ElButton size="small" circle text>
+                <Icon name="lucide:more-vertical" />
+              </ElButton>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem @click="openEditor(row as Order)">
+                    Изменить
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
           </template>
         </ElTableColumn>
       </ElTable>

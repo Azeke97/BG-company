@@ -210,29 +210,31 @@ onMounted(() => {
             </ElTag>
           </template>
         </ElTableColumn>
-        <ElTableColumn label="Действия" min-width="280">
+        <ElTableColumn label="Действия" width="70" align="center">
           <template #default="{ row }">
-            <ElSpace wrap>
-              <ElButton size="small" @click="openEdit(row as Product)">
-                Изменить
+            <ElDropdown trigger="click" placement="bottom-end">
+              <ElButton size="small" circle text>
+                <Icon name="lucide:more-vertical" />
               </ElButton>
-              <ElButton
-                size="small"
-                :type="row.isActive ? 'warning' : 'success'"
-                plain
-                @click="setArchived(row as Product, row.isActive)"
-              >
-                {{ row.isActive ? "В архив" : "Публиковать" }}
-              </ElButton>
-              <ElButton
-                size="small"
-                type="danger"
-                plain
-                @click="removeProduct(row as Product)"
-              >
-                Удалить
-              </ElButton>
-            </ElSpace>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem @click="openEdit(row as Product)">
+                    Изменить
+                  </ElDropdownItem>
+                  <ElDropdownItem
+                    @click="setArchived(row as Product, row.isActive)"
+                  >
+                    {{ row.isActive ? "В архив" : "Публиковать" }}
+                  </ElDropdownItem>
+                  <ElDropdownItem
+                    divided
+                    @click="removeProduct(row as Product)"
+                  >
+                    <span style="color: var(--el-color-danger)">Удалить</span>
+                  </ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
           </template>
         </ElTableColumn>
       </ElTable>
