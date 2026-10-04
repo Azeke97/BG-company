@@ -2,6 +2,7 @@
 import "dotenv/config";
 import prismaPkg from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { hashPassword } from "../server/utils/password.ts";
 
 const { PrismaClient } = prismaPkg;
 const connectionString = process.env.DATABASE_URL;
@@ -50,13 +51,17 @@ async function main() {
         }
     })
 
-    // админ-пользователь (пароль хранишь хешем в реальном проекте)
+    // админ-пользователь
+    const adminEmail = process.env.ADMIN_SEED_EMAIL || 'admin@bg.local'
+    const adminPassword = process.env.ADMIN_SEED_PASSWORD || 'admin12345'
+    const adminPasswordHash = hashPassword(adminPassword)
+
     await prisma.user.upsert({
-        where: { email: 'admin@bg.local' },
-        update: {},
+        where: { email: adminEmail },
+        update: { passwordHash: adminPasswordHash },
         create: {
-            email: 'admin@bg.local',
-            passwordHash: 'dev_only_change_me',
+            email: adminEmail,
+            passwordHash: adminPasswordHash,
             role: 'ADMIN',
             name: 'Admin'
         }
@@ -73,8 +78,11 @@ async function main() {
             where: { number: 'BG-2025-0001' },
             update: {
                 status: 'PAID',
+                paymentStatus: 'PAID',
                 paymentMethod: 'KASPI_QR',
                 paymentRef: 'demo-payment-1',
+                customerName: 'Demo Client',
+                customerPhone: '+77001234567',
                 subtotal,
                 discountTotal: discount,
                 total,
@@ -92,8 +100,11 @@ async function main() {
             create: {
                 number: 'BG-2025-0001',
                 status: 'PAID',
+                paymentStatus: 'PAID',
                 paymentMethod: 'KASPI_QR',
                 paymentRef: 'demo-payment-1',
+                customerName: 'Demo Client',
+                customerPhone: '+77001234567',
                 subtotal,
                 discountTotal: discount,
                 total,

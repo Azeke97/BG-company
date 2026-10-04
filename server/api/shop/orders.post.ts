@@ -244,6 +244,8 @@ export default defineEventHandler(async (event) => {
         number,
         status: "NEW",
         paymentMethod: "CASH",
+        customerName,
+        customerPhone,
         subtotal,
         discountTotal,
         total: subtotal - discountTotal,

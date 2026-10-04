@@ -39,31 +39,53 @@ enum PaymentMethod {
   KASPI_QR
   CARD
   CASH
+  INVOICE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED // зарезервировано, возврат пока не реализуется
 }
 
 model User {
-  id           String  @id @default(cuid())
-  email        String  @unique
+  id           String    @id @default(cuid())
+  email        String    @unique
   passwordHash String
   name         String?
   phone        String?
-  role         Role    @default(USER)
-  isBlocked    Boolean @default(false)
+  role         Role      @default(USER)
+  isBlocked    Boolean   @default(false)
   orders       Order[]
+  sessions     Session[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userAgent String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
 model Category {
-  id       String     @id @default(cuid())
-  name     String
-  slug     String     @unique
-  sortOrder Int       @default(0)
-  isActive Boolean    @default(true)
-  parentId String?
-  parent   Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
-  children Category[] @relation("CategoryToCategory")
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  sortOrder Int        @default(0)
+  isActive  Boolean    @default(true)
+  parentId  String?
+  parent    Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryToCategory")
 
   products   Product[]
   promoCodes PromoCode[]
@@ -113,6 +135,8 @@ model PromoCode {
 
   category Category? @relation(fields: [categoryId], references: [id]) // back-relation теперь есть в Category
 
+  promoRedemptions PromoRedemption[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -146,19 +170,76 @@ model Order {
   user   User?   @relation(fields: [userId], references: [id])
 
   status        OrderStatus    @default(NEW)
+  paymentStatus PaymentStatus  @default(PENDING)
   paymentMethod PaymentMethod?
   paymentRef    String? // внешний ID платежа (например Kaspi)
   adminComment  String?
+
+  customerName    String
+  customerPhone   String
+  customerComment String?
 
   subtotal      Int // без скидок
   discountTotal Int @default(0)
   total         Int // к оплате (>=0)
 
-  items OrderItem[]
+  items            OrderItem[]
+  payments         Payment[]
+  promoRedemptions PromoRedemption[]
+  statusHistory    OrderStatusHistory[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([status, createdAt])
   @@index([userId, createdAt])
+}
+
+model Payment {
+  id       String        @id @default(cuid())
+  orderId  String
+  order    Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  provider String
+  method   PaymentMethod
+  amount   Int
+  currency String        @default("KZT")
+  status   PaymentStatus @default(PENDING)
+
+  providerRef String?
+  rawPayload  Json?
+  createdById String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+}
+
+model PromoRedemption {
+  id             String    @id @default(cuid())
+  promoCode      String
+  promo          PromoCode @relation(fields: [promoCode], references: [code])
+  orderId        String
+  order          Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  discountAmount Int
+
+  createdAt DateTime @default(now())
+
+  @@index([promoCode])
+  @@index([orderId])
+}
+
+model OrderStatusHistory {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  fromStatus  OrderStatus?
+  toStatus    OrderStatus
+  comment     String?
+  changedById String?
+
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
 }
