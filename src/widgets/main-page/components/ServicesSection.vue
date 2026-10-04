@@ -125,56 +125,58 @@ const services: Services[] = [
 .card::before {
   content: "";
   position: absolute;
-  inset: -20%;
+  inset: -30%;
   border-radius: 16px;
   pointer-events: none;
 
   background: linear-gradient(
     115deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.06) 40%,
-    rgba(255, 255, 255, 0.35) 48%,
-    rgba(255, 255, 255, 0.55) 50%,
-    rgba(255, 255, 255, 0.35) 52%,
-    rgba(255, 255, 255, 0.06) 60%,
-    transparent 100%
+    transparent 15%,
+    rgba(255, 255, 255, 0.03) 35%,
+    rgba(255, 255, 255, 0.14) 48%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.14) 52%,
+    rgba(255, 255, 255, 0.03) 65%,
+    transparent 85%
   );
 
-  transform: translateX(-20%) translateY(40%) rotate(-50deg);
+  transform: translateX(-30%) translateY(45%) rotate(-18deg);
   opacity: 0;
-  filter: blur(0.3px);
+  filter: blur(6px);
+  mix-blend-mode: soft-light;
   will-change: transform, opacity;
-  animation: card-light-sweep 6s ease-in-out infinite;
+  animation: card-light-sweep 7s ease-in-out infinite;
   z-index: 2;
 }
 
 .cardsGrid > *:nth-child(1) .card::before {
-  animation: card-light-sweep 2s ease-in-out infinite;
-  animation-delay: 0s;
+  animation-delay: 0.4s;
 }
 .cardsGrid > *:nth-child(2) .card::before {
-  animation: card-light-sweep 6s ease-in-out infinite;
-  animation-delay: 10s;
+  animation-delay: 2.4s;
 }
 .cardsGrid > *:nth-child(3) .card::before {
-  animation: card-light-sweep 8s ease-in-out infinite;
-  animation-delay: 6s;
+  animation-delay: 4.4s;
 }
 
 @keyframes card-light-sweep {
-  0% {
-    transform: translateX(-70%) translateY(40%) rotate(-18deg);
+  0%,
+  8% {
+    transform: translateX(-60%) translateY(45%) rotate(-18deg);
     opacity: 0;
   }
-  20% {
-    opacity: 1;
+  22% {
+    opacity: 0.85;
   }
-  50% {
+  45% {
     transform: translateX(0%) translateY(0%) rotate(-18deg);
-    opacity: 1;
+    opacity: 0.85;
+  }
+  68% {
+    opacity: 0;
   }
   100% {
-    transform: translateX(70%) translateY(-40%) rotate(-18deg);
+    transform: translateX(60%) translateY(-45%) rotate(-18deg);
     opacity: 0;
   }
 }
@@ -198,16 +200,18 @@ const services: Services[] = [
   left: 0;
   right: 0;
   bottom: 0;
-  max-height: 55%;
+  max-height: 60%;
   padding: 16px 16px 18px;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.7) 30%,
-    rgba(0, 0, 0, 0.5) 60%,
-    rgba(0, 0, 0, 0.25) 85%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(10, 12, 16, 0.6) 0%,
+    rgba(10, 12, 16, 0.42) 55%,
+    rgba(10, 12, 16, 0.1) 100%
   );
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
   transform: translateY(100%);
   opacity: 0;
   transition:
