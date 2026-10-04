@@ -36,6 +36,7 @@ export default defineI18nLocale(() => {
         "A practical catalog for renovation materials and products: ceilings, furniture, and related items.",
       categoriesLabel: "Catalog categories",
       allCategories: "All categories",
+      searchLabel: "Search",
       searchPlaceholder: "Search by name or description",
       sortLabel: "Sort by",
       sort: {

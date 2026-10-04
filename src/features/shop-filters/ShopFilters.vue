@@ -62,6 +62,7 @@ const categoryLink = (slug: string | null) => {
     <div :class="$style.topRow">
       <UiSearchInput
         :model-value="search"
+        :label="t('shop.searchLabel')"
         :placeholder="t('shop.searchPlaceholder')"
         :full-width="true"
         clearable

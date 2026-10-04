@@ -37,6 +37,7 @@ export default defineI18nLocale(() => {
         "Каталог материалов и товаров для ремонта: потолки, мебель, комплектующие и сопутствующие позиции.",
       categoriesLabel: "Категории каталога",
       allCategories: "Все категории",
+      searchLabel: "Поиск",
       searchPlaceholder: "Поиск по названию или описанию",
       sortLabel: "Сортировка",
       sort: {

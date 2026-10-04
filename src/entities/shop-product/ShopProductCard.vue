@@ -150,8 +150,10 @@ const formattedOldPrice = computed(() => {
 
 .body {
   padding: 14px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
+  flex: 1;
 }
 
 .category {
@@ -199,6 +201,8 @@ const formattedOldPrice = computed(() => {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .cta {

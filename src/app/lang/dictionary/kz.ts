@@ -36,6 +36,7 @@ export default defineI18nLocale(() => {
         "Жөндеуге арналған тауарлар каталогы: төбелер, жиһаз және байланысты материалдар.",
       categoriesLabel: "Каталог санаттары",
       allCategories: "Барлық санат",
+      searchLabel: "Іздеу",
       searchPlaceholder: "Атауы немесе сипаттама бойынша іздеу",
       sortLabel: "Сұрыптау",
       sort: {
