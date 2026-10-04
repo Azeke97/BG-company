@@ -45,6 +45,7 @@ export interface ShopCheckoutRequest {
     qty: number;
   }>;
   promoCode?: string;
+  paymentMethod?: "CASH" | "INVOICE";
 }
 
 export interface ShopCheckoutResponse {
@@ -55,6 +56,7 @@ export interface ShopCheckoutResponse {
     discountTotal: number;
     total: number;
     status: "NEW";
+    paymentStatus: "PENDING" | "PAID" | "FAILED" | "REFUNDED";
   };
 }
 

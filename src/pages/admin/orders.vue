@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElMessage } from "element-plus";
 import { adminApi } from "~/shared/api";
-import type { Order, OrderStatus } from "~/shared/types/admin";
+import type { Order, OrderStatus, PaymentStatus } from "~/shared/types/admin";
 import OrderEditorDialog from "~/widgets/admin/order-editor-dialog/OrderEditorDialog.vue";
 
 definePageMeta({ layout: "admin" });
@@ -25,6 +25,18 @@ const statusLabel: Partial<Record<OrderStatus, string>> = {
 const getStatusLabel = (status: unknown) => {
   if (typeof status !== "string") return "—";
   return statusLabel[status as OrderStatus] || status;
+};
+
+const paymentStatusLabel: Partial<Record<PaymentStatus, string>> = {
+  PENDING: "Ожидает оплаты",
+  PAID: "Оплачен",
+  FAILED: "Не удалось",
+  REFUNDED: "Возврат",
+};
+
+const getPaymentStatusLabel = (status: unknown) => {
+  if (typeof status !== "string") return "—";
+  return paymentStatusLabel[status as PaymentStatus] || status;
 };
 
 const formatMoney = (value: number) =>
@@ -65,6 +77,7 @@ const openEditor = (order: Order) => {
 
 const saveOrder = async (payload: {
   status: OrderStatus;
+  paymentStatus: PaymentStatus;
   adminComment: string | null;
 }) => {
   if (!selectedOrder.value) return;
@@ -125,6 +138,13 @@ onMounted(() => {
           <template #default="{ row }">
             <ElTag :type="row.status === 'CANCELLED' ? 'danger' : 'info'">
               {{ getStatusLabel(row.status) }}
+            </ElTag>
+          </template>
+        </ElTableColumn>
+        <ElTableColumn label="Оплата" min-width="130">
+          <template #default="{ row }">
+            <ElTag :type="row.paymentStatus === 'PAID' ? 'success' : 'info'">
+              {{ getPaymentStatusLabel(row.paymentStatus) }}
             </ElTag>
           </template>
         </ElTableColumn>

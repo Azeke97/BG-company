@@ -5,6 +5,7 @@ import type {
   Dashboard,
   Order,
   OrderStatus,
+  PaymentStatus,
   Product,
   Promo,
   PromoType,
@@ -157,7 +158,11 @@ export const adminApi = {
 
   updateOrder(
     id: string,
-    payload: { status?: OrderStatus; adminComment?: string | null },
+    payload: {
+      status?: OrderStatus;
+      paymentStatus?: PaymentStatus;
+      adminComment?: string | null;
+    },
   ) {
     return useBaseApi<{ item: Order }>(`/api/admin/orders/${id}`, {
       method: "PATCH",

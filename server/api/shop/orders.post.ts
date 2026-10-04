@@ -1,9 +1,27 @@
+import type { PaymentMethod } from "@prisma/client";
 import { prisma } from "~~/server/utils/prisma";
 import { asString } from "~~/server/utils/admin";
 import {
   calculatePromoDiscount,
   ensurePromoIsActive,
 } from "~~/server/utils/promo";
+import { manualProvider } from "~~/server/utils/payment/manualProvider";
+
+const ALLOWED_CHECKOUT_PAYMENT_METHODS: PaymentMethod[] = ["CASH", "INVOICE"];
+
+const asCheckoutPaymentMethod = (value: unknown): PaymentMethod => {
+  if (value === undefined) return "CASH";
+  if (
+    typeof value === "string" &&
+    ALLOWED_CHECKOUT_PAYMENT_METHODS.includes(value as PaymentMethod)
+  ) {
+    return value as PaymentMethod;
+  }
+  throw createError({
+    statusCode: 400,
+    statusMessage: "Unsupported payment method",
+  });
+};
 
 type CheckoutItemInput = {
   productId?: string;
@@ -51,8 +69,10 @@ export default defineEventHandler(async (event) => {
     };
     items?: CheckoutItemInput[];
     promoCode?: string;
+    paymentMethod?: string;
   }>(event);
 
+  const paymentMethod = asCheckoutPaymentMethod(body.paymentMethod);
   const customerName = asString(body.customer?.name, "customer.name");
   const customerPhone = asString(body.customer?.phone, "customer.phone");
   const customerComment =
@@ -239,11 +259,11 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    return tx.order.create({
+    const createdOrder = await tx.order.create({
       data: {
         number,
         status: "NEW",
-        paymentMethod: "CASH",
+        paymentMethod,
         customerName,
         customerPhone,
         subtotal,
@@ -272,8 +292,27 @@ export default defineEventHandler(async (event) => {
         discountTotal: true,
         total: true,
         status: true,
+        paymentStatus: true,
       },
     });
+
+    await manualProvider.createPayment(tx, {
+      orderId: createdOrder.id,
+      method: paymentMethod,
+      amount: createdOrder.total,
+    });
+
+    if (promoCode && discountTotal > 0) {
+      await tx.promoRedemption.create({
+        data: {
+          promoCode,
+          orderId: createdOrder.id,
+          discountAmount: discountTotal,
+        },
+      });
+    }
+
+    return createdOrder;
   });
 
   return { item: order };

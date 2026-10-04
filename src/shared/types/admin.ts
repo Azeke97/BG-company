@@ -9,6 +9,7 @@ export type OrderStatus =
   | "CANCELLED"
   | "DRAFT"
   | "PENDING";
+export type PaymentStatus = "PENDING" | "PAID" | "FAILED" | "REFUNDED";
 
 export interface CategoryCounters {
   children: number;
@@ -68,11 +69,15 @@ export interface Order {
   id: string;
   number: string;
   status: OrderStatus;
+  paymentStatus: PaymentStatus;
   total: number;
   subtotal: number;
   discountTotal: number;
   createdAt: string;
   adminComment: string | null;
+  customerName: string;
+  customerPhone: string;
+  customerComment: string | null;
   user: {
     id: string;
     email: string;
@@ -80,6 +85,14 @@ export interface Order {
     isBlocked: boolean;
   } | null;
   items: OrderItem[];
+  payments?: Array<{
+    id: string;
+    provider: string;
+    method: string;
+    amount: number;
+    status: string;
+    createdAt: string;
+  }>;
 }
 
 export interface User {
