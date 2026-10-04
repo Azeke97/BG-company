@@ -12,6 +12,9 @@ const categories = ref<Category[]>([]);
 const products = ref<Product[]>([]);
 const dialogVisible = ref(false);
 const editing = ref<Product | null>(null);
+const tableRef = ref();
+const selectedIds = ref<string[]>([]);
+const bulkLoading = ref(false);
 
 const dialogTitle = computed(() =>
   editing.value ? `Редактирование: ${editing.value.title}` : "Новый товар",
@@ -111,6 +114,28 @@ const removeProduct = async (item: Product) => {
   }
 };
 
+const handleSelectionChange = (rows: Product[]) => {
+  selectedIds.value = rows.map((row) => row.id);
+};
+
+const bulkUpdate = async (isActive: boolean) => {
+  if (selectedIds.value.length === 0) return;
+  bulkLoading.value = true;
+  try {
+    await adminApi.bulkUpdateProducts(selectedIds.value, isActive);
+    ElMessage.success(
+      isActive ? "Товары опубликованы" : "Товары перенесены в архив",
+    );
+    tableRef.value?.clearSelection();
+    selectedIds.value = [];
+    await load();
+  } catch (error) {
+    ElMessage.error(String((error as Error).message || error));
+  } finally {
+    bulkLoading.value = false;
+  }
+};
+
 onMounted(() => {
   load();
 });
@@ -129,7 +154,37 @@ onMounted(() => {
     </div>
 
     <ElCard shadow="never">
-      <ElTable :data="products" :loading="tableLoading">
+      <div v-if="selectedIds.length > 0" :class="$style.bulkBar">
+        <span>Выбрано: {{ selectedIds.length }}</span>
+        <ElSpace>
+          <ElButton
+            size="small"
+            type="success"
+            plain
+            :loading="bulkLoading"
+            @click="bulkUpdate(true)"
+          >
+            Опубликовать выбранные
+          </ElButton>
+          <ElButton
+            size="small"
+            type="warning"
+            plain
+            :loading="bulkLoading"
+            @click="bulkUpdate(false)"
+          >
+            В архив выбранные
+          </ElButton>
+        </ElSpace>
+      </div>
+
+      <ElTable
+        ref="tableRef"
+        :data="products"
+        :loading="tableLoading"
+        @selection-change="handleSelectionChange"
+      >
+        <ElTableColumn type="selection" width="48" />
         <ElTableColumn prop="title" label="Название" min-width="220" />
         <ElTableColumn label="Категория" min-width="180">
           <template #default="{ row }">{{
@@ -221,6 +276,17 @@ onMounted(() => {
   margin-left: 8px;
   color: #9ca3af;
   text-decoration: line-through;
+}
+
+.bulkBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: #f5f7fa;
+  border-radius: 6px;
 }
 
 @media (max-width: 900px) {

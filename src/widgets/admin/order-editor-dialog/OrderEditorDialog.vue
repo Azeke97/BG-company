@@ -47,6 +47,31 @@ const statusOptions: Array<{ label: string; value: OrderStatus }> = [
   },
 ];
 
+const statusLabelMap: Partial<Record<OrderStatus, string>> = {
+  NEW: "Новый",
+  PROCESSING: "В обработке",
+  PAID: "Оплачен",
+  COMPLETED: "Завершён",
+  CANCELLED: "Отменён",
+  DRAFT: "Черновик",
+  PENDING: "Ожидает",
+};
+
+const getStatusLabel = (status: OrderStatus | null) =>
+  status ? statusLabelMap[status] || status : "—";
+
+const paymentStatusLabelMap: Partial<Record<PaymentStatus, string>> = {
+  PENDING: "Ожидает оплаты",
+  PAID: "Оплачен",
+  FAILED: "Не удалось",
+  REFUNDED: "Возврат",
+};
+
+const getPaymentStatusLabel = (status: string) =>
+  paymentStatusLabelMap[status as PaymentStatus] || status;
+
+const formatDate = (value: string) => new Date(value).toLocaleString("ru-RU");
+
 const paymentStatusOptions: Array<{ label: string; value: PaymentStatus }> = [
   {
     label: "Ожидает оплаты",
@@ -132,6 +157,29 @@ const submit = () => {
       </ElFormItem>
     </ElForm>
 
+    <div v-if="order?.statusHistory?.length" :class="$style.historyBlock">
+      <h3 :class="$style.historyTitle">История статусов</h3>
+      <ul :class="$style.historyList">
+        <li v-for="entry in order.statusHistory" :key="entry.id">
+          {{ formatDate(entry.createdAt) }}:
+          {{ getStatusLabel(entry.fromStatus) }} →
+          {{ getStatusLabel(entry.toStatus) }}
+          <span v-if="entry.comment"> ({{ entry.comment }})</span>
+        </li>
+      </ul>
+    </div>
+
+    <div v-if="order?.payments?.length" :class="$style.historyBlock">
+      <h3 :class="$style.historyTitle">Платежи</h3>
+      <ul :class="$style.historyList">
+        <li v-for="payment in order.payments" :key="payment.id">
+          {{ formatDate(payment.createdAt) }}: {{ payment.provider }} /
+          {{ payment.method }} — {{ payment.amount }} —
+          {{ getPaymentStatusLabel(payment.status) }}
+        </li>
+      </ul>
+    </div>
+
     <template #footer>
       <ElButton @click="emit('update:visible', false)">Отмена</ElButton>
       <ElButton type="primary" :loading="loading" @click="submit"
@@ -140,3 +188,26 @@ const submit = () => {
     </template>
   </ElDialog>
 </template>
+
+<style module>
+.historyBlock {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.historyTitle {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.historyList {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #4b5563;
+  display: grid;
+  gap: 4px;
+}
+</style>

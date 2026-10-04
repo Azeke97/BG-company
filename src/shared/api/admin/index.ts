@@ -1,4 +1,6 @@
 import { useBaseApi } from "~/shared/api/useBaseApi";
+import { globalCatchInterceptor } from "~/shared/api/globalCatchInterceptor";
+import { globalThenInterceptor } from "~/shared/api/globalThenInterceptor";
 import type {
   AppliesTo,
   Category,
@@ -126,6 +128,30 @@ export const adminApi = {
     return useBaseApi<{ ok: boolean }>(`/api/admin/products/${id}`, {
       method: "DELETE",
     });
+  },
+
+  bulkUpdateProducts(ids: string[], isActive: boolean) {
+    return useBaseApi<{ count: number }>("/api/admin/products/bulk", {
+      method: "PATCH",
+      data: {
+        ids,
+        isActive,
+      },
+    });
+  },
+
+  // useBaseApi/makeFetchConfig сериализует data через JSON.parse(JSON.stringify(...)),
+  // что превращает FormData в "{}" — поэтому загрузка файла идёт напрямую через $fetch.
+  uploadProductImage(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+    return $fetch<{ url: string }>("/api/admin/uploads", {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    })
+      .then(globalThenInterceptor)
+      .catch(globalCatchInterceptor);
   },
 
   listPromos() {

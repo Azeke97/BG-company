@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { ElMessage } from "element-plus";
+import type { UploadRequestOptions } from "element-plus";
+import { adminApi } from "~/shared/api";
 import type { Category, Product } from "~/shared/types/admin";
 
 type ProductFormModel = {
@@ -29,6 +32,21 @@ const emit = defineEmits<{
 
 const formRef = ref();
 const imagesText = ref("");
+const uploading = ref(false);
+
+const uploadImage = async (options: UploadRequestOptions) => {
+  uploading.value = true;
+  try {
+    const { url } = await adminApi.uploadProductImage(options.file);
+    imagesText.value = imagesText.value ? `${imagesText.value}\n${url}` : url;
+    ElMessage.success("Изображение загружено");
+  } catch (error) {
+    ElMessage.error(String((error as Error).message || error));
+  } finally {
+    uploading.value = false;
+  }
+  return options.file;
+};
 
 const form = reactive<ProductFormModel>({
   title: "",
@@ -180,6 +198,16 @@ const submit = async () => {
 
       <ElFormItem label="Медиа URL (по одному на строку)">
         <ElInput v-model="imagesText" type="textarea" :rows="4" />
+      </ElFormItem>
+
+      <ElFormItem label="Загрузить изображение">
+        <ElUpload
+          :show-file-list="false"
+          :http-request="uploadImage"
+          accept="image/jpeg,image/png,image/webp"
+        >
+          <ElButton :loading="uploading">Выбрать файл</ElButton>
+        </ElUpload>
       </ElFormItem>
 
       <ElFormItem>

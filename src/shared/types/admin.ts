@@ -93,6 +93,14 @@ export interface Order {
     status: string;
     createdAt: string;
   }>;
+  statusHistory?: Array<{
+    id: string;
+    fromStatus: OrderStatus | null;
+    toStatus: OrderStatus;
+    comment: string | null;
+    changedById: string | null;
+    createdAt: string;
+  }>;
 }
 
 export interface User {

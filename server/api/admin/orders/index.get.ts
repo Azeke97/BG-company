@@ -23,6 +23,12 @@ export default defineEventHandler(async () => {
           productId: true,
         },
       },
+      payments: {
+        orderBy: { createdAt: "asc" },
+      },
+      statusHistory: {
+        orderBy: { createdAt: "asc" },
+      },
     },
   });
 

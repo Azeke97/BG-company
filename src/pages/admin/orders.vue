@@ -121,6 +121,9 @@ onMounted(() => {
           <ElOption value="COMPLETED" label="Завершён" />
           <ElOption value="CANCELLED" label="Отменён" />
         </ElSelect>
+        <ElButton tag="a" href="/api/admin/export/orders" download>
+          Экспорт CSV
+        </ElButton>
       </ElSpace>
     </div>
 
