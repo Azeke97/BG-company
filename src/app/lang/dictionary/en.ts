@@ -119,6 +119,25 @@ export default defineI18nLocale(() => {
         notFoundTitle: "Product not found",
         attrsTitle: "Specifications",
       },
+      login: {
+        seoTitle: "Sign in | BG Company",
+        title: "Sign in with email",
+        emailLabel: "Email",
+        emailPlaceholder: "you{'@'}example.com",
+        requestCodeButton: "Get code",
+        codeLabel: "Code from the email",
+        codePlaceholder: "6 digits",
+        submitButton: "Sign in",
+        changeEmail: "Change email",
+        devCodeHint:
+          "Development code (temporary, until a real email provider is connected): {code}",
+        errors: {
+          invalidEmail: "Please enter a valid email",
+          requestFailed: "Failed to send the code. Please try again.",
+          invalidCode: "Invalid code",
+          verifyFailed: "Failed to sign in. Check the code and try again.",
+        },
+      },
     },
     mainPage: {
       hero: {

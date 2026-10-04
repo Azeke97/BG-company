@@ -119,6 +119,25 @@ export default defineI18nLocale(() => {
         notFoundTitle: "Тауар табылмады",
         attrsTitle: "Сипаттамалары",
       },
+      login: {
+        seoTitle: "Жеке кабинетке кіру | BG Company",
+        title: "Email арқылы кіру",
+        emailLabel: "Email",
+        emailPlaceholder: "you{'@'}example.com",
+        requestCodeButton: "Код алу",
+        codeLabel: "Хаттан алынған код",
+        codePlaceholder: "6 цифр",
+        submitButton: "Кіру",
+        changeEmail: "Email өзгерту",
+        devCodeHint:
+          "Әзірлеуге арналған код (уақытша, нақты хат жіберу қосылғанша): {code}",
+        errors: {
+          invalidEmail: "Жарамды email енгізіңіз",
+          requestFailed: "Кодты жіберу сәтсіз. Қайта көріңіз.",
+          invalidCode: "Код қате",
+          verifyFailed: "Кіру сәтсіз. Кодты тексеріп, қайта көріңіз.",
+        },
+      },
     },
     mainPage: {
       hero: {

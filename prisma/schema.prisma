@@ -52,7 +52,7 @@ enum PaymentStatus {
 model User {
   id           String    @id @default(cuid())
   email        String    @unique
-  passwordHash String
+  passwordHash String? // null у покупателей, входящих по одноразовому email-коду (нет пароля)
   name         String?
   phone        String?
   role         Role      @default(USER)
@@ -74,6 +74,19 @@ model Session {
   createdAt DateTime @default(now())
 
   @@index([userId])
+  @@index([expiresAt])
+}
+
+model EmailVerificationCode {
+  id         String    @id @default(cuid())
+  email      String
+  codeHash   String
+  attempts   Int       @default(0)
+  expiresAt  DateTime
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([email])
   @@index([expiresAt])
 }
 

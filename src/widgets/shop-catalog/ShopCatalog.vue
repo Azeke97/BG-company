@@ -10,6 +10,7 @@ import {
   useShopCartStore,
 } from "~/features/shop-cart";
 import { addNotification } from "~/shared/libs/notifications";
+import { useShopUser } from "~/shared/helpers";
 import ShopCatalogGrid from "./components/ShopCatalogGrid.vue";
 import type {
   ShopCatalogResponse,
@@ -24,9 +25,28 @@ const props = defineProps<{
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
+const localePath = useLocalePath();
 const cartOpened = ref(false);
 const cartStore = useShopCartStore();
 const { count: cartCount, total: cartTotal } = storeToRefs(cartStore);
+const shopUser = useShopUser();
+
+// Каталог остаётся публичным и не дёргает /me при каждой загрузке страницы —
+// авторизация покупателя проверяется только в момент попытки открыть корзину.
+const openCart = async () => {
+  if (shopUser.value) {
+    cartOpened.value = true;
+    return;
+  }
+
+  try {
+    const res = await shopApi.shopMe();
+    shopUser.value = res.user;
+    cartOpened.value = true;
+  } catch {
+    await navigateTo(localePath("/shop/login?redirect=/shop"));
+  }
+};
 
 const ALLOWED_SORTS: ShopCatalogSort[] = [
   "new",
@@ -175,7 +195,7 @@ const addToCart = (item: ShopProductListItem) => {
         <ShopCartButton
           :count="cartCount"
           :total="cartTotal"
-          @open="cartOpened = true"
+          @open="openCart"
         />
       </header>
 

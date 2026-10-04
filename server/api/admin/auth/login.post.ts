@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     });
 
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || user.role !== "ADMIN" || user.isBlocked) {
+  if (!user || user.role !== "ADMIN" || user.isBlocked || !user.passwordHash) {
     throw invalidCredentials();
   }
 

@@ -41,4 +41,44 @@ export const shopApi = {
   async getProduct(slug: string) {
     return $fetch<ShopProductResponse>(`/api/shop/products/${slug}`);
   },
+  async requestCode(email: string) {
+    return $fetch<{ ok: boolean; devCode?: string }>(
+      "/api/shop/auth/request-code",
+      {
+        method: "POST",
+        body: { email },
+      },
+    );
+  },
+  async verifyCode(email: string, code: string) {
+    return $fetch<{
+      user: {
+        id: string;
+        email: string;
+        name: string | null;
+        phone: string | null;
+      };
+    }>("/api/shop/auth/verify-code", {
+      method: "POST",
+      body: {
+        email,
+        code,
+      },
+    });
+  },
+  async shopLogout() {
+    return $fetch<{ ok: boolean }>("/api/shop/auth/logout", {
+      method: "POST",
+    });
+  },
+  async shopMe() {
+    return $fetch<{
+      user: {
+        id: string;
+        email: string;
+        name: string | null;
+        phone: string | null;
+      };
+    }>("/api/shop/auth/me");
+  },
 };

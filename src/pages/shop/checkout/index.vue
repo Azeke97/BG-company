@@ -2,6 +2,7 @@
 import { storeToRefs } from "pinia";
 import { shopApi } from "~/shared/api";
 import { addNotification } from "~/shared/libs/notifications";
+import { useShopUser } from "~/shared/helpers";
 import { useShopCartStore } from "~/features/shop-cart";
 import {
   UiButton,
@@ -20,9 +21,19 @@ const localePath = useLocalePath();
 const store = useShopCartStore();
 const { items, total } = storeToRefs(store);
 
+const shopUser = useShopUser();
 const isHydrated = ref(false);
-onMounted(() => {
+onMounted(async () => {
   isHydrated.value = true;
+
+  if (shopUser.value) return;
+
+  try {
+    const res = await shopApi.shopMe();
+    shopUser.value = res.user;
+  } catch {
+    await navigateTo(localePath("/shop/login?redirect=/shop/checkout"));
+  }
 });
 
 const checkoutLoading = ref(false);

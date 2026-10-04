@@ -9,3 +9,5 @@ export * from "./useLoading";
 export * from "./useNormalizedLocale";
 
 export * from "./useAdminUser";
+
+export * from "./useShopUser";

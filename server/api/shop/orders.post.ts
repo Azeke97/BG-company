@@ -6,6 +6,7 @@ import {
   ensurePromoIsActive,
 } from "~~/server/utils/promo";
 import { manualProvider } from "~~/server/utils/payment/manualProvider";
+import { getShopSessionUser } from "~~/server/utils/shopSession";
 
 const ALLOWED_CHECKOUT_PAYMENT_METHODS: PaymentMethod[] = ["CASH", "INVOICE"];
 
@@ -61,6 +62,14 @@ const createUniqueOrderNumber = async () => {
 };
 
 export default defineEventHandler(async (event) => {
+  const shopUser = await getShopSessionUser(event);
+  if (!shopUser) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Authentication required",
+    });
+  }
+
   const body = await readBody<{
     customer?: {
       name?: string;
@@ -262,6 +271,7 @@ export default defineEventHandler(async (event) => {
     const createdOrder = await tx.order.create({
       data: {
         number,
+        userId: shopUser.id,
         status: "NEW",
         paymentMethod,
         customerName,

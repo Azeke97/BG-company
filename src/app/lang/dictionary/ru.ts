@@ -121,6 +121,25 @@ export default defineI18nLocale(() => {
         notFoundTitle: "Товар не найден",
         attrsTitle: "Характеристики",
       },
+      login: {
+        seoTitle: "Вход в личный кабинет | BG Company",
+        title: "Вход по email",
+        emailLabel: "Email",
+        emailPlaceholder: "you{'@'}example.com",
+        requestCodeButton: "Получить код",
+        codeLabel: "Код из письма",
+        codePlaceholder: "6 цифр",
+        submitButton: "Войти",
+        changeEmail: "Изменить email",
+        devCodeHint:
+          "Код для разработки (временно, пока не подключена реальная отправка писем): {code}",
+        errors: {
+          invalidEmail: "Укажите корректный email",
+          requestFailed: "Не удалось отправить код. Попробуйте ещё раз.",
+          invalidCode: "Неверный код",
+          verifyFailed: "Не удалось войти. Проверьте код и попробуйте снова.",
+        },
+      },
     },
     mainPage: {
       hero: {
